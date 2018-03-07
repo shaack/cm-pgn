@@ -23,9 +23,11 @@ export const tags = {
 };
 
 export class Header extends Map {
-    constructor(headerString) {
+    constructor(headerString = null) {
         super();
-        this.read(headerString);
+        if(headerString) {
+            this.read(headerString);
+        }
     }
     read(headerString) {
         const list = headerString.match(/\[([^\]]+)]/g);
