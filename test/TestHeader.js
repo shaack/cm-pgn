@@ -16,7 +16,6 @@ export class TestHeader extends Test {
             [White "Fischer, Robert J."]
             [Black "Spassky, Boris V."]
             [Result "1/2-1/2"]`);
-        console.log(pgn);
         Test.assertEquals(7, pgn.header.size);
         Test.assertEquals("F/S Return Match", pgn.header.get("Event"));
     }
