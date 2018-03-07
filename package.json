@@ -4,7 +4,8 @@
   "description": "Module for parsing and rendering of PGNs (Portable Game Notation)",
   "main": "src/cm-pgn/Pgn.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "bin/generate-parser.sh"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/shaack/cm-pgn/issues"
   },
-  "homepage": "https://github.com/shaack/cm-pgn#readme"
+  "homepage": "https://github.com/shaack/cm-pgn#readme",
+  "devDependencies": {
+    "pegjs": "^0.10.0",
+    "svjs-test": "^1.3.3"
+  }
 }
