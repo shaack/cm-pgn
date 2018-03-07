@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Test cm-pgn</title>
+    <script src="../node_modules/chess.js/chess.min.js"></script>
+    <script src="../src/cm-pgn/generated/parser.js"></script>
 </head>
 <body>
 <h1><a href="https://github.com/shaack/cm-pgn">cm-pgn</a> Unit-tests</h1>
 <script type="module">
     import {TestHeader} from "./TestHeader.js"
+    import {TestHistory} from "./TestHistory.js"
+
     TestHeader.run();
+    TestHistory.run();
 </script>
 </body>
 </html>

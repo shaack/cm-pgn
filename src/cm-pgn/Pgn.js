@@ -6,8 +6,10 @@ import {Header} from "./model/Header.js";
 import {History} from "./model/History.js";
 
 export class Pgn {
-    constructor() {
+    constructor(chess = new Chess()) {
+
         this.model = {
+            chess: chess,
             header: new Header(),
             history: new History()
         };
@@ -22,9 +24,9 @@ export class Pgn {
     }
 
     readHistory(historyString) {
-        this.reader.readHistory(historyString);
+        this.model.history.read(historyString);
     }
-
+/*
     writePgn() {
         return this.writer.writePgn();
     }
@@ -36,4 +38,5 @@ export class Pgn {
     writeHistory() {
         return this.writer.writeHistory();
     }
+*/
 }

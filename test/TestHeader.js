@@ -17,6 +17,7 @@ export class TestHeader extends Test {
             [Black "Spassky, Boris V."]
             [Result "1/2-1/2"]`);
         console.log(pgn.model);
+        Test.assertEquals(7, pgn.model.header.size);
         Test.assertEquals("F/S Return Match", pgn.model.header.get("Event"));
     }
 }
