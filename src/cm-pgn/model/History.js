@@ -23,23 +23,36 @@ export class History extends Array {
 
     addParsedMoves(parsedMoves) {
         for (let parsedMove of parsedMoves) {
-            console.log(parsedMove);
-            const notation = parsedMove.notation.notation;
-            const move = this.chess.move(notation, {sloppy: true});
-            if (move) {
-                // const move = chess.moves({verbose: true})[this.moves.length - 1];
-                move.fen = this.chess.fen();
-                move.variations = [];
-                const parsedVariations = parsedMove.variations;
-                if(parsedVariations.length > 0) {
-                    const lastMove = this[this.length - 1];
-                    for (let parsedVariation of parsedVariations) {
-                        move.variations.push(new History(parsedVariation, lastMove.fen));
+            if(parsedMove.notation) {
+                const notation = parsedMove.notation.notation;
+                const move = this.chess.move(notation, {sloppy: true});
+                if (move) {
+                    // const move = chess.moves({verbose: true})[this.moves.length - 1];
+                    move.fen = this.chess.fen();
+                    if(parsedMove.nag) {
+                        move.nag = parsedMove.nag;
                     }
+                    if(parsedMove.commentBefore) {
+                        move.commentBefore = parsedMove.commentBefore;
+                    }
+                    if(parsedMove.commentMove) {
+                        move.commentMove = parsedMove.commentMove;
+                    }
+                    if(parsedMove.commentAfter) {
+                        move.commentAfter = parsedMove.commentAfter;
+                    }
+                    move.variations = [];
+                    const parsedVariations = parsedMove.variations;
+                    if (parsedVariations.length > 0) {
+                        const lastMove = this[this.length - 1];
+                        for (let parsedVariation of parsedVariations) {
+                            move.variations.push(new History(parsedVariation, lastMove.fen));
+                        }
+                    }
+                    this.push(move);
+                } else {
+                    throw new IllegalMoveException(this, this.chess.fen(), notation);
                 }
-                this.push(move);
-            } else {
-                throw new IllegalMoveException(this, this.chess.fen(), notation);
             }
         }
         delete this.chess;
