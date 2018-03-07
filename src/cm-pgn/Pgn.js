@@ -2,17 +2,14 @@
  * Author: shaack
  * Date: 07.03.2018
  */
-import {Header} from "./model/Header.js";
+import {Header, tags} from "./model/Header.js";
 import {History} from "./model/History.js";
 
 export class Pgn {
-    constructor(chess = new Chess()) {
 
-        this.model = {
-            chess: chess,
-            header: new Header(),
-            history: new History()
-        };
+    constructor() {
+        this.header = null;
+        this.history = null;
     }
 
     readPgn(pgnString) {
@@ -20,23 +17,25 @@ export class Pgn {
     }
 
     readHeader(headerString) {
-        this.model.header.read(headerString);
+        this.header = new Header(headerString);
     }
 
-    readHistory(historyString) {
-        this.model.history.read(historyString);
-    }
-/*
-    writePgn() {
-        return this.writer.writePgn();
+    readHistory(historyString, fen = null) {
+        const parsedMoves = parser.parse(historyString);
+        this.history = new History(parsedMoves[0], fen);
     }
 
-    writeHeader() {
-        return this.writer.writeHeader();
-    }
+    /*
+        writePgn() {
+            return this.writer.writePgn();
+        }
 
-    writeHistory() {
-        return this.writer.writeHistory();
-    }
-*/
+        writeHeader() {
+            return this.writer.writeHeader();
+        }
+
+        writeHistory() {
+            return this.writer.writeHistory();
+        }
+    */
 }
