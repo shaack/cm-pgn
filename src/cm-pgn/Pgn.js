@@ -2,7 +2,7 @@
  * Author: shaack
  * Date: 07.03.2018
  */
-import {Header, tags} from "./model/Header.js";
+import {Header} from "./model/Header.js";
 import {History} from "./model/History.js";
 
 export class Pgn {
@@ -22,6 +22,7 @@ export class Pgn {
 
     readHistory(historyString, fen = null) {
         const parsedMoves = parser.parse(historyString);
+        console.log("parsedMoves", parsedMoves);
         this.history = new History(parsedMoves[0], fen);
     }
 
