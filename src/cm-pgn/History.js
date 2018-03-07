@@ -3,13 +3,11 @@
  * Date: 07.03.2018
  */
 
-function IllegalMoveException(history, fen, notation) {
-    this.history = history;
+function IllegalMoveException(fen, notation) {
     this.fen = fen;
     this.notation = notation;
-    this.chess = new Chess();
     this.toString = function() {
-        return "IllegalMoveException " + fen + " => " + notation;
+        return "IllegalMoveException: " + fen + " => " + notation;
     }
 }
 
@@ -53,7 +51,7 @@ export class History extends Array {
                     }
                     this.push(move);
                 } else {
-                    throw new IllegalMoveException(this, this.chess.fen(), notation);
+                    throw new IllegalMoveException(this.chess.fen(), notation);
                 }
             }
         }

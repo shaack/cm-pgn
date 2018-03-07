@@ -2,8 +2,8 @@
  * Author: shaack
  * Date: 07.03.2018
  */
-import {Header, tags} from "./model/Header.js";
-import {History} from "./model/History.js";
+import {Header, tags} from "./Header.js";
+import {History} from "./History.js";
 
 export class Pgn {
 
