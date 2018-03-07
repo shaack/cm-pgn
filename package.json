@@ -1,0 +1,26 @@
+{
+  "name": "cm-pgn",
+  "version": "1.0.0",
+  "description": "Module for parsing and rendering of PGNs (Portable Game Notation)",
+  "main": "src/cm-pgn/Pgn.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shaack/cm-pgn.git"
+  },
+  "keywords": [
+    "ES6",
+    "ECMAScript 6",
+    "chess",
+    "PGN",
+    "parser"
+  ],
+  "author": "shaack",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shaack/cm-pgn/issues"
+  },
+  "homepage": "https://github.com/shaack/cm-pgn#readme"
+}
