@@ -13,12 +13,11 @@ function IllegalMoveException(history, fen, notation) {
     }
 }
 
-export class History {
+export class History extends Array {
 
     constructor(parsedMoves, fen = null) {
-        this.fen = fen; // the fen, to start with
+        super();
         this.chess = fen ? new Chess(fen) : new Chess();
-        this.moves = [];
         this.addParsedMoves(parsedMoves);
     }
 
@@ -33,16 +32,17 @@ export class History {
                 move.variations = [];
                 const parsedVariations = parsedMove.variations;
                 if(parsedVariations.length > 0) {
-                    const lastMove = this.moves[this.moves.length - 1];
+                    const lastMove = this[this.length - 1];
                     for (let parsedVariation of parsedVariations) {
                         move.variations.push(new History(parsedVariation, lastMove.fen));
                     }
                 }
-                this.moves.push(move);
+                this.push(move);
             } else {
                 throw new IllegalMoveException(this, this.chess.fen(), notation);
             }
         }
+        delete this.chess;
     }
 
 }

@@ -7,7 +7,7 @@ import {Test} from "../node_modules/svjs-test/src/svjs-test/Test.js";
 import {Pgn} from "../src/cm-pgn/Pgn.js";
 
 export class TestHeader extends Test {
-    testHeader() {
+    testReadSimpleHeader() {
         const pgn = new Pgn();
         pgn.readHeader(`[Event "F/S Return Match"]
             [Site "Belgrade, Serbia JUG"]
