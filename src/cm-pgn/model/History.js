@@ -15,10 +15,12 @@ function IllegalMoveException(history, fen, notation) {
 
 export class History extends Array {
 
-    constructor(parsedMoves, fen = null) {
+    constructor(parsedMoves = null, fen = null) {
         super();
         this.chess = fen ? new Chess(fen) : new Chess();
-        this.addParsedMoves(parsedMoves);
+        if(parsedMoves) {
+            this.addParsedMoves(parsedMoves);
+        }
     }
 
     addParsedMoves(parsedMoves) {
@@ -30,7 +32,7 @@ export class History extends Array {
                     // const move = chess.moves({verbose: true})[this.moves.length - 1];
                     move.fen = this.chess.fen();
                     if(parsedMove.nag) {
-                        move.nag = parsedMove.nag;
+                        move.nag = parsedMove.nag[0];
                     }
                     if(parsedMove.commentBefore) {
                         move.commentBefore = parsedMove.commentBefore;

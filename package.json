@@ -4,8 +4,7 @@
   "description": "Module for parsing and rendering of PGNs (Portable Game Notation)",
   "main": "src/cm-pgn/Pgn.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "bin/generate-parser.sh"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",

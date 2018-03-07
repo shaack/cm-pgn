@@ -7,15 +7,22 @@ import {Test} from "../node_modules/svjs-test/src/svjs-test/Test.js";
 import {Pgn} from "../src/cm-pgn/Pgn.js";
 
 export class TestHistory extends Test {
-    testReadSimpleHistory() {
+    testParseSimpleHistory() {
         const pgn = new Pgn();
-        pgn.readHistory("1. e2-e4 e7e5 (e6) 2. Nf3 Nc6");
+        pgn.parseHistory("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6");
         Test.assertEquals(4, pgn.history.length);
+        Test.assertEquals("e4", pgn.history[0].san);
+        Test.assertEquals(1, pgn.history[1].variations.length);
+        Test.assertEquals("e6", pgn.history[1].variations[0][0].san);
+        Test.assertEquals("$1", pgn.history[2].nag);
+        Test.assertEquals("Great move!", pgn.history[2].commentAfter);
+        Test.assertEquals("b8", pgn.history[3].from);
+        Test.assertEquals("c6", pgn.history[3].to);
         console.log(pgn.history);
     }
-    testReadComplexHistoryWithoutNags() {
+    testParseComplexHistoryWithoutNags() {
         const pgn = new Pgn();
-        pgn.readHistory(`1. e4 e6 2. d3 d5 3. Nd2 Nf6 4. g3 {Will man keinen Franzosen auf dem Brett
+        pgn.parseHistory(`1. e4 e6 2. d3 d5 3. Nd2 Nf6 4. g3 {Will man keinen Franzosen auf dem Brett
                 haben kann man so in eine Art von königsindischen Angriff übergehen} dxe4 {
                 90% aller Spieler die gegen den königsindischen Angriff spielen verlassen sich
                 auf eine mehr oder minder massive Bauernwand mit 3 oder mehr Bauern auf der 5.
