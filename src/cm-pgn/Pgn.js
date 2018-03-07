@@ -34,7 +34,6 @@ export class Pgn {
 
     parseHistory(historyString, fen = null) {
         const parsedMoves = pgnParser.parse(historyString.replace(/\s\s+/g, ' ').replace(/\n/g, " "));
-        console.log("parsedMoves", parsedMoves);
         this.history = new History(parsedMoves[0], fen);
     }
 
