@@ -2,8 +2,7 @@
  * Author: shaack
  * Date: 07.03.2018
  */
-
-import {Chess} from 'chess.js'
+import {Chess} from 'chess.js';
 
 function IllegalMoveException(fen, notation) {
     this.fen = fen;
@@ -27,24 +26,24 @@ export function parseHistory(parsedMoves = null, fen = null) {
             const move = chess.move(notation, {sloppy: true});
             if (move) {
                 move.fen = chess.fen();
-                if(parsedMove.nag) {
+                if (parsedMove.nag) {
                     move.nag = parsedMove.nag[0];
                 }
-                if(parsedMove.commentBefore) {
+                if (parsedMove.commentBefore) {
                     move.commentBefore = parsedMove.commentBefore;
                 }
-                if(parsedMove.commentMove) {
+                if (parsedMove.commentMove) {
                     move.commentMove = parsedMove.commentMove;
                 }
-                if(parsedMove.commentAfter) {
+                if (parsedMove.commentAfter) {
                     move.commentAfter = parsedMove.commentAfter;
                 }
                 move.variations = new Array();
                 const parsedVariations = parsedMove.variations;
                 if (parsedVariations.length > 0) {
-                    const lastMove = moves[moves.length - 1];
+                    const lastFen = moves.length > 0 ? moves[moves.length - 1].fen : fen;
                     for (let parsedVariation of parsedVariations) {
-                        move.variations.push(parseHistory(parsedVariation, lastMove.fen));
+                        move.variations.push(parseHistory(parsedVariation, lastFen));
                     }
                 }
                 moves.push(move);

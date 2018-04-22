@@ -3,7 +3,7 @@ import assert from 'assert';
 import {Pgn} from "../src/cm-pgn/Pgn.js";
 
 describe('Pgn', () => {
-    it('should parse simple history', () => {
+    it('should parse history with nag', () => {
         const pgn = new Pgn();
         pgn.parseHistory("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6");
         //console.log(pgn.history);
@@ -18,7 +18,19 @@ describe('Pgn', () => {
         assert.equal(pgn.history[3].to, "c6");
     })
 
-    it('should parse complex history without nags', () => {
+    it('should parse history with rav at first move', () => {
+        const pgn = new Pgn(`[SetUp "1"]
+            [FEN "6k1/8/8/8/8/8/7R/5K1R w - - 0 1"]
+
+            1. Rf2 (1. Rh7 Kf8 2. Rg1 Ke8 3. Rg8#) 1... Kg7 2. Rg1+ Kh6 3. Rh2# *`);
+        //console.log(pgn.history);
+
+        assert.equal(5, pgn.history.length);
+        assert.equal(pgn.history[0].variations.length, 1);
+        assert.equal(pgn.history[0].variations[0][0].san, "Rh7");
+    })
+
+    it('should parse complex history without nag', () => {
         const pgn = new Pgn();
         pgn.parseHistory(`1. e4 e6 2. d3 d5 3. Nd2 Nf6 4. g3 {Will man keinen Franzosen auf dem Brett
                 haben kann man so in eine Art von königsindischen Angriff übergehen} dxe4 {
