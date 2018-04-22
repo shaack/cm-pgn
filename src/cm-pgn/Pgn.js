@@ -2,15 +2,16 @@
  * Author: shaack
  * Date: 07.03.2018
  */
-import {Header, tags} from "./Header.js";
-import {History} from "./History.js";
+import pgnParser from './parser/pgnParser';
+import {parseHeader, tags} from "./Header.js";
+import {parseHistory} from "./History.js";
 
 export class Pgn {
 
     constructor(pgnString = null) {
         if (!pgnString) {
-            this.header = new Header();
-            this.history = new History();
+            this.header = parseHeader();
+            this.history = parseHistory();
         } else {
             this.parse(pgnString);
         }
@@ -29,12 +30,12 @@ export class Pgn {
     }
 
     parseHeader(headerString) {
-        this.header = new Header(headerString);
+        this.header = parseHeader(headerString);
     }
 
     parseHistory(historyString, fen = null) {
         const parsedMoves = pgnParser.parse(historyString.replace(/\s\s+/g, ' ').replace(/\n/g, " "));
-        this.history = new History(parsedMoves[0], fen);
+        this.history = parseHistory(parsedMoves[0], fen);
     }
 
     toString() {

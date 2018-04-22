@@ -1,13 +1,9 @@
-/**
- * Author: shaack
- * Date: 07.03.2018
- */
+import assert from 'assert';
 
-import {Test} from "../node_modules/svjs-test/src/svjs-test/Test.js";
 import {Pgn} from "../src/cm-pgn/Pgn.js";
 
-export class TestPgn extends Test {
-    testParsePgn() {
+describe('Pgn', () => {
+    it('should parse header and history', () => {
         const pgn = new Pgn(`[Event "Bled-Zagreb-Belgrade Candidates"]
 [Site "Bled, Zagreb & Belgrade YUG"]
 [Date "1959.09.18"]
@@ -76,6 +72,6 @@ schnell auf.} 23. Ne5+ Ke6 24. Nxc6 Ne4+ 25. Ke3 Bb6+ 26. Bd4 $1 ( {Nicht mal}
 leisten könnte, gönnt Tal seinem großen Gegner. Nach dem Textzug dagegen wird
 sich ein schwarzer Läufer tauschen müssen, und Smyslov sah ein, dass es sinnlos
 wäre, diese Stellung gegen Tal weiterzuspielen.} ) 1-0`);
-        console.log(pgn);
-    }
-}
+        //console.log(pgn);
+    })
+})

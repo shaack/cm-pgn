@@ -1,26 +1,24 @@
-/**
- * Author: shaack
- * Date: 07.03.2018
- */
+import assert from 'assert';
 
-import {Test} from "../node_modules/svjs-test/src/svjs-test/Test.js";
 import {Pgn} from "../src/cm-pgn/Pgn.js";
 
-export class TestHistory extends Test {
-    testParseSimpleHistory() {
+describe('Pgn', () => {
+    it('should parse simple history', () => {
         const pgn = new Pgn();
         pgn.parseHistory("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6");
-        Test.assertEquals(4, pgn.history.length);
-        Test.assertEquals("e4", pgn.history[0].san);
-        Test.assertEquals(1, pgn.history[1].variations.length);
-        Test.assertEquals("e6", pgn.history[1].variations[0][0].san);
-        Test.assertEquals("$1", pgn.history[2].nag);
-        Test.assertEquals("Great move!", pgn.history[2].commentAfter);
-        Test.assertEquals("b8", pgn.history[3].from);
-        Test.assertEquals("c6", pgn.history[3].to);
-        console.log(pgn.history);
-    }
-    testParseComplexHistoryWithoutNags() {
+        //console.log(pgn.history);
+
+        assert.equal(4, pgn.history.length);
+        assert.equal(pgn.history[0].san, "e4");
+        assert.equal(pgn.history[1].variations.length, 1);
+        assert.equal(pgn.history[1].variations[0][0].san, "e6");
+        assert.equal(pgn.history[2].nag, "$1");
+        assert.equal(pgn.history[2].commentAfter, "Great move!");
+        assert.equal(pgn.history[3].from, "b8");
+        assert.equal(pgn.history[3].to, "c6");
+    })
+
+    it('should parse complex history without nags', () => {
         const pgn = new Pgn();
         pgn.parseHistory(`1. e4 e6 2. d3 d5 3. Nd2 Nf6 4. g3 {Will man keinen Franzosen auf dem Brett
                 haben kann man so in eine Art von königsindischen Angriff übergehen} dxe4 {
@@ -106,9 +104,6 @@ export class TestHistory extends Test {
                 eliminiert die Kontrolle uber d1} 28. c4 (28. Nxf3 Bh3+ 29. Ng1 Bxf2) 28...
                 gxf6 (28... gxf6 29. Qg4+ Kh8 30. Qxf3 (30. Nxf3 Bh3+ 31. Ng1 Bxf2) 30... Bh3+)
                 0-1`);
-        console.log(pgn.history);
-    }
-    testWithNags() {
-
-    }
-}
+        //console.log(pgn.history);
+    })
+})
