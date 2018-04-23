@@ -18,7 +18,7 @@ export class Pgn {
     }
 
     parse(pgnString) {
-        const lastHeaderElement = pgnString.lastIndexOf("]") + 1;
+        const lastHeaderElement = pgnString.lastIndexOf("]\n\n") + 1;
         const headerString = pgnString.substr(0, lastHeaderElement);
         const historyString = pgnString.substr(lastHeaderElement);
         this.parseHeader(headerString);

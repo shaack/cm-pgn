@@ -3,6 +3,26 @@ import assert from 'assert';
 import {Pgn} from "../src/cm-pgn/Pgn.js";
 
 describe('Pgn', () => {
+    it('should parse comment containing "[" and "]"', () => {
+        // https://github.com/DHTMLGoodies/dhtmlchess/blob/master/pgn/1001-brilliant-checkmates.pgn
+        const pgn = new Pgn(`[Event " White to move."]
+[Site "?"]
+[Date "1998.??.??"]
+[Round "?"]
+[White "1001 Brilliant Ways"]
+[Black "to Checkmate"]
+[Result "1-0"]
+[Annotator "Magne,Alf"]
+[SetUp "1"]
+[FEN "r2qk1r1/p4p2/bp2pQp1/1n1pP1Bp/7P/3P2N1/P1R2PP1/2R3K1 w - - 0 1"]
+[PlyCount "5"]
+[EventDate "1998.??.??"]
+
+1. Rc8 {[%emt 0:00:05]} Rxc8 {[%emt 0:00:01]} 2. Rxc8 {[%emt 0:00:01]} Qxc8 {
+} 3. Qe7#  1-0`);
+        //console.log(pgn);
+    })
+
     it('should parse header and history', () => {
         const pgn = new Pgn(`[Event "Bled-Zagreb-Belgrade Candidates"]
 [Site "Bled, Zagreb & Belgrade YUG"]

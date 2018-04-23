@@ -3,6 +3,12 @@ import assert from 'assert';
 import {Pgn} from "../src/cm-pgn/Pgn.js";
 
 describe('Pgn', () => {
+    it('should parse history with empty comment', () => {
+        const pgn = new Pgn();
+        pgn.parseHistory("1. e2-e4 e7e5 (e6) 2. Nf3 ! {} Nc6");
+        //console.log(pgn.history);
+    })
+
     it('should parse history with nag', () => {
         const pgn = new Pgn();
         pgn.parseHistory("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6");
