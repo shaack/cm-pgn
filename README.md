@@ -1,6 +1,8 @@
-# cm-pgn Parser for PGNs (Portable Game Notation)
+# cm-pgn
 
-This is as ES6 Module for parsing and rendering of PGNs ([Portable Game Notation](https://de.wikipedia.org/wiki/Portable_Game_Notation)).
+## Parser for PGNs (Portable Game Notation)
+
+This is as **ES6 Module for parsing and rendering of PGNs** ([Portable Game Notation](https://de.wikipedia.org/wiki/Portable_Game_Notation)).
 
 The API is similar to `history()` of [chess.js](https://github.com/jhlywa/chess.js), but this module **supports variants, nags and comments** in the pgn.
 
