@@ -1,4 +1,4 @@
-# cm-pgn (Alphaversion, not productive)
+# cm-pgn Parser for PGNs (Portable Game Notation), supports Variants, Comments and Nags
 
 This is as ES6 Module for parsing and rendering of PGNs ([Portable Game Notation](https://de.wikipedia.org/wiki/Portable_Game_Notation)).
 
