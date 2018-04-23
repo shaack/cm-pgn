@@ -15,7 +15,7 @@ not available as ES6 Modules and therefore must be included the traditional way.
 
 ```html
 <script src="../node_modules/chess.js/chess.min.js"></script>
-<script src="../src/cm-pgn/generated/pgnParser.js"></script>
+<script src="../src/cm-pgn/parser/pgnParser.js"></script>
 ```
 
 Then just use the Pgn class as JS Module:
@@ -60,7 +60,7 @@ console.log(pgn.history);
 ## Development
 
 This module uses [PEG.js](https://pegjs.org/) for parser generation. The parser (`pgnParser.js`)
-in `src/cm-pgn/generated/` is generated from the grammar file `src/grammar/pgn.pegjs`.
+in `src/cm-pgn/parser/` is generated from the grammar file `src/grammar/pgn.pegjs`.
 
 To recreate the parser after modification of `src/grammar/pgn.pegjs`, run `bin/generate-parser.sh`.
 

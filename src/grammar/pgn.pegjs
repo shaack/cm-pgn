@@ -45,7 +45,7 @@ endGame
   / "*"  { return ["*"]; }
 
 comment
-  = cl cm:[^}]+ cr { return cm.join("").trim(); }
+  = cl cm:[^}]* cr { return cm.join("").trim(); }
 
 cl = '{'
 

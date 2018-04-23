@@ -22,25 +22,20 @@ export const tags = {
     FEN: "FEN", //  Alternative start position, tag SetUp has to be set to "1"
 };
 
-export class Header extends Map {
-
-    constructor(headerString = null) {
-        super();
-        if (headerString) {
-            this.read(headerString);
-        }
+export function parseHeader(headerString) {
+    if (!headerString) {
+        return new Map();
     }
 
-    read(headerString) {
-        const list = headerString.match(/\[([^\]]+)]/g);
-        if (list !== null) {
-            for (let i = 0; i < list.length; i++) {
-                let ret = list[i].match(/\[(\w+)\s+"([^"]+)"/);
-                if (ret && tags[ret[1]]) {
-                    this.set(ret[1], ret[2]);
-                }
+    const header = new Map();
+    const list = headerString.match(/\[([^\]]+)]/g);
+    if (list !== null) {
+        for (let i = 0; i < list.length; i++) {
+            let ret = list[i].match(/\[(\w+)\s+"([^"]+)"/);
+            if (ret && tags[ret[1]]) {
+                header.set(ret[1], ret[2]);
             }
         }
     }
-
-}
+    return header;
+};
