@@ -4,7 +4,7 @@
   "description": "Module for parsing and rendering of PGNs (Portable Game Notation)",
   "main": "src/cm-pgn/Pgn.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register ./test/*.js"
+    "test": "mocha --require babel-core/register ./test/*.js"
   },
   "repository": {
     "type": "git",
