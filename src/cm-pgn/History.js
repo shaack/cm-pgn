@@ -1,7 +1,3 @@
-/**
- * Author: shaack
- * Date: 07.03.2018
- */
 import {Chess} from 'chess.js';
 
 function IllegalMoveException(fen, notation) {

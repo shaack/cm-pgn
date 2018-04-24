@@ -1,6 +1,7 @@
 import assert from 'assert';
 
 import {Pgn} from "../src/cm-pgn/Pgn.js";
+import {tags} from "../src/cm-pgn/Header.js";
 
 describe('Pgn', () => {
   it('should parse header', () => {
@@ -13,6 +14,6 @@ describe('Pgn', () => {
         [Black "Spassky, Boris V."]
         [Result "1/2-1/2"]`);
     assert.equal(pgn.header.size, 7);
-    assert.equal(pgn.header.get("Event"), "F/S Return Match");
+    assert.equal(pgn.header.get(tags.Event), "F/S Return Match");
   })
 });
