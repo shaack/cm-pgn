@@ -21,7 +21,7 @@ describe('Pgn', () => {
 1. Rc8 {[%emt 0:00:05]} Rxc8 {[%emt 0:00:01]} 2. Rxc8 {[%emt 0:00:01]} Qxc8 {
 } 3. Qe7#  1-0`);
         //console.log(pgn);
-    })
+    });
 
     it('should parse header and history', () => {
         const pgn = new Pgn(`[Event "Bled-Zagreb-Belgrade Candidates"]
@@ -94,4 +94,4 @@ sich ein schwarzer Läufer tauschen müssen, und Smyslov sah ein, dass es sinnlo
 wäre, diese Stellung gegen Tal weiterzuspielen.} ) 1-0`);
         //console.log(pgn);
     })
-})
+});

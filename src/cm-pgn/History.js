@@ -10,11 +10,11 @@ function IllegalMoveException(fen, notation) {
 
 export function parseHistory(parsedMoves = null, fen = null) {
     if (!parsedMoves) {
-        return new Array();
+        return [];
     }
 
     const chess = fen ? new Chess(fen) : new Chess();
-    const moves = new Array();
+    const moves = [];
 
     for (let parsedMove of parsedMoves) {
         if (parsedMove.notation) {
@@ -34,7 +34,7 @@ export function parseHistory(parsedMoves = null, fen = null) {
                 if (parsedMove.commentAfter) {
                     move.commentAfter = parsedMove.commentAfter;
                 }
-                move.variations = new Array();
+                move.variations = [];
                 const parsedVariations = parsedMove.variations;
                 if (parsedVariations.length > 0) {
                     const lastFen = moves.length > 0 ? moves[moves.length - 1].fen : fen;

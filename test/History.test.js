@@ -7,7 +7,7 @@ describe('Pgn', () => {
         const pgn = new Pgn();
         pgn.parseHistory("1. e2-e4 e7e5 (e6) 2. Nf3 ! {} Nc6");
         //console.log(pgn.history);
-    })
+    });
 
     it('should parse history with nag', () => {
         const pgn = new Pgn();
@@ -22,7 +22,7 @@ describe('Pgn', () => {
         assert.equal(pgn.history[2].commentAfter, "Great move!");
         assert.equal(pgn.history[3].from, "b8");
         assert.equal(pgn.history[3].to, "c6");
-    })
+    });
 
     it('should parse history with rav at first move', () => {
         const pgn = new Pgn(`[SetUp "1"]
@@ -34,7 +34,7 @@ describe('Pgn', () => {
         assert.equal(5, pgn.history.length);
         assert.equal(pgn.history[0].variations.length, 1);
         assert.equal(pgn.history[0].variations[0][0].san, "Rh7");
-    })
+    });
 
     it('should parse complex history without nag', () => {
         const pgn = new Pgn();
@@ -123,5 +123,5 @@ describe('Pgn', () => {
                 gxf6 (28... gxf6 29. Qg4+ Kh8 30. Qxf3 (30. Nxf3 Bh3+ 31. Ng1 Bxf2) 30... Bh3+)
                 0-1`);
         //console.log(pgn.history);
-    })
-})
+    });
+});
