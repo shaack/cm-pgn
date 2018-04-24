@@ -1,7 +1,3 @@
-/**
- * Author: shaack
- * Date: 07.03.2018
- */
 import pgnParser from './parser/pgnParser';
 import {parseHeader, tags} from "./Header.js";
 import {parseHistory} from "./History.js";
