@@ -1,4 +1,3 @@
-import pgnParser from './parser/pgnParser';
 import {Header, tags} from "./Header.js";
 import {History} from "./History.js";
 
