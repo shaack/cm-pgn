@@ -21,10 +21,10 @@ export const tags = {
 export class Header {
 
     constructor(headerString = "") {
-        this.tags = this.parseHeader(headerString);
+        this.tags = this.parse(headerString);
     }
 
-    parseHeader(headerString) {
+    parse(headerString) {
         const tags = new Map();
         const rows = headerString.match(/\[([^\]]+)]/g);
 

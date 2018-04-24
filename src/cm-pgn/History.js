@@ -15,12 +15,16 @@ export class History {
         if(!historyString) {
             this.moves = [];
         } else {
-            const parsedMoves = pgnParser.parse(historyString.replace(/\s\s+/g, ' ').replace(/\n/g, " "));
-            this.moves = this.parseHistory(parsedMoves[0], fen);
+            this.parse(historyString, fen);
         }
     }
 
-    parseHistory(parsedMoves, fen) {
+    parse(historyString, fen) {
+        const parsedMoves = pgnParser.parse(historyString.replace(/\s\s+/g, ' ').replace(/\n/g, " "));
+        this.moves = this.createValidMoves(parsedMoves[0], fen);
+    }
+
+    createValidMoves(parsedMoves, fen) {
         const chess = fen ? new Chess(fen) : new Chess();
         const moves = [];
 
@@ -47,7 +51,7 @@ export class History {
                     if (parsedVariations.length > 0) {
                         const lastFen = moves.length > 0 ? moves[moves.length - 1].fen : fen;
                         for (let parsedVariation of parsedVariations) {
-                            move.variations.push(this.parseHistory(parsedVariation, lastFen));
+                            move.variations.push(this.createValidMoves(parsedVariation, lastFen));
                         }
                     }
                     moves.push(move);
