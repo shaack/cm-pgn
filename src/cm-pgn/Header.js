@@ -30,7 +30,7 @@ export function parseHeader(headerString) {
     if (list !== null) {
         for (let i = 0; i < list.length; i++) {
             let ret = list[i].match(/\[(\w+)\s+"([^"]+)"/);
-            if (ret) { // Add all tags, including non-official ones (see tags above)
+            if (ret) {
                 header.set(ret[1], ret[2]);
             }
         }
