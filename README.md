@@ -64,6 +64,10 @@ in `src/cm-pgn/parser/` is generated from the grammar file `src/grammar/pgn.pegj
 
 To recreate the parser after modification of `src/grammar/pgn.pegjs`, run `bin/generate-parser.sh`.
 
+## Testing
+
+Run tests with `npm test`.
+
 ## External Links
 
 - [Wikipedia Portable_Game_Notation](https://en.wikipedia.org/wiki/Portable_Game_Notation)
