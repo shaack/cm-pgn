@@ -29,9 +29,9 @@ export function parseHeader(headerString) {
 
     if (list !== null) {
         for (let i = 0; i < list.length; i++) {
-            let ret = list[i].match(/\[(\w+)\s+"([^"]+)"/);
-            if (ret) {
-                header.set(ret[1], ret[2]);
+            let tag = list[i].match(/\[(\w+)\s+"([^"]+)"/);
+            if (tag) {
+                header.set(tag[1], tag[2]);
             }
         }
     }
