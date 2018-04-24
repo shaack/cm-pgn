@@ -44,16 +44,15 @@ After parsing a PGN you can access all moves and move variants via the Array `pg
 The header fields are stored in the Map `pgn.header`.
 
 ```javascript
-const pgn = new Pgn();
-pgn.parseHistory("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6");
-assert.equal(4, pgn.history.length);
-assert.equal(pgn.history[0].san, "e4");
-assert.equal(pgn.history[1].variations.length, 1);
-assert.equal(pgn.history[1].variations[0][0].san, "e6");
-assert.equal(pgn.history[2].nag, "$1");
-assert.equal(pgn.history[2].commentAfter, "Great move!");
-assert.equal(pgn.history[3].from, "b8");
-assert.equal(pgn.history[3].to, "c6");
+const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6");
+assert.equal(4, history.moves.length);
+assert.equal(history.moves[0].san, "e4");
+assert.equal(history.moves[1].variations.length, 1);
+assert.equal(history.moves[1].variations[0][0].san, "e6");
+assert.equal(history.moves[2].nag, "$1");
+assert.equal(history.moves[2].commentAfter, "Great move!");
+assert.equal(history.moves[3].from, "b8");
+assert.equal(history.moves[3].to, "c6");
 ```
 
 ## Development
