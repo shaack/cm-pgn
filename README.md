@@ -46,15 +46,14 @@ The header fields are stored in the Map `pgn.header`.
 ```javascript
 const pgn = new Pgn();
 pgn.parseHistory("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6");
-Test.assertEquals(4, pgn.history.length);
-Test.assertEquals("e4", pgn.history[0].san);
-Test.assertEquals(1, pgn.history[1].variations.length);
-Test.assertEquals("e6", pgn.history[1].variations[0][0].san);
-Test.assertEquals("$1", pgn.history[2].nag);
-Test.assertEquals("Great move!", pgn.history[2].commentAfter);
-Test.assertEquals("b8", pgn.history[3].from);
-Test.assertEquals("c6", pgn.history[3].to);
-console.log(pgn.history);
+assert.equal(4, pgn.history.length);
+assert.equal(pgn.history[0].san, "e4");
+assert.equal(pgn.history[1].variations.length, 1);
+assert.equal(pgn.history[1].variations[0][0].san, "e6");
+assert.equal(pgn.history[2].nag, "$1");
+assert.equal(pgn.history[2].commentAfter, "Great move!");
+assert.equal(pgn.history[3].from, "b8");
+assert.equal(pgn.history[3].to, "c6");
 ```
 
 ## Development
