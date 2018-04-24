@@ -63,6 +63,8 @@ in `src/cm-pgn/parser/` is generated from the grammar file `src/grammar/pgn.pegj
 
 To recreate the parser after modification of `src/grammar/pgn.pegjs`, run `bin/generate-parser.sh`.
 
+With ".toString()" we already have the function to produce PGNs. There are just missing some convenience functions like "addVariation" or so to create the structure of a PGN. For me, it is important to make the API most similar to chess.js, because everyone knows chess.js. Another important thing is to just implement things which are _really_ needed, to keep the code small and easy.
+
 ## Testing
 
 Run tests with `npm test`.
