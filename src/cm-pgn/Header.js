@@ -24,16 +24,16 @@ export function parseHeader(headerString) {
         return new Map();
     }
 
-    const header = new Map();
-    const list = headerString.match(/\[([^\]]+)]/g);
+    const tags = new Map();
+    const rows = headerString.match(/\[([^\]]+)]/g);
 
-    if (list !== null) {
-        for (let i = 0; i < list.length; i++) {
-            let tag = list[i].match(/\[(\w+)\s+"([^"]+)"/);
+    if (rows !== null) {
+        for (let i = 0; i < rows.length; i++) {
+            let tag = rows[i].match(/\[(\w+)\s+"([^"]+)"/);
             if (tag) {
-                header.set(tag[1], tag[2]);
+                tags.set(tag[1], tag[2]);
             }
         }
     }
-    return header;
+    return tags;
 }
