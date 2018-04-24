@@ -30,11 +30,11 @@ Then just use the Pgn class as JS Module:
                          [Black "Maier, Karsten"]
                          1. e2-e4 e7e5 (e6) 2. Nf3 $1 {Great move!} Nc6`);
     // render the pgn
-    console.log(pgn.toString());
+    console.log(pgn.toString()); // not implemented yet, see https://github.com/shaack/cm-pgn/issues/4
     // render the header only
-    console.log(pgn.header.toString());
+    console.log(pgn.header.toString()); // not implemented yet
     // render the history only
-    console.log(pgn.history.toString());
+    console.log(pgn.history.toString()); // not implemented yet
 </script>
 ```
 
