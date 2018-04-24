@@ -1,53 +1,62 @@
 import {Chess} from 'chess.js';
+import pgnParser from "./parser/pgnParser";
 
 function IllegalMoveException(fen, notation) {
     this.fen = fen;
     this.notation = notation;
-    this.toString = function() {
+    this.toString = function () {
         return "IllegalMoveException: " + fen + " => " + notation;
     }
 }
 
-export function parseHistory(parsedMoves = null, fen = null) {
-    if (!parsedMoves) {
-        return [];
-    }
+export class History {
 
-    const chess = fen ? new Chess(fen) : new Chess();
-    const moves = [];
-
-    for (let parsedMove of parsedMoves) {
-        if (parsedMove.notation) {
-            const notation = parsedMove.notation.notation;
-            const move = chess.move(notation, {sloppy: true});
-            if (move) {
-                move.fen = chess.fen();
-                if (parsedMove.nag) {
-                    move.nag = parsedMove.nag[0];
-                }
-                if (parsedMove.commentBefore) {
-                    move.commentBefore = parsedMove.commentBefore;
-                }
-                if (parsedMove.commentMove) {
-                    move.commentMove = parsedMove.commentMove;
-                }
-                if (parsedMove.commentAfter) {
-                    move.commentAfter = parsedMove.commentAfter;
-                }
-                move.variations = [];
-                const parsedVariations = parsedMove.variations;
-                if (parsedVariations.length > 0) {
-                    const lastFen = moves.length > 0 ? moves[moves.length - 1].fen : fen;
-                    for (let parsedVariation of parsedVariations) {
-                        move.variations.push(parseHistory(parsedVariation, lastFen));
-                    }
-                }
-                moves.push(move);
-            } else {
-                throw new IllegalMoveException(chess.fen(), notation);
-            }
+    constructor(historyString = null, fen = null) {
+        if(!historyString) {
+            this.moves = [];
+        } else {
+            const parsedMoves = pgnParser.parse(historyString.replace(/\s\s+/g, ' ').replace(/\n/g, " "));
+            this.moves = this.parseHistory(parsedMoves[0], fen);
         }
     }
 
-    return moves;
+    parseHistory(parsedMoves, fen) {
+        const chess = fen ? new Chess(fen) : new Chess();
+        const moves = [];
+
+        for (let parsedMove of parsedMoves) {
+            if (parsedMove.notation) {
+                const notation = parsedMove.notation.notation;
+                const move = chess.move(notation, {sloppy: true});
+                if (move) {
+                    move.fen = chess.fen();
+                    if (parsedMove.nag) {
+                        move.nag = parsedMove.nag[0];
+                    }
+                    if (parsedMove.commentBefore) {
+                        move.commentBefore = parsedMove.commentBefore;
+                    }
+                    if (parsedMove.commentMove) {
+                        move.commentMove = parsedMove.commentMove;
+                    }
+                    if (parsedMove.commentAfter) {
+                        move.commentAfter = parsedMove.commentAfter;
+                    }
+                    move.variations = [];
+                    const parsedVariations = parsedMove.variations;
+                    if (parsedVariations.length > 0) {
+                        const lastFen = moves.length > 0 ? moves[moves.length - 1].fen : fen;
+                        for (let parsedVariation of parsedVariations) {
+                            move.variations.push(this.parseHistory(parsedVariation, lastFen));
+                        }
+                    }
+                    moves.push(move);
+                } else {
+                    throw new IllegalMoveException(chess.fen(), notation);
+                }
+            }
+        }
+
+        return moves;
+    }
 }

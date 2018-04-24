@@ -1,4 +1,3 @@
-
 export const tags = {
     // Standard
     Event: "Event", // the name of the tournament or match event
@@ -19,21 +18,26 @@ export const tags = {
     FEN: "FEN", //  Alternative start position, tag SetUp has to be set to "1"
 };
 
-export function parseHeader(headerString) {
-    if (!headerString) {
-        return new Map();
+export class Header {
+
+    constructor(headerString = "") {
+        this.tags = this.parseHeader(headerString);
     }
 
-    const tags = new Map();
-    const rows = headerString.match(/\[([^\]]+)]/g);
+    parseHeader(headerString) {
+        const tags = new Map();
+        const rows = headerString.match(/\[([^\]]+)]/g);
 
-    if (rows !== null) {
-        for (let i = 0; i < rows.length; i++) {
-            let tag = rows[i].match(/\[(\w+)\s+"([^"]+)"/);
-            if (tag) {
-                tags.set(tag[1], tag[2]);
+        if (rows !== null && rows.length > 0) {
+            for (let i = 0; i < rows.length; i++) {
+                let tag = rows[i].match(/\[(\w+)\s+"([^"]+)"/);
+                if (tag) {
+                    tags.set(tag[1], tag[2]);
+                }
             }
         }
+        return tags;
     }
-    return tags;
+
 }
+
