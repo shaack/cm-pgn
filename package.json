@@ -24,9 +24,9 @@
   },
   "homepage": "https://github.com/shaack/cm-pgn#readme",
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "mocha": "^5.1.1",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "mocha": "^5.2.0",
     "pegjs": "^0.10.0"
   },
   "dependencies": {
