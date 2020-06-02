@@ -14,7 +14,7 @@ You must include [chess.js](https://github.com/jhlywa/chess.js) and the generate
 not available as ES6 Modules and therefore must be included the traditional way.
 
 ```html
-<script src="../node_modules/chess.js/chess.min.js"></script>
+<script src="../node_modules/chess.js/chess.js"></script>
 <script src="../src/cm-pgn/parser/pgnParser.js"></script>
 ```
 

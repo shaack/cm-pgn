@@ -30,6 +30,6 @@
     "pegjs": "^0.10.0"
   },
   "dependencies": {
-    "chess.js": "^0.10.2"
+    "chess.js": "^0.10.3"
   }
 }
