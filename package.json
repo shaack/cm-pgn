@@ -4,6 +4,7 @@
   "description": "Module for parsing and rendering of PGNs (Portable Game Notation)",
   "main": "src/cm-pgn/Pgn.js",
   "scripts": {
+    "postinstall": "node postinstall.js",
     "test": "mocha --require babel-core/register ./test/*.js"
   },
   "repository": {
@@ -30,6 +31,7 @@
     "pegjs": "^0.10.0"
   },
   "dependencies": {
-    "chess.js": "^0.10.3"
+    "chess.js": "^0.10.3",
+    "cm-web-modules": "^1.2.5"
   }
 }

@@ -1,5 +1,5 @@
-import {Chess} from 'chess.js';
-import pgnParser from "./parser/pgnParser";
+import {Chess} from '../../lib/chess.js';
+import pgnParser from "./parser/pgnParser.js";
 
 function IllegalMoveException(fen, notation) {
     this.fen = fen;

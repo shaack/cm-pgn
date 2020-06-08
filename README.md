@@ -10,15 +10,7 @@ We used the nice grammar file of [PgnViewerJS](https://github.com/mliebelt/PgnVi
 
 ## Usage
 
-You must include [chess.js](https://github.com/jhlywa/chess.js) and the generated parser (see below) in your HTML page. Both are
-not available as ES6 Modules and therefore must be included the traditional way.
-
-```html
-<script src="../node_modules/chess.js/chess.js"></script>
-<script src="../src/cm-pgn/parser/pgnParser.js"></script>
-```
-
-Then just use the Pgn class as JS Module:
+Use the `Pgn` class as JS Module:
 
 ```html
 <script type="module">
