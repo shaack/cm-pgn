@@ -2240,8 +2240,14 @@ function peg$parse(input, options) {
     );
   }
 }
-
+/*
 module.exports = {
   SyntaxError: peg$SyntaxError,
   parse:       peg$parse
 };
+*/
+export class pgnParser {
+  static parse(history, options) {
+    return peg$parse(history, options)
+  }
+}

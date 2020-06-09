@@ -1,6 +1,6 @@
-import assert from 'assert';
+// import assert from 'assert';
 
-import {Pgn} from "../src/cm-pgn/Pgn.js";
+import {Pgn} from "../src/cm-pgn/Pgn.js"
 
 describe('Pgn', () => {
     it('should parse comment containing "[" and "]"', () => {
@@ -19,9 +19,9 @@ describe('Pgn', () => {
 [EventDate "1998.??.??"]
 
 1. Rc8 {[%emt 0:00:05]} Rxc8 {[%emt 0:00:01]} 2. Rxc8 {[%emt 0:00:01]} Qxc8 {
-} 3. Qe7#  1-0`);
+} 3. Qe7#  1-0`)
         // console.log(pgn.toString());
-    });
+    })
 
     it('should parse header and history', () => {
         const pgn = new Pgn(`[Event "Bled-Zagreb-Belgrade Candidates"]
@@ -91,7 +91,7 @@ schnell auf.} 23. Ne5+ Ke6 24. Nxc6 Ne4+ 25. Ke3 Bb6+ 26. Bd4 $1 ( {Nicht mal}
 26. Kxe4 Bb7 {, wonach Schwarz mit seinem Läuferpaar noch etwas Widerstand
 leisten könnte, gönnt Tal seinem großen Gegner. Nach dem Textzug dagegen wird
 sich ein schwarzer Läufer tauschen müssen, und Smyslov sah ein, dass es sinnlos
-wäre, diese Stellung gegen Tal weiterzuspielen.} ) 1-0`);
+wäre, diese Stellung gegen Tal weiterzuspielen.} ) 1-0`)
         //console.log(pgn);
     })
-});
+})

@@ -1,5 +1,4 @@
-import {Chess} from '../../lib/chess.js';
-import pgnParser from "./parser/pgnParser.js";
+import {pgnParser} from "./parser/pgnParser.js";
 
 function IllegalMoveException(fen, notation) {
     this.fen = fen;
@@ -9,6 +8,7 @@ function IllegalMoveException(fen, notation) {
     }
 }
 
+// maybe: https://github.com/joaonuno/tree-model-js
 export class History {
 
     constructor(historyString = null, fen = null) {

@@ -1,44 +1,44 @@
-import assert from 'assert';
-
-import {History} from "../src/cm-pgn/History.js";
-import {Pgn} from "../src/cm-pgn/Pgn.js";
+import {History} from "../src/cm-pgn/History.js"
+import {Pgn} from "../src/cm-pgn/Pgn.js"
+import {Header, tags} from "../src/cm-pgn/Header.js"
+import {Assert} from "../lib/cm-web-modules/assert/Assert.js"
 
 describe('History', () => {
 
     it('should parse simple history', () => {
-        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 Nc6");
-        // console.log(history.moves);
-    });
+        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 Nc6")
+        Assert.equals(history.moves.length, 4)
+    })
 
     it('should parse history with empty comment', () => {
-        new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {} Nc6");
-        // console.log(pgn.history);
-    });
+        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {} Nc6")
+        Assert.equals(history.moves.length, 4)
+    })
 
     it('should parse history with nag', () => {
-        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6");
+        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6")
 
-        assert.equal(4, history.moves.length);
-        assert.equal(history.moves[0].san, "e4");
-        assert.equal(history.moves[1].variations.length, 1);
-        assert.equal(history.moves[1].variations[0][0].san, "e6");
-        assert.equal(history.moves[2].nag, "$1");
-        assert.equal(history.moves[2].commentAfter, "Great move!");
-        assert.equal(history.moves[3].from, "b8");
-        assert.equal(history.moves[3].to, "c6");
-    });
+        Assert.equals(4, history.moves.length)
+        Assert.equals(history.moves[0].san, "e4")
+        Assert.equals(history.moves[1].variations.length, 1)
+        Assert.equals(history.moves[1].variations[0][0].san, "e6")
+        Assert.equals(history.moves[2].nag, "$1")
+        Assert.equals(history.moves[2].commentAfter, "Great move!")
+        Assert.equals(history.moves[3].from, "b8")
+        Assert.equals(history.moves[3].to, "c6")
+    })
 
     it('should parse history with rav at first move', () => {
         const pgn = new Pgn(`[SetUp "1"]
             [FEN "6k1/8/8/8/8/8/7R/5K1R w - - 0 1"]
 
-            1. Rf2 (1. Rh7 Kf8 2. Rg1 Ke8 3. Rg8#) 1... Kg7 2. Rg1+ Kh6 3. Rh2# *`);
+            1. Rf2 (1. Rh7 Kf8 2. Rg1 Ke8 3. Rg8#) 1... Kg7 2. Rg1+ Kh6 3. Rh2# *`)
         //console.log(pgn.history);
 
-        assert.equal(5, pgn.history.moves.length);
-        assert.equal(pgn.history.moves[0].variations.length, 1);
-        assert.equal(pgn.history.moves[0].variations[0][0].san, "Rh7");
-    });
+        Assert.equals(5, pgn.history.moves.length)
+        Assert.equals(pgn.history.moves[0].variations.length, 1)
+        Assert.equals(pgn.history.moves[0].variations[0][0].san, "Rh7")
+    })
 
     it('should parse complex history without nag', () => {
         const history = new History(`1. e4 e6 2. d3 d5 3. Nd2 Nf6 4. g3 {Will man keinen Franzosen auf dem Brett
@@ -124,8 +124,28 @@ describe('History', () => {
                 wie vorher lässt sich das matt nach Lh3 durch Ld1 verhindern} Nxf3 {
                 eliminiert die Kontrolle uber d1} 28. c4 (28. Nxf3 Bh3+ 29. Ng1 Bxf2) 28...
                 gxf6 (28... gxf6 29. Qg4+ Kh8 30. Qxf3 (30. Nxf3 Bh3+ 31. Ng1 Bxf2) 30... Bh3+)
-                0-1`);
+                0-1`)
         //console.log(pgn.history);
-    });
+    })
 
-});
+    it('should parse stappenmethode weekly.pgn', () => {
+        const pgn = new Pgn(`[Event "?"]
+[Site "?"]
+[Date "2012.??.??"]
+[Round "?"]
+[White "Schaak opheffen"]
+[Black "Materiaal"]
+[Result "0-1"]
+[Annotator "S3"]
+[Annotator "app 037-1"]
+[SetUp "1"]
+[FEN "r1b1Q1k1/1p2bpqp/8/8/p1Pr4/4PpN1/P6P/R4RK1 b - - 0 1"]
+
+1... Bf8 (1... Qf8? 2. Qxf8+ Bxf8 3. exd4) 2. exd4 Qxd4+ {%Q} 3. Kh1 Bh3 
+0-1`)
+        Assert.equals(5, pgn.history.moves.length)
+        Assert.equals("Schaak opheffen", pgn.header.tags.get(tags.White))
+        Assert.equals("app 037-1", pgn.header.tags.get(tags.Annotator))
+    })
+
+})
