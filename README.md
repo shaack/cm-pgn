@@ -60,7 +60,7 @@ With ".toString()" we already have the function to produce PGNs. There are missi
 
 ## Testing
 
-Run tests with `npm test`.
+[Run unittests](https://shaack.com/projekte/cm-pgn/test/tests.html)
 
 ## External Links
 

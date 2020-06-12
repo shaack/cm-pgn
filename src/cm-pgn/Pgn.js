@@ -4,6 +4,8 @@ import {History} from "./History.js"
 export class Pgn {
 
     constructor(pgnString = null) {
+        this.header = null
+        this.history = null
         if (pgnString) {
             this.parse(pgnString)
         }
@@ -23,9 +25,8 @@ export class Pgn {
 
     render() {
         let pgn = ""
-        if (this.header.tags.size > 0) {
-            pgn += this.header.render() + "\n"
-        }
+        pgn += this.header.render()
+        pgn += "\n"
         pgn += this.history.render()
         return pgn
     }

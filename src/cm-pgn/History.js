@@ -31,7 +31,7 @@ export class History {
         const chess = fen ? new Chess(fen) : new Chess() // chess.js must be included in HTML
         const moves = []
 
-        let previousMove = parent;
+        let previousMove = parent
 
         for (let parsedMove of parsedMoves) {
             if (parsedMove.notation) {
@@ -39,7 +39,7 @@ export class History {
                 const move = chess.move(notation, {sloppy: true})
                 // console.log("createValidMoves", ply, parsedMoves.length, previousMove ? previousMove.san : null, move.san, parent ? parent.san : null)
                 if (move) {
-                    if(previousMove) {
+                    if (previousMove) {
                         move.previous = previousMove
                         previousMove.next = move
                     } else {
@@ -75,9 +75,8 @@ export class History {
                     throw new IllegalMoveException(chess.fen(), notation)
                 }
             }
-            ply++;
+            ply++
         }
-
         return moves
     }
 }
