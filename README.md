@@ -22,11 +22,11 @@ Use the `Pgn` class as JS Module:
                          [Black "Maier, Karsten"]
                          1. e2-e4 e7e5 (e6) 2. Nf3 $1 {Great move!} Nc6`);
     // render the pgn
-    console.log(pgn.toString()); // not implemented yet, see https://github.com/shaack/cm-pgn/issues/4
+    console.log(pgn.render()); // not implemented yet
     // render the header only
-    console.log(pgn.header.toString()); // not implemented yet
+    console.log(pgn.header.render());
     // render the history only
-    console.log(pgn.history.toString()); // not implemented yet
+    console.log(pgn.history.render()); // not implemented yet
 </script>
 ```
 
@@ -36,15 +36,15 @@ After parsing a PGN you can access all moves and move variants via the Array `pg
 The header fields are stored in the Map `pgn.header`.
 
 ```javascript
-const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6");
-assert.equal(4, history.moves.length);
-assert.equal(history.moves[0].san, "e4");
-assert.equal(history.moves[1].variations.length, 1);
-assert.equal(history.moves[1].variations[0][0].san, "e6");
-assert.equal(history.moves[2].nag, "$1");
-assert.equal(history.moves[2].commentAfter, "Great move!");
-assert.equal(history.moves[3].from, "b8");
-assert.equal(history.moves[3].to, "c6");
+const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6")
+Assert.equals(4, history.moves.length)
+Assert.equals(history.moves[0].san, "e4")
+Assert.equals(history.moves[1].variations.length, 1)
+Assert.equals(history.moves[1].variations[0][0].san, "e6")
+Assert.equals(history.moves[2].nag, "$1")
+Assert.equals(history.moves[2].commentAfter, "Great move!")
+Assert.equals(history.moves[3].from, "b8")
+Assert.equals(history.moves[3].to, "c6")
 ```
 
 ## Development
@@ -53,10 +53,6 @@ This module uses [PEG.js](https://pegjs.org/) for parser generation. The parser 
 in `src/cm-pgn/parser/` is generated from the grammar file `src/grammar/pgn.pegjs`.
 
 To recreate the parser after modification of `src/grammar/pgn.pegjs`, run `bin/generate-parser.sh`.
-
-### Future development
-
-With ".toString()" we already have the function to produce PGNs. There are missing some convenience functions like "move()" and "addVariation()" to create the structure of a PGN. For me, it is important to make the API most similar to chess.js, because everyone knows chess.js. Another important thing is to just implement things which are _really_ needed, trying to keep the code small and easy.
 
 ## Testing
 
