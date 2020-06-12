@@ -4,11 +4,8 @@ import {History} from "./History.js";
 export class Pgn {
 
     constructor(pgnString = null) {
-        if (!pgnString) {
-            this.header = new Header();
-            this.history = new History();
-        } else {
-            this.parse(pgnString);
+        if(pgnString) {
+            this.parse(pgnString)
         }
     }
 
@@ -24,13 +21,18 @@ export class Pgn {
         }
     }
 
-    toString() {
+    // options: { max_width: 80, newline_char: '<br />' }
+    render(options = null) {
         let pgn = "";
         if (this.header.tags.size > 0) {
             pgn += this.header.toString() + "\n";
         }
         pgn += this.history.toString();
         return pgn;
+    }
+
+    toString() {
+        return this.render()
     }
 
 }

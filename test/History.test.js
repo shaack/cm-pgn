@@ -28,7 +28,7 @@ describe('History', () => {
         Assert.equals(history.moves[3].to, "c6")
     })
 
-    it('should parse history with rav at first move', () => {
+    it('should parse history with variant at first move', () => {
         const pgn = new Pgn(`[SetUp "1"]
             [FEN "6k1/8/8/8/8/8/7R/5K1R w - - 0 1"]
 
@@ -38,6 +38,7 @@ describe('History', () => {
         Assert.equals(5, pgn.history.moves.length)
         Assert.equals(pgn.history.moves[0].variations.length, 1)
         Assert.equals(pgn.history.moves[0].variations[0][0].san, "Rh7")
+        console.log(pgn.history.moves)
     })
 
     it('should parse complex history without nag', () => {
