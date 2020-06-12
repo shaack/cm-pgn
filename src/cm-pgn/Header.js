@@ -64,5 +64,15 @@ export class Header {
         return tags
     }
 
+    render() {
+        console.log(this.tags)
+        let rendered = ""
+        this.tags.forEach((value, key) => {
+            console.log(value, key)
+            rendered += `[${key} "${value}"]\n`
+        })
+        return rendered
+    }
+
 }
 

@@ -21,18 +21,13 @@ export class Pgn {
         }
     }
 
-    // options: { max_width: 80, newline_char: '<br />' }
-    render(options = null) {
+    render() {
         let pgn = ""
         if (this.header.tags.size > 0) {
-            pgn += this.header.toString() + "\n"
+            pgn += this.header.render() + "\n"
         }
-        pgn += this.history.toString()
+        pgn += this.history.render()
         return pgn
-    }
-
-    toString() {
-        return this.render()
     }
 
 }
