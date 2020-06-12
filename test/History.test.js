@@ -38,7 +38,6 @@ describe('History', () => {
         Assert.equals(5, pgn.history.moves.length)
         Assert.equals(pgn.history.moves[0].variations.length, 1)
         Assert.equals(pgn.history.moves[0].variations[0][0].san, "Rh7")
-        console.log(pgn.history.moves)
     })
 
     it('should parse complex history without nag', () => {
@@ -126,7 +125,7 @@ describe('History', () => {
                 eliminiert die Kontrolle uber d1} 28. c4 (28. Nxf3 Bh3+ 29. Ng1 Bxf2) 28...
                 gxf6 (28... gxf6 29. Qg4+ Kh8 30. Qxf3 (30. Nxf3 Bh3+ 31. Ng1 Bxf2) 30... Bh3+)
                 0-1`)
-        //console.log(pgn.history);
+            console.log(history.moves);
     })
 
     it('should parse stappenmethode weekly.pgn', () => {
