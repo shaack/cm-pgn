@@ -21,7 +21,7 @@ export class History {
     }
 
     traverse(parsedMoves, fen, parent = null, ply = 1, sloppy = false) {
-        console.log("traverse", fen, ply, sloppy)
+        // console.log("traverse", fen, ply, sloppy)
         const chess = fen ? new Chess(fen) : new Chess() // chess.js must be included in HTML
         const moves = []
         let previousMove = parent

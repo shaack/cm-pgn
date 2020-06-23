@@ -5,6 +5,13 @@ import {Assert} from "../lib/cm-web-modules/assert/Assert.js"
 import {tags} from "../src/cm-pgn/Header.js"
 
 describe('Pgn', () => {
+
+    it('should create an empty pgn', () => {
+        const pgn = new Pgn()
+        Assert.equals(pgn.history.moves.length, 0)
+        Assert.equals(pgn.header.tags.size, 0)
+    })
+
     it('should parse comment containing "[" and "]"', () => {
         // https://github.com/DHTMLGoodies/dhtmlchess/blob/master/pgn/1001-brilliant-checkmates.pgn
         const pgn = new Pgn(`[Event " White to move."]

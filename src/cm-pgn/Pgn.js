@@ -3,7 +3,7 @@ import {History} from "./History.js"
 
 export class Pgn {
 
-    constructor(pgnString) {
+    constructor(pgnString = "") {
         const lastHeaderElement = pgnString.lastIndexOf("]\n\n") + 1
         const headerString = pgnString.substr(0, lastHeaderElement)
         const historyString = pgnString.substr(lastHeaderElement)
