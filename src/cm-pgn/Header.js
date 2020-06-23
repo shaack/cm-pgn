@@ -49,6 +49,10 @@ export class Header {
         this.tags = this.parse(headerString)
     }
 
+    clear() {
+        this.tags = new Map()
+    }
+
     parse(headerString) {
         const tags = new Map()
         const rows = headerString.match(/\[([^\]]+)]/g)
@@ -65,10 +69,8 @@ export class Header {
     }
 
     render() {
-        console.log(this.tags)
         let rendered = ""
         this.tags.forEach((value, key) => {
-            console.log(value, key)
             rendered += `[${key} "${value}"]\n`
         })
         return rendered

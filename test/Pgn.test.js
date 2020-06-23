@@ -1,6 +1,8 @@
 // import assert from 'assert';
 
 import {Pgn} from "../src/cm-pgn/Pgn.js"
+import {Assert} from "../lib/cm-web-modules/assert/Assert.js"
+import {tags} from "../src/cm-pgn/Header.js"
 
 describe('Pgn', () => {
     it('should parse comment containing "[" and "]"', () => {
@@ -110,5 +112,24 @@ wäre, diese Stellung gegen Tal weiterzuspielen.} ) 1-0`)
 8.Nxe6 Qe7 9.O-O fxe6 10.Bg6+ Kd8 {Kasparov schüttelt kurz den Kopf}
 11.Bf4 b5 12.a4 Bb7 13.Re1 Nd5 14.Bg3 Kc8 15.axb5 cxb5 16.Qd3 Bc6
 17.Bf5 exf5 18.Rxe7 Bxe7 19.c4 1-0`)
+    })
+    it('should parse stappenmethode weekly.pgn', () => {
+        const pgn = new Pgn(`[Event "?"]
+[Site "?"]
+[Date "2012.??.??"]
+[Round "?"]
+[White "Schaak opheffen"]
+[Black "Materiaal"]
+[Result "0-1"]
+[Annotator "S3"]
+[Annotator "app 037-1"]
+[SetUp "1"]
+[FEN "r1b1Q1k1/1p2bpqp/8/8/p1Pr4/4PpN1/P6P/R4RK1 b - - 0 1"]
+
+1... Bf8 (1... Qf8? 2. Qxf8+ Bxf8 3. exd4) 2. exd4 Qxd4+ {%Q} 3. Kh1 Bh3 
+0-1`)
+        Assert.equals(5, pgn.history.moves.length)
+        Assert.equals("Schaak opheffen", pgn.header.tags.get(tags.White))
+        Assert.equals("app 037-1", pgn.header.tags.get(tags.Annotator))
     })
 })

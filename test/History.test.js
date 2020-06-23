@@ -5,18 +5,18 @@ import {Assert} from "../lib/cm-web-modules/assert/Assert.js"
 
 describe('History', () => {
 
-    it('should parse simple history', () => {
-        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 Nc6")
+    it('should parse sloppy history', () => {
+        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 Nc6", null, true)
         Assert.equals(history.moves.length, 4)
     })
 
-    it('should parse history with empty comment', () => {
-        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {} Nc6")
+    it('should parse sloppy history with empty comment', () => {
+        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {} Nc6", null, true)
         Assert.equals(history.moves.length, 4)
     })
 
-    it('should parse history with nag', () => {
-        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6")
+    it('should parse sloppy history with nag', () => {
+        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6", null, true)
 
         Assert.equals(4, history.moves.length)
         Assert.equals(history.moves[0].san, "e4")
@@ -40,6 +40,7 @@ describe('History', () => {
         Assert.equals(pgn.history.moves[0].variations[0][0].san, "Rh7")
     })
 
+    // todo speed optimze
     it('should parse complex history without nag', () => {
         const history = new History(`1. e4 e6 2. d3 d5 3. Nd2 Nf6 4. g3 {Will man keinen Franzosen auf dem Brett
                 haben kann man so in eine Art von königsindischen Angriff übergehen} dxe4 {
@@ -128,24 +129,13 @@ describe('History', () => {
             // console.log(history.moves);
     })
 
-    it('should parse stappenmethode weekly.pgn', () => {
-        const pgn = new Pgn(`[Event "?"]
-[Site "?"]
-[Date "2012.??.??"]
-[Round "?"]
-[White "Schaak opheffen"]
-[Black "Materiaal"]
-[Result "0-1"]
-[Annotator "S3"]
-[Annotator "app 037-1"]
-[SetUp "1"]
-[FEN "r1b1Q1k1/1p2bpqp/8/8/p1Pr4/4PpN1/P6P/R4RK1 b - - 0 1"]
-
-1... Bf8 (1... Qf8? 2. Qxf8+ Bxf8 3. exd4) 2. exd4 Qxd4+ {%Q} 3. Kh1 Bh3 
-0-1`)
-        Assert.equals(5, pgn.history.moves.length)
-        Assert.equals("Schaak opheffen", pgn.header.tags.get(tags.White))
-        Assert.equals("app 037-1", pgn.header.tags.get(tags.Annotator))
+    it('should add a few moves to an empty history', () => {
+        const history = new History()
+        history.addMove("e4")
+        history.addMove("e6")
+        history.addMove("d3")
+        history.addMove("d5")
+        history.addMove("Nd2")
     })
 
 })
