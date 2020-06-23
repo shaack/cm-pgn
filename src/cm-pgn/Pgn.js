@@ -3,15 +3,7 @@ import {History} from "./History.js"
 
 export class Pgn {
 
-    constructor(pgnString = null) {
-        this.header = null
-        this.history = null
-        if (pgnString) {
-            this.parse(pgnString)
-        }
-    }
-
-    parse(pgnString) {
+    constructor(pgnString) {
         const lastHeaderElement = pgnString.lastIndexOf("]\n\n") + 1
         const headerString = pgnString.substr(0, lastHeaderElement)
         const historyString = pgnString.substr(lastHeaderElement)

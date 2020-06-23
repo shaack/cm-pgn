@@ -15,17 +15,9 @@ export class History {
         if (!historyString) {
             this.moves = []
         } else {
-            this.parse(historyString, fen, sloppy)
+            const parsedMoves = pgnParser.parse(historyString.replace(/\s\s+/g, ' ').replace(/\n/g, " "))
+            this.moves = this.traverse(parsedMoves[0], fen, null, 1, sloppy)
         }
-    }
-
-    clear() {
-        this.moves = []
-    }
-
-    parse(historyString, fen, sloppy) {
-        const parsedMoves = pgnParser.parse(historyString.replace(/\s\s+/g, ' ').replace(/\n/g, " "))
-        this.moves = this.traverse(parsedMoves[0], fen, null, 1, sloppy)
     }
 
     traverse(parsedMoves, fen, parent = null, ply = 1, sloppy = false) {

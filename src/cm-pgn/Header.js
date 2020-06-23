@@ -46,26 +46,16 @@ export const tags = {
 export class Header {
 
     constructor(headerString = "") {
-        this.tags = this.parse(headerString)
-    }
-
-    clear() {
         this.tags = new Map()
-    }
-
-    parse(headerString) {
-        const tags = new Map()
         const rows = headerString.match(/\[([^\]]+)]/g)
-
         if (rows !== null && rows.length > 0) {
             for (let i = 0; i < rows.length; i++) {
                 let tag = rows[i].match(/\[(\w+)\s+"([^"]+)"/)
                 if (tag) {
-                    tags.set(tag[1], tag[2])
+                    this.tags.set(tag[1], tag[2])
                 }
             }
         }
-        return tags
     }
 
     render() {
