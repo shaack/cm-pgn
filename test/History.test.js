@@ -1,6 +1,6 @@
 import {History} from "../src/cm-pgn/History.js"
 import {Pgn} from "../src/cm-pgn/Pgn.js"
-import {Header, tags} from "../src/cm-pgn/Header.js"
+import {Header, TAGS} from "../src/cm-pgn/Header.js"
 import {Assert} from "../lib/cm-web-modules/assert/Assert.js"
 
 describe('History', () => {

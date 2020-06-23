@@ -2,7 +2,7 @@
 
 import {Pgn} from "../src/cm-pgn/Pgn.js"
 import {Assert} from "../lib/cm-web-modules/assert/Assert.js"
-import {tags} from "../src/cm-pgn/Header.js"
+import {TAGS} from "../src/cm-pgn/Header.js"
 
 describe('Pgn', () => {
 
@@ -119,7 +119,7 @@ wäre, diese Stellung gegen Tal weiterzuspielen.} ) 1-0`)
 1... Bf8 (1... Qf8? 2. Qxf8+ Bxf8 3. exd4) 2. exd4 Qxd4+ {%Q} 3. Kh1 Bh3 
 0-1`)
         Assert.equals(5, pgn.history.moves.length)
-        Assert.equals("Schaak opheffen", pgn.header.tags.get(tags.White))
-        Assert.equals("app 037-1", pgn.header.tags.get(tags.Annotator))
+        Assert.equals("Schaak opheffen", pgn.header.tags.get(TAGS.White))
+        Assert.equals("app 037-1", pgn.header.tags.get(TAGS.Annotator))
     })
 })

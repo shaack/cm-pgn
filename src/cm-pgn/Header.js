@@ -1,4 +1,4 @@
-export const tags = {
+export const TAGS = {
 
     // Standard "Seven Tag Roster"
     Event: "Event", // the name of the tournament or match event

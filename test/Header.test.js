@@ -1,4 +1,4 @@
-import {Header, tags} from "../src/cm-pgn/Header.js"
+import {Header, TAGS} from "../src/cm-pgn/Header.js"
 import {Assert} from "../lib/cm-web-modules/assert/Assert.js"
 
 describe('Header', () => {
@@ -11,7 +11,7 @@ describe('Header', () => {
 [Black "Spassky, Boris V."]
 [Result "1/2-1/2"]`)
         Assert.equals(header.tags.size, 7)
-        Assert.equals(header.tags.get(tags.Event), "F/S Return Match")
+        Assert.equals(header.tags.get(TAGS.Event), "F/S Return Match")
     })
     it('should parse and render header', () => {
         const content = `[Event "F/S Return Match"]
