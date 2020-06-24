@@ -28,16 +28,21 @@ describe('History', () => {
         Assert.equals(history.moves[3].to, "c6")
     })
 
-    it('should parse history with variant at first move', () => {
+    it('should parse history with variant at first move and checkmates', () => {
         const pgn = new Pgn(`[SetUp "1"]
             [FEN "6k1/8/8/8/8/8/7R/5K1R w - - 0 1"]
 
             1. Rf2 (1. Rh7 Kf8 2. Rg1 Ke8 3. Rg8#) 1... Kg7 2. Rg1+ Kh6 3. Rh2# *`)
-        //console.log(pgn.history);
 
         Assert.equals(5, pgn.history.moves.length)
         Assert.equals(pgn.history.moves[0].variations.length, 1)
         Assert.equals(pgn.history.moves[0].variations[0][0].san, "Rh7")
+        Assert.equals(pgn.history.moves[0].variations[0][0].gameOver, undefined)
+        Assert.equals(pgn.history.moves[0].variations[0][4].san, "Rg8#")
+        Assert.equals(pgn.history.moves[0].variations[0][4].gameOver, true)
+        Assert.equals(pgn.history.moves[0].variations[0][4].inCheckmate, true)
+        Assert.equals(pgn.history.moves[3].inCheckmate, undefined)
+        Assert.equals(pgn.history.moves[4].inCheckmate, true)
     })
 
     // todo speed optimze
@@ -136,6 +141,19 @@ describe('History', () => {
         history.addMove("d3")
         history.addMove("d5")
         history.addMove("Nd2")
+    })
+
+    it('should add a variant and render it', () => {
+        const history = new History()
+        const ply1 = history.addMove("e4")
+        history.addMove("e6")
+        history.addMove("d3")
+        history.addMove("d5")
+        history.addMove("Nd2")
+
+        history.addMove("e5", ply1)
+
+        Assert.equals(history.moves[1].variations.length, 1)
     })
 
 })

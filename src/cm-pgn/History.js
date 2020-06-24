@@ -11,13 +11,14 @@ function IllegalMoveException(fen, notation) {
 // maybe: https://github.com/joaonuno/tree-model-js
 export class History {
 
-    constructor(historyString = null, fen = null, sloppy = false) {
+    constructor(historyString = null, setUp = null, sloppy = false) {
         if (!historyString) {
             this.clear()
         } else {
             const parsedMoves = pgnParser.parse(historyString.replace(/\s\s+/g, ' ').replace(/\n/g, " "))
-            this.moves = this.traverse(parsedMoves[0], fen, null, 1, sloppy)
+            this.moves = this.traverse(parsedMoves[0], setUp, null, 1, sloppy)
         }
+        this.setUp = setUp
     }
 
     clear() {
@@ -42,7 +43,7 @@ export class History {
                         move.previous = null
                     }
                     move.ply = ply
-                    move.fen = chess.fen()
+                    this.fillMoveFromChessState(move, chess)
                     if (parsedMove.nag) {
                         move.nag = parsedMove.nag[0]
                     }
@@ -75,22 +76,69 @@ export class History {
         return moves
     }
 
+    fillMoveFromChessState(move, chess) {
+        move.fen = chess.fen()
+        move.variations = []
+        if (chess.game_over()) {
+            move.gameOver = true
+            if (chess.in_draw()) {
+                move.inDraw = true
+            }
+            if (chess.in_stalemate()) {
+                move.inStalemate = true
+            }
+            if (chess.insufficient_material()) {
+                move.insufficientMaterial = true
+            }
+            if (chess.in_threefold_repetition()) {
+                move.inThreefoldRepetition = true
+            }
+            if (chess.in_checkmate()) {
+                move.inCheckmate = true
+            }
+        }
+        if (chess.in_check()) {
+            move.inCheck = true
+        }
+    }
+
+    /**
+     * @param move
+     * @return the history to the move which may be in a variant
+     */
+    historyToMove(move) {
+        const moves = []
+        let pointer = move
+        moves.push(pointer)
+        while (pointer.previous) {
+            moves.push(pointer.previous)
+            pointer = pointer.previous
+        }
+        return moves.reverse()
+    }
+
     addMove(notation, previous = null, sloppy = true) {
-        if(!previous) {
-            if(this.moves.length > 0) {
+        if (!previous) {
+            if (this.moves.length > 0) {
                 previous = this.moves[this.moves.length - 1]
             }
         }
-        const chess = previous ? new Chess(previous.fen) : new Chess()
+        const chess = new Chess(this.setUp ? this.setUp : undefined)
+        if (previous) {
+            const historyToMove = this.historyToMove(previous)
+            for (const moveInHistory of historyToMove) {
+                chess.move(moveInHistory)
+            }
+        }
         const move = chess.move(notation, {sloppy: sloppy})
-        if(!move) {
+        if (!move) {
             throw new Error("invalid move")
         }
-        move.fen = chess.fen()
-        if(previous) {
+        this.fillMoveFromChessState(move, chess)
+        if (previous) {
             move.previous = previous
             move.ply = previous.ply + 1
-            if(previous.next) {
+            if (previous.next) {
                 previous.next.variations.push([])
                 move.variation = previous.next.variations[previous.next.variations.length - 1]
                 move.variation.push(move)
@@ -105,6 +153,10 @@ export class History {
             this.moves.push(move)
         }
         return move
+    }
+
+    render() {
+        // todo
     }
 
 }
