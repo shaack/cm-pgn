@@ -13,11 +13,15 @@ export class History {
 
     constructor(historyString = null, fen = null, sloppy = false) {
         if (!historyString) {
-            this.moves = []
+            this.clear()
         } else {
             const parsedMoves = pgnParser.parse(historyString.replace(/\s\s+/g, ' ').replace(/\n/g, " "))
             this.moves = this.traverse(parsedMoves[0], fen, null, 1, sloppy)
         }
+    }
+
+    clear() {
+        this.moves = []
     }
 
     traverse(parsedMoves, fen, parent = null, ply = 1, sloppy = false) {
