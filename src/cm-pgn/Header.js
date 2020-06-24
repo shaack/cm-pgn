@@ -46,7 +46,7 @@ export const TAGS = {
 export class Header {
 
     constructor(headerString = "") {
-        this.tags = new Map()
+        this.clear()
         const rows = headerString.match(/\[([^\]]+)]/g)
         if (rows !== null && rows.length > 0) {
             for (let i = 0; i < rows.length; i++) {
@@ -56,6 +56,10 @@ export class Header {
                 }
             }
         }
+    }
+
+    clear() {
+        this.tags = new Map()
     }
 
     render() {
