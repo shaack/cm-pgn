@@ -30,6 +30,6 @@
   },
   "dependencies": {
     "chess.js": "^0.10.3",
-    "cm-web-modules": "^1.3.3"
+    "cm-web-modules": "^1.3.4"
   }
 }

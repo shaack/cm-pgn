@@ -8,7 +8,6 @@ function IllegalMoveException(fen, notation) {
     }
 }
 
-// maybe: https://github.com/joaonuno/tree-model-js
 export class History {
 
     constructor(historyString = null, setUp = null, sloppy = false) {
@@ -26,7 +25,6 @@ export class History {
     }
 
     traverse(parsedMoves, fen, parent = null, ply = 1, sloppy = false) {
-        // console.log("traverse", fen, ply, sloppy)
         const chess = fen ? new Chess(fen) : new Chess() // chess.js must be included in HTML
         const moves = []
         let previousMove = parent
@@ -156,7 +154,13 @@ export class History {
     }
 
     render() {
-        // todo
+        // TODO Variants
+        let rendered = "";
+        let i = 0
+        for (const move of this.moves) {
+           rendered += move.san + " "
+        }
+        return rendered
     }
 
 }

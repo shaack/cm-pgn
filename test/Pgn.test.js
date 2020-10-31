@@ -3,6 +3,7 @@
 import {Pgn} from "../src/cm-pgn/Pgn.js"
 import {Assert} from "../lib/cm-web-modules/assert/Assert.js"
 import {TAGS} from "../src/cm-pgn/Header.js"
+import {pgnParser} from "../src/cm-pgn/parser/pgnParser.js"
 
 describe('Pgn', () => {
 
@@ -10,6 +11,37 @@ describe('Pgn', () => {
         const pgn = new Pgn()
         Assert.equals(pgn.history.moves.length, 0)
         Assert.equals(pgn.header.tags.size, 0)
+    })
+
+    it('should load a simple game', () => {
+        const gamePgn = `[Event "F/S Return Match"]
+[Site "Belgrade, Serbia JUG"]
+[Date "1992.11.04"]
+[Round "29"]
+[White "Fischer, Robert J."]
+[Black "Spassky, Boris V."]
+[Result "1/2-1/2"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 {This opening is called the Ruy Lopez.}
+4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 d6 8. c3 O-O 9. h3 Nb8 10. d4 Nbd7
+11. c4 c6 12. cxb5 axb5 13. Nc3 Bb7 14. Bg5 b4 15. Nb1 h6 16. Bh4 c5 17. dxe5
+Nxe4 18. Bxe7 Qxe7 19. exd6 Qf6 20. Nbd2 Nxd6 21. Nc4 Nxc4 22. Bxc4 Nb6
+23. Ne5 Rae8 24. Bxf7+ Rxf7 25. Nxf7 Rxe1+ 26. Qxe1 Kxf7 27. Qe3 Qg5 28. Qxg5
+hxg5 29. b3 Ke6 30. a3 Kd6 31. axb4 cxb4 32. Ra5 Nd5 33. f3 Bc8 34. Kf2 Bf5
+35. Ra7 g6 36. Ra6+ Kc5 37. Ke1 Nf4 38. g3 Nxh3 39. Kd2 Kb5 40. Rd6 Kc5 41. Ra6
+Nf2 42. g4 Bd3 43. Re6 1/2-1/2`
+        const pgn = new Pgn(gamePgn)
+        // Assert.equals(pgn.header.tags.get("Date"), "1992.11.04")
+    })
+
+    it('should load a game with SetUp and FEN', () => {
+        const gamePgn = `[SetUp "1"]
+[FEN "4k3/pppppppp/8/8/8/8/PPPPPPPP/4K3 w - - 0 1"]
+
+1. e4`
+        const pgn = new Pgn(gamePgn)
+        Assert.equals(pgn.header.tags.get("SetUp"), "1")
+        Assert.equals(pgn.history.moves[0].fen, "4k3/pppppppp/8/8/4P3/8/PPPP1PPP/4K3 b - e3 0 1")
     })
 
     it('should parse comment containing "[" and "]"', () => {
@@ -121,5 +153,13 @@ wäre, diese Stellung gegen Tal weiterzuspielen.} ) 1-0`)
         Assert.equals(5, pgn.history.moves.length)
         Assert.equals("Schaak opheffen", pgn.header.tags.get(TAGS.White))
         Assert.equals("app 037-1", pgn.header.tags.get(TAGS.Annotator))
+    })
+    it.only('should render a simple PGN', () => {
+        const gamePgn = `[SetUp "1"]
+[FEN "4k3/pppppppp/8/8/8/8/PPPPPPPP/4K3 w - - 0 1"]
+
+1. e4 (1. d4 {Die Variante} d5) e5 {Ein Kommentar} 2. a3`
+        const pgn = new Pgn(gamePgn)
+        console.log(pgn.render())
     })
 })

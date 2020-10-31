@@ -1,4 +1,3 @@
-
 import {pgnParser} from "../src/cm-pgn/parser/pgnParser.js"
 
 describe('Parser', () => {
