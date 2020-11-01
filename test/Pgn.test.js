@@ -154,7 +154,7 @@ wäre, diese Stellung gegen Tal weiterzuspielen.} ) 1-0`)
         Assert.equals("Schaak opheffen", pgn.header.tags.get(TAGS.White))
         Assert.equals("app 037-1", pgn.header.tags.get(TAGS.Annotator))
     })
-    it.only('should render a simple PGN', () => {
+    it('should render a simple PGN', () => {
         const gamePgn = `[SetUp "1"]
 [FEN "4k3/pppppppp/8/8/8/8/PPPPPPPP/4K3 w - - 0 1"]
 
