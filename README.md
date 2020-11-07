@@ -21,12 +21,6 @@ Use the `Pgn` class as JS Module:
                          [White "Haack, Stefan"]
                          [Black "Maier, Karsten"]
                          1. e2-e4 e7e5 (e6) 2. Nf3 $1 {Great move!} Nc6`);
-    // render the pgn
-    console.log(pgn.render()); // not implemented yet
-    // render the header only
-    console.log(pgn.header.render());
-    // render the history only
-    console.log(pgn.history.render()); // not implemented yet
 </script>
 ```
 
