@@ -3,7 +3,6 @@
 import {Pgn} from "../src/cm-pgn/Pgn.js"
 import {Assert} from "../lib/cm-web-modules/assert/Assert.js"
 import {TAGS} from "../src/cm-pgn/Header.js"
-import {pgnParser} from "../src/cm-pgn/parser/pgnParser.js"
 
 describe('Pgn', () => {
 
@@ -30,7 +29,7 @@ Nxe4 18. Bxe7 Qxe7 19. exd6 Qf6 20. Nbd2 Nxd6 21. Nc4 Nxc4 22. Bxc4 Nb6
 hxg5 29. b3 Ke6 30. a3 Kd6 31. axb4 cxb4 32. Ra5 Nd5 33. f3 Bc8 34. Kf2 Bf5
 35. Ra7 g6 36. Ra6+ Kc5 37. Ke1 Nf4 38. g3 Nxh3 39. Kd2 Kb5 40. Rd6 Kc5 41. Ra6
 Nf2 42. g4 Bd3 43. Re6 1/2-1/2`
-        const pgn = new Pgn(gamePgn)
+        const ignored = new Pgn(gamePgn)
         // Assert.equals(pgn.header.tags.get("Date"), "1992.11.04")
     })
 
@@ -46,7 +45,7 @@ Nf2 42. g4 Bd3 43. Re6 1/2-1/2`
 
     it('should parse comment containing "[" and "]"', () => {
         // https://github.com/DHTMLGoodies/dhtmlchess/blob/master/pgn/1001-brilliant-checkmates.pgn
-        const pgn = new Pgn(`[Event " White to move."]
+        const ignored = new Pgn(`[Event " White to move."]
 [Site "?"]
 [Date "1998.??.??"]
 [Round "?"]
@@ -65,7 +64,7 @@ Nf2 42. g4 Bd3 43. Re6 1/2-1/2`
     })
 
     it('should parse header and history', () => {
-        const pgn = new Pgn(`[Event "Bled-Zagreb-Belgrade Candidates"]
+        const ignored = new Pgn(`[Event "Bled-Zagreb-Belgrade Candidates"]
 [Site "Bled, Zagreb & Belgrade YUG"]
 [Date "1959.09.18"]
 [Round "8"]
@@ -154,7 +153,12 @@ wäre, diese Stellung gegen Tal weiterzuspielen.} ) 1-0`)
         Assert.equals("Schaak opheffen", pgn.header.tags.get(TAGS.White))
         Assert.equals("app 037-1", pgn.header.tags.get(TAGS.Annotator))
     })
-    it.only('should render a simple PGN', () => {
+    it('should parse a pgn with only the header', () => {
+        const gamePgn = `[SetUp "1"]
+[FEN "4k3/pppppppp/8/8/8/8/PPPPPPPP/4K3 w - - 0 1"]`
+        const ignored = new Pgn(gamePgn)
+    })
+    it('should render a simple PGN', () => {
         const gamePgn = `[SetUp "1"]
 [FEN "4k3/pppppppp/8/8/8/8/PPPPPPPP/4K3 w - - 0 1"]
 
