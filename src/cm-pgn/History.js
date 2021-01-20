@@ -10,14 +10,14 @@ function IllegalMoveException(fen, notation) {
 
 export class History {
 
-    constructor(historyString = null, setUp = null, sloppy = false) {
+    constructor(historyString = null, setUpFen = null, sloppy = false) {
         if (!historyString) {
             this.clear()
         } else {
             const parsedMoves = pgnParser.parse(historyString.replace(/\s\s+/g, ' ').replace(/\n/g, " "))
-            this.moves = this.traverse(parsedMoves[0], setUp, null, 1, sloppy)
+            this.moves = this.traverse(parsedMoves[0], setUpFen, null, 1, sloppy)
         }
-        this.setUp = setUp
+        this.setUpFen = setUpFen
     }
 
     clear() {
@@ -121,7 +121,7 @@ export class History {
                 previous = this.moves[this.moves.length - 1]
             }
         }
-        const chess = new Chess(this.setUp ? this.setUp : undefined)
+        const chess = new Chess(this.setUpFen ? this.setUpFen : undefined)
         if (previous) {
             const historyToMove = this.historyToMove(previous)
             for (const moveInHistory of historyToMove) {
