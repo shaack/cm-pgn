@@ -166,4 +166,24 @@ wäre, diese Stellung gegen Tal weiterzuspielen.} ) 1-0`)
         const pgn = new Pgn(gamePgn)
         console.log(pgn.render())
     })
+    it('should parse pgn from https://github.com/shaack/cm-pgn/issues/8', () => {
+        const pgn = new Pgn(`[Event "?"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[FEN "r3kb1r/pbq2ppp/2p2n2/1pn1pP2/4P1P1/2NB1Q2/PPPBN2P/R3K2R w KQkq - 0 1"]
+[SetUp "1"]
+
+1. a4 { [%csl Rh1,Ra8,Gf6,Gc5,Gc3,Gb5,Yb4,Yb7,Yc6,Ra1,Rg2,Rf3,Re4,Rd5][%cal
+Gf6e4,Gc5e4,Gc3d1,Gd1f2,Rb7e4,Re4h1,Rg4g5,Rf6d7]}  ( 1. g5)1... b4 2. Nd1 Nfxe4
+3. Bxe4 Nxe4 4. Qxe4 c5 5. Qc4 Bxh1 6. Bxb4 Be7 7. Ne3 O-O 8. O-O-O Bf3 9. Nd5
+Qb7 10. f6 Bxd5 11. Qxd5 Qxd5 12. Rxd5 gxf6 13. Bxc5 Rfd8 14. Rxd8+ Bxd8 15. b4
+h5 16. h3 hxg4 17. hxg4 Kg7 18. Ng3 Bb6 19. Be7 Kg6 20. c4 Bf2 21. Nf5 Kg5 22.
+Nd6 Kxg4 23. c5 Kf3 24. c6 e4 25. c7 Bd4 26. Nb5 Be5 27. Bd6 e3 28. Bxe5 fxe5
+29. Nd6 Kf2  *`)
+        Assert.equals(58, pgn.history.moves.length)
+    })
 })
