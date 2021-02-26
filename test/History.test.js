@@ -1,6 +1,6 @@
 import {History} from "../src/cm-pgn/History.js"
 import {Pgn} from "../src/cm-pgn/Pgn.js"
-import {Header, TAGS} from "../src/cm-pgn/Header.js"
+// import {Header, TAGS} from "../src/cm-pgn/Header.js"
 import {Assert} from "../lib/cm-web-modules/assert/Assert.js"
 
 describe('History', () => {
@@ -24,6 +24,7 @@ describe('History', () => {
         Assert.equals(history.moves[1].variations[0][0].san, "e6")
         Assert.equals(history.moves[2].nag, "$1")
         Assert.equals(history.moves[2].commentAfter, "Great move!")
+        Assert.equals(history.moves[2].fen, "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
         Assert.equals(history.moves[3].from, "b8")
         Assert.equals(history.moves[3].to, "c6")
     })
@@ -47,7 +48,7 @@ describe('History', () => {
 
     // todo speed optimze
     it('should parse complex history without nag', () => {
-        const history = new History(`1. e4 e6 2. d3 d5 3. Nd2 Nf6 4. g3 {Will man keinen Franzosen auf dem Brett
+        const ignored = new History(`1. e4 e6 2. d3 d5 3. Nd2 Nf6 4. g3 {Will man keinen Franzosen auf dem Brett
                 haben kann man so in eine Art von königsindischen Angriff übergehen} dxe4 {
                 90% aller Spieler die gegen den königsindischen Angriff spielen verlassen sich
                 auf eine mehr oder minder massive Bauernwand mit 3 oder mehr Bauern auf der 5.
