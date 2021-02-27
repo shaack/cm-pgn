@@ -45,7 +45,7 @@ Assert.equals(history.moves[3].to, "c6")
 
 ## Development
 
-This module uses [PEG.js](https://pegjs.org/) for parser generation. The parser (`pgnParser.js`)
+This module uses [PEG.js](https://pegjs.org/) as a parser generation. The parser (`pgnParser.js`)
 in `src/cm-pgn/parser/` is generated from the grammar file `src/grammar/pgn.pegjs`.
 
 To recreate the parser after modification of `src/grammar/pgn.pegjs`, run `bin/generate-parser.sh`.
