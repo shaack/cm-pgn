@@ -6,16 +6,15 @@ This is as **ES6 Module for parsing and rendering of PGNs** ([Portable Game Nota
 
 The API is similar to `history()` of [chess.js](https://github.com/jhlywa/chess.js), but this module **supports variants, nags and comments** in the pgn.
 
-We used the nice grammar file of [PgnViewerJS](https://github.com/mliebelt/PgnViewerJS) of [mliebelt](https://github.com/mliebelt) to create the parser.
+We used the nice grammar file from [PgnViewerJS](https://github.com/mliebelt/PgnViewerJS) of [mliebelt](https://github.com/mliebelt) to create the parser.
 
 ## Usage
 
 Use the `Pgn` class as JS Module:
 
 ```html
-
 <script type="module">
-    import {Pgn} from "./Pgn.mjs";
+    import {Pgn} from "./src/cm-pgn/Pgn.mjs";
     // parse pgn
     const pgn = new Pgn(`[Site "Berlin"]
 [Date "1989.07.02"]
@@ -46,7 +45,7 @@ Assert.equals(history.moves[3].to, "c6")
 
 ## Development
 
-This module uses [PEG.js](https://pegjs.org/) for parser generation. The parser (`pgnParser.mjs`)
+This module uses [PEG.js](https://pegjs.org/) for parser generation. The parser (`pgnParser.js`)
 in `src/cm-pgn/parser/` is generated from the grammar file `src/grammar/pgn.pegjs`.
 
 To recreate the parser after modification of `src/grammar/pgn.pegjs`, run `bin/generate-parser.sh`.
