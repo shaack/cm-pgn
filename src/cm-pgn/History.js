@@ -18,8 +18,6 @@ export class History {
             this.moves = this.traverse(parsedMoves[0], setUpFen, null, 1, sloppy)
         }
         this.setUpFen = setUpFen
-        /** @deprecated, use setUpFen instead */
-        this.setUp = setUpFen
     }
 
     clear() {
@@ -158,7 +156,7 @@ export class History {
     render() {
         // TODO Variants
         let rendered = "";
-        let i = 0
+        // let i = 0
         for (const move of this.moves) {
            rendered += move.san + " "
         }
