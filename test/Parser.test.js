@@ -1,3 +1,4 @@
+import {Assert} from "../lib/cm-web-modules/assert/Assert.js"
 import {pgnParser} from "../src/cm-pgn/parser/pgnParser.js"
 
 describe('Parser', () => {
@@ -86,6 +87,7 @@ describe('Parser', () => {
                 eliminiert die Kontrolle uber d1} 28. c4 (28. Nxf3 Bh3+ 29. Ng1 Bxf2) 28...
                 gxf6 (28... gxf6 29. Qg4+ Kh8 30. Qxf3 (30. Nxf3 Bh3+ 31. Ng1 Bxf2) 30... Bh3+)
                 0-1`
-        const parsedMoves = pgnParser.parse(historyString.replace(/\s\s+/g, ' ').replace(/\n/g, " "))
+        const parsedMoves = pgnParser.parse(historyString.replace(/\s\s+/g, " ").replace(/\n/g, " "))
+        Assert.equals(parsedMoves[0].length, 57)
     })
 })
