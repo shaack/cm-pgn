@@ -14,7 +14,7 @@ export class History {
         if (!historyString) {
             this.clear()
         } else {
-            const parsedMoves = pgnParser.parse(historyString.replace(/\s\s+/g, ' ').replace(/\n/g, " "))
+            const parsedMoves = pgnParser.parse(historyString.replace(/\s\s+/g, " ").replace(/\n/g, " "))
             this.moves = this.traverse(parsedMoves[0], setUpFen, null, 1, sloppy)
         }
         this.setUpFen = setUpFen

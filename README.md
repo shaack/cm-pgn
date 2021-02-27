@@ -17,10 +17,11 @@ Use the `Pgn` class as JS Module:
     import {Pgn} from "./src/cm-pgn/Pgn.js";
     // parse pgn
     const pgn = new Pgn(`[Site "Berlin"]
-                         [Date "1989.07.02"]
-                         [White "Haack, Stefan"]
-                         [Black "Maier, Karsten"]
-                         1. e2-e4 e7e5 (e6) 2. Nf3 $1 {Great move!} Nc6`);
+[Date "1989.07.02"]
+[White "Haack, Stefan"]
+[Black "Maier, Karsten"]
+
+1. e4 e5 (e6) 2. Nf3 $1 {Great move!} Nc6 *`);
 </script>
 ```
 
