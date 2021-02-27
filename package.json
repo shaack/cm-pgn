@@ -29,7 +29,7 @@
     "pegjs": "^0.10.0"
   },
   "dependencies": {
-    "chess.js": "^0.10.3",
+    "chess.mjs": "^1.1.0",
     "cm-web-modules": "^1.3.4"
   }
 }
