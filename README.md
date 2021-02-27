@@ -6,7 +6,7 @@ This is as **ES6 Module for parsing and rendering of PGNs** ([Portable Game Nota
 
 The API is similar to `history()` of [chess.js](https://github.com/jhlywa/chess.js), but this module **supports variants, nags and comments** in the pgn.
 
-We used the nice grammar file of [PgnViewerJS](https://github.com/mliebelt/PgnViewerJS) of [mliebelt](https://github.com/mliebelt) to create the parser.
+We used the nice grammar file from [PgnViewerJS](https://github.com/mliebelt/PgnViewerJS) of [mliebelt](https://github.com/mliebelt) to create the parser.
 
 ## Usage
 
