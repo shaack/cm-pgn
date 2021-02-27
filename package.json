@@ -2,7 +2,7 @@
   "name": "cm-pgn",
   "version": "1.7.11",
   "description": "Module for parsing and rendering of PGNs (Portable Game Notation)",
-  "main": "src/cm-pgn/Pgn.js",
+  "main": "src/cm-pgn/Pgn.mjs",
   "scripts": {
     "postinstall": "node postinstall.js",
     "test": "echo 'request ./test/tests.html for testing'"

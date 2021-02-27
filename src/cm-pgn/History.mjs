@@ -1,4 +1,4 @@
-import {pgnParser} from "./parser/pgnParser.js"
+import {pgnParser} from "./parser/pgnParser.mjs"
 
 function IllegalMoveException(fen, notation) {
     this.fen = fen

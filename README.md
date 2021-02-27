@@ -13,8 +13,9 @@ We used the nice grammar file of [PgnViewerJS](https://github.com/mliebelt/PgnVi
 Use the `Pgn` class as JS Module:
 
 ```html
+
 <script type="module">
-    import {Pgn} from "./src/cm-pgn/Pgn.js";
+    import {Pgn} from "./Pgn.mjs";
     // parse pgn
     const pgn = new Pgn(`[Site "Berlin"]
 [Date "1989.07.02"]
@@ -45,7 +46,7 @@ Assert.equals(history.moves[3].to, "c6")
 
 ## Development
 
-This module uses [PEG.js](https://pegjs.org/) for parser generation. The parser (`pgnParser.js`)
+This module uses [PEG.js](https://pegjs.org/) for parser generation. The parser (`pgnParser.mjs`)
 in `src/cm-pgn/parser/` is generated from the grammar file `src/grammar/pgn.pegjs`.
 
 To recreate the parser after modification of `src/grammar/pgn.pegjs`, run `bin/generate-parser.sh`.

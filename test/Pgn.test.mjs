@@ -1,8 +1,8 @@
 // import assert from 'assert';
 
-import {Pgn} from "../src/cm-pgn/Pgn.js"
+import {Pgn} from "../src/cm-pgn/Pgn.mjs"
 import {Assert} from "../lib/cm-web-modules/assert/Assert.js"
-import {TAGS} from "../src/cm-pgn/Header.js"
+import {TAGS} from "../src/cm-pgn/Header.mjs"
 
 describe('Pgn', () => {
 
