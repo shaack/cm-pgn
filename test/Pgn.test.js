@@ -193,6 +193,15 @@ Nd6 Kxg4 23. c5 Kf3 24. c6 e4 25. c7 Bd4 26. Nb5 Be5 27. Bd6 e3 28. Bxe5 fxe5
 [Black "Maier, Karsten"]
 
 1. e4 e5 (e6) 2. Nf3 $1 {Great move!} Nc6 *`)
-        Assert.equals(4, pgn.history.moves.length)
+        const history = pgn.history
+        Assert.equals(4, history.moves.length)
+        Assert.equals(history.moves[0].san, "e4")
+        Assert.equals(history.moves[1].variations.length, 1)
+        Assert.equals(history.moves[1].variations[0][0].san, "e6")
+        Assert.equals(history.moves[2].nag, "$1")
+        Assert.equals(history.moves[2].commentAfter, "Great move!")
+        Assert.equals(history.moves[2].fen, "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
+        Assert.equals(history.moves[3].from, "b8")
+        Assert.equals(history.moves[3].to, "c6")
     })
 })
