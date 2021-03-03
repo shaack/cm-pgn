@@ -1,5 +1,5 @@
-import {Header, TAGS} from "./Header.mjs"
-import {History} from "./History.mjs"
+import {Header, TAGS} from "./Header.js"
+import {History} from "./History.js"
 
 export class Pgn {
 

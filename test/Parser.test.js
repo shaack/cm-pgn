@@ -1,54 +1,9 @@
-import {History} from "../src/cm-pgn/History.mjs"
-import {Pgn} from "../src/cm-pgn/Pgn.mjs"
-// import {Header, TAGS} from "../src/cm-pgn/Header.js"
 import {Assert} from "../lib/cm-web-modules/assert/Assert.js"
+import {pgnParser} from "../src/cm-pgn/parser/pgnParser.js"
 
-describe('History', () => {
-
-    it('should parse sloppy history', () => {
-        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 Nc6", null, true)
-        Assert.equals(history.moves.length, 4)
-    })
-
-    it('should parse sloppy history with empty comment', () => {
-        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {} Nc6", null, true)
-        Assert.equals(history.moves.length, 4)
-    })
-
-    it('should parse sloppy history with nag', () => {
-        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6", null, true)
-
-        Assert.equals(4, history.moves.length)
-        Assert.equals(history.moves[0].san, "e4")
-        Assert.equals(history.moves[1].variations.length, 1)
-        Assert.equals(history.moves[1].variations[0][0].san, "e6")
-        Assert.equals(history.moves[2].nag, "$1")
-        Assert.equals(history.moves[2].commentAfter, "Great move!")
-        Assert.equals(history.moves[2].fen, "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
-        Assert.equals(history.moves[3].from, "b8")
-        Assert.equals(history.moves[3].to, "c6")
-    })
-
-    it('should parse history with variant at first move and checkmates', () => {
-        const pgn = new Pgn(`[SetUp "1"]
-            [FEN "6k1/8/8/8/8/8/7R/5K1R w - - 0 1"]
-
-            1. Rf2 (1. Rh7 Kf8 2. Rg1 Ke8 3. Rg8#) 1... Kg7 2. Rg1+ Kh6 3. Rh2# *`)
-
-        Assert.equals(5, pgn.history.moves.length)
-        Assert.equals(pgn.history.moves[0].variations.length, 1)
-        Assert.equals(pgn.history.moves[0].variations[0][0].san, "Rh7")
-        Assert.equals(pgn.history.moves[0].variations[0][0].gameOver, undefined)
-        Assert.equals(pgn.history.moves[0].variations[0][4].san, "Rg8#")
-        Assert.equals(pgn.history.moves[0].variations[0][4].gameOver, true)
-        Assert.equals(pgn.history.moves[0].variations[0][4].inCheckmate, true)
-        Assert.equals(pgn.history.moves[3].inCheckmate, undefined)
-        Assert.equals(pgn.history.moves[4].inCheckmate, true)
-    })
-
-    // todo speed optimze
+describe('Parser', () => {
     it('should parse complex history without nag', () => {
-        const ignored = new History(`1. e4 e6 2. d3 d5 3. Nd2 Nf6 4. g3 {Will man keinen Franzosen auf dem Brett
+        const historyString = `1. e4 e6 2. d3 d5 3. Nd2 Nf6 4. g3 {Will man keinen Franzosen auf dem Brett
                 haben kann man so in eine Art von königsindischen Angriff übergehen} dxe4 {
                 90% aller Spieler die gegen den königsindischen Angriff spielen verlassen sich
                 auf eine mehr oder minder massive Bauernwand mit 3 oder mehr Bauern auf der 5.
@@ -131,30 +86,8 @@ describe('History', () => {
                 wie vorher lässt sich das matt nach Lh3 durch Ld1 verhindern} Nxf3 {
                 eliminiert die Kontrolle uber d1} 28. c4 (28. Nxf3 Bh3+ 29. Ng1 Bxf2) 28...
                 gxf6 (28... gxf6 29. Qg4+ Kh8 30. Qxf3 (30. Nxf3 Bh3+ 31. Ng1 Bxf2) 30... Bh3+)
-                0-1`)
-            // console.log(history.moves);
+                0-1`
+        const parsedMoves = pgnParser.parse(historyString.replace(/\s\s+/g, " ").replace(/\n/g, " "))
+        Assert.equals(parsedMoves[0].length, 57)
     })
-
-    it('should add a few moves to an empty history', () => {
-        const history = new History()
-        history.addMove("e4")
-        history.addMove("e6")
-        history.addMove("d3")
-        history.addMove("d5")
-        history.addMove("Nd2")
-    })
-
-    it('should add a variant and render it', () => {
-        const history = new History()
-        const ply1 = history.addMove("e4")
-        history.addMove("e6")
-        history.addMove("d3")
-        history.addMove("d5")
-        history.addMove("Nd2")
-
-        history.addMove("e5", ply1)
-
-        Assert.equals(history.moves[1].variations.length, 1)
-    })
-
 })

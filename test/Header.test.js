@@ -1,4 +1,4 @@
-import {Header, TAGS} from "../src/cm-pgn/Header.mjs"
+import {Header, TAGS} from "../src/cm-pgn/Header.js"
 import {Assert} from "../lib/cm-web-modules/assert/Assert.js"
 
 describe('Header', () => {

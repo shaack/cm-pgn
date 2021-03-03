@@ -13,8 +13,9 @@ We used the nice grammar file from [PgnViewerJS](https://github.com/mliebelt/Pgn
 Use the `Pgn` class as JS Module:
 
 ```html
+
 <script type="module">
-    import {Pgn} from "./src/cm-pgn/Pgn.mjs";
+    import {Pgn} from "./Pgn.js";
     // parse pgn
     const pgn = new Pgn(`[Site "Berlin"]
 [Date "1989.07.02"]
