@@ -1,5 +1,5 @@
+import {describe, it, assert} from "../node_modules/teevi/src/teevi.js"
 import {Header, TAGS} from "../src/cm-pgn/Header.js"
-import {Assert} from "../lib/cm-web-modules/assert/Assert.js"
 
 describe('Header', () => {
     it('should parse header', () => {
@@ -10,8 +10,8 @@ describe('Header', () => {
 [White "Fischer, Robert J."]
 [Black "Spassky, Boris V."]
 [Result "1/2-1/2"]`)
-        Assert.equals(header.tags.size, 7)
-        Assert.equals(header.tags.get(TAGS.Event), "F/S Return Match")
+        assert.equals(header.tags.size, 7)
+        assert.equals(header.tags.get(TAGS.Event), "F/S Return Match")
     })
     it('should parse and render header', () => {
         const content = `[Event "F/S Return Match"]
@@ -23,6 +23,6 @@ describe('Header', () => {
 [Result "1/2-1/2"]
 `
         const header = new Header(content)
-        Assert.equals(header.render(), content)
+        assert.equals(header.render(), content)
     })
 })

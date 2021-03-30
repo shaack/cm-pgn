@@ -1,32 +1,31 @@
+import {describe, it, assert} from "../node_modules/teevi/src/teevi.js"
 import {History} from "../src/cm-pgn/History.js"
 import {Pgn} from "../src/cm-pgn/Pgn.js"
-// import {Header, TAGS} from "../src/cm-pgn/Header.js"
-import {Assert} from "../lib/cm-web-modules/assert/Assert.js"
 
 describe('History', () => {
 
     it('should parse sloppy history', () => {
         const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 Nc6", null, true)
-        Assert.equals(history.moves.length, 4)
+        assert.equals(history.moves.length, 4)
     })
 
     it('should parse sloppy history with empty comment', () => {
         const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {} Nc6", null, true)
-        Assert.equals(history.moves.length, 4)
+        assert.equals(history.moves.length, 4)
     })
 
     it('should parse sloppy history with nag', () => {
         const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6", null, true)
 
-        Assert.equals(4, history.moves.length)
-        Assert.equals(history.moves[0].san, "e4")
-        Assert.equals(history.moves[1].variations.length, 1)
-        Assert.equals(history.moves[1].variations[0][0].san, "e6")
-        Assert.equals(history.moves[2].nag, "$1")
-        Assert.equals(history.moves[2].commentAfter, "Great move!")
-        Assert.equals(history.moves[2].fen, "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
-        Assert.equals(history.moves[3].from, "b8")
-        Assert.equals(history.moves[3].to, "c6")
+        assert.equals(4, history.moves.length)
+        assert.equals(history.moves[0].san, "e4")
+        assert.equals(history.moves[1].variations.length, 1)
+        assert.equals(history.moves[1].variations[0][0].san, "e6")
+        assert.equals(history.moves[2].nag, "$1")
+        assert.equals(history.moves[2].commentAfter, "Great move!")
+        assert.equals(history.moves[2].fen, "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
+        assert.equals(history.moves[3].from, "b8")
+        assert.equals(history.moves[3].to, "c6")
     })
 
     it('should parse history with variant at first move and checkmates', () => {
@@ -35,15 +34,15 @@ describe('History', () => {
 
             1. Rf2 (1. Rh7 Kf8 2. Rg1 Ke8 3. Rg8#) 1... Kg7 2. Rg1+ Kh6 3. Rh2# *`)
 
-        Assert.equals(5, pgn.history.moves.length)
-        Assert.equals(pgn.history.moves[0].variations.length, 1)
-        Assert.equals(pgn.history.moves[0].variations[0][0].san, "Rh7")
-        Assert.equals(pgn.history.moves[0].variations[0][0].gameOver, undefined)
-        Assert.equals(pgn.history.moves[0].variations[0][4].san, "Rg8#")
-        Assert.equals(pgn.history.moves[0].variations[0][4].gameOver, true)
-        Assert.equals(pgn.history.moves[0].variations[0][4].inCheckmate, true)
-        Assert.equals(pgn.history.moves[3].inCheckmate, undefined)
-        Assert.equals(pgn.history.moves[4].inCheckmate, true)
+        assert.equals(5, pgn.history.moves.length)
+        assert.equals(pgn.history.moves[0].variations.length, 1)
+        assert.equals(pgn.history.moves[0].variations[0][0].san, "Rh7")
+        assert.equals(pgn.history.moves[0].variations[0][0].gameOver, undefined)
+        assert.equals(pgn.history.moves[0].variations[0][4].san, "Rg8#")
+        assert.equals(pgn.history.moves[0].variations[0][4].gameOver, true)
+        assert.equals(pgn.history.moves[0].variations[0][4].inCheckmate, true)
+        assert.equals(pgn.history.moves[3].inCheckmate, undefined)
+        assert.equals(pgn.history.moves[4].inCheckmate, true)
     })
 
     // todo speed optimze
@@ -154,7 +153,7 @@ describe('History', () => {
 
         history.addMove("e5", ply1)
 
-        Assert.equals(history.moves[1].variations.length, 1)
+        assert.equals(history.moves[1].variations.length, 1)
     })
 
 })

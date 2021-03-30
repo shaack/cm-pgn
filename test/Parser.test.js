@@ -1,4 +1,4 @@
-import {Assert} from "../lib/cm-web-modules/assert/Assert.js"
+import {describe, it, assert} from "../node_modules/teevi/src/teevi.js"
 import {pgnParser} from "../src/cm-pgn/parser/pgnParser.js"
 
 describe('Parser', () => {
@@ -88,6 +88,6 @@ describe('Parser', () => {
                 gxf6 (28... gxf6 29. Qg4+ Kh8 30. Qxf3 (30. Nxf3 Bh3+ 31. Ng1 Bxf2) 30... Bh3+)
                 0-1`
         const parsedMoves = pgnParser.parse(historyString.replace(/\s\s+/g, " ").replace(/\n/g, " "))
-        Assert.equals(parsedMoves[0].length, 57)
+        assert.equals(parsedMoves[0].length, 57)
     })
 })

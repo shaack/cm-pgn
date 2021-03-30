@@ -1,15 +1,13 @@
-// import assert from 'assert';
-
+import {describe, it, assert} from "../node_modules/teevi/src/teevi.js"
 import {Pgn} from "../src/cm-pgn/Pgn.js"
-import {Assert} from "../lib/cm-web-modules/assert/Assert.js"
 import {TAGS} from "../src/cm-pgn/Header.js"
 
 describe('Pgn', () => {
 
     it('should create an empty pgn', () => {
         const pgn = new Pgn()
-        Assert.equals(pgn.history.moves.length, 0)
-        Assert.equals(pgn.header.tags.size, 0)
+        assert.equals(pgn.history.moves.length, 0)
+        assert.equals(pgn.header.tags.size, 0)
     })
 
     it('should load a simple game', () => {
@@ -30,7 +28,7 @@ hxg5 29. b3 Ke6 30. a3 Kd6 31. axb4 cxb4 32. Ra5 Nd5 33. f3 Bc8 34. Kf2 Bf5
 35. Ra7 g6 36. Ra6+ Kc5 37. Ke1 Nf4 38. g3 Nxh3 39. Kd2 Kb5 40. Rd6 Kc5 41. Ra6
 Nf2 42. g4 Bd3 43. Re6 1/2-1/2`
         const ignored = new Pgn(gamePgn)
-        // Assert.equals(pgn.header.tags.get("Date"), "1992.11.04")
+        // assert.equals(pgn.header.tags.get("Date"), "1992.11.04")
     })
 
     it('should load a game with SetUp and FEN', () => {
@@ -39,8 +37,8 @@ Nf2 42. g4 Bd3 43. Re6 1/2-1/2`
 
 1. e4`
         const pgn = new Pgn(gamePgn)
-        Assert.equals(pgn.header.tags.get("SetUp"), "1")
-        Assert.equals(pgn.history.moves[0].fen, "4k3/pppppppp/8/8/4P3/8/PPPP1PPP/4K3 b - e3 0 1")
+        assert.equals(pgn.header.tags.get("SetUp"), "1")
+        assert.equals(pgn.history.moves[0].fen, "4k3/pppppppp/8/8/4P3/8/PPPP1PPP/4K3 b - e3 0 1")
     })
 
     it('should parse comment containing "[" and "]"', () => {
@@ -149,9 +147,9 @@ wäre, diese Stellung gegen Tal weiterzuspielen.} ) 1-0`)
 
 1... Bf8 (1... Qf8? 2. Qxf8+ Bxf8 3. exd4) 2. exd4 Qxd4+ {%Q} 3. Kh1 Bh3 
 0-1`)
-        Assert.equals(5, pgn.history.moves.length)
-        Assert.equals("Schaak opheffen", pgn.header.tags.get(TAGS.White))
-        Assert.equals("app 037-1", pgn.header.tags.get(TAGS.Annotator))
+        assert.equals(5, pgn.history.moves.length)
+        assert.equals("Schaak opheffen", pgn.header.tags.get(TAGS.White))
+        assert.equals("app 037-1", pgn.header.tags.get(TAGS.Annotator))
     })
     it('should parse a pgn with only the header', () => {
         const gamePgn = `[SetUp "1"]
@@ -184,7 +182,7 @@ Qb7 10. f6 Bxd5 11. Qxd5 Qxd5 12. Rxd5 gxf6 13. Bxc5 Rfd8 14. Rxd8+ Bxd8 15. b4
 h5 16. h3 hxg4 17. hxg4 Kg7 18. Ng3 Bb6 19. Be7 Kg6 20. c4 Bf2 21. Nf5 Kg5 22.
 Nd6 Kxg4 23. c5 Kf3 24. c6 e4 25. c7 Bd4 26. Nb5 Be5 27. Bd6 e3 28. Bxe5 fxe5
 29. Nd6 Kf2  *`)
-        Assert.equals(58, pgn.history.moves.length)
+        assert.equals(58, pgn.history.moves.length)
     })
     it('should parse the example in the README.md', () => {
         const pgn = new Pgn(`[Site "Berlin"]
@@ -194,14 +192,14 @@ Nd6 Kxg4 23. c5 Kf3 24. c6 e4 25. c7 Bd4 26. Nb5 Be5 27. Bd6 e3 28. Bxe5 fxe5
 
 1. e4 e5 (e6) 2. Nf3 $1 {Great move!} Nc6 *`)
         const history = pgn.history
-        Assert.equals(4, history.moves.length)
-        Assert.equals(history.moves[0].san, "e4")
-        Assert.equals(history.moves[1].variations.length, 1)
-        Assert.equals(history.moves[1].variations[0][0].san, "e6")
-        Assert.equals(history.moves[2].nag, "$1")
-        Assert.equals(history.moves[2].commentAfter, "Great move!")
-        Assert.equals(history.moves[2].fen, "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
-        Assert.equals(history.moves[3].from, "b8")
-        Assert.equals(history.moves[3].to, "c6")
+        assert.equals(4, history.moves.length)
+        assert.equals(history.moves[0].san, "e4")
+        assert.equals(history.moves[1].variations.length, 1)
+        assert.equals(history.moves[1].variations[0][0].san, "e6")
+        assert.equals(history.moves[2].nag, "$1")
+        assert.equals(history.moves[2].commentAfter, "Great move!")
+        assert.equals(history.moves[2].fen, "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
+        assert.equals(history.moves[3].from, "b8")
+        assert.equals(history.moves[3].to, "c6")
     })
 })

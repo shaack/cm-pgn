@@ -2,21 +2,15 @@
 <head>
     <meta charset="utf-8">
     <title>cm-pgn tests</title>
-    <link href="../node_modules/mocha/mocha.css" rel="stylesheet" />
 </head>
 <body>
-<div id="mocha"></div>
-
-<script src="../node_modules/mocha/mocha.js"></script>
-
-<script>mocha.setup('bdd')</script>
-<script type="module" src="Parser.test.js"></script>
-<script type="module" src="Header.test.js"></script>
-<script type="module" src="History.test.js"></script>
-<script type="module" src="Pgn.test.js"></script>
 <script type="module">
-    mocha.checkLeaks();
-    mocha.run();
+    import {teevi} from "../node_modules/teevi/src/teevi.js"
+    import "./Parser.test.js"
+    import "./Header.test.js"
+    import "./History.test.js"
+    import "./Pgn.test.js"
+    teevi.run()
 </script>
 </body>
 </html>
