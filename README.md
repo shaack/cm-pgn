@@ -8,6 +8,10 @@ The API is similar to `history()` of [chess.js](https://github.com/jhlywa/chess.
 
 We used the nice grammar file from [PgnViewerJS](https://github.com/mliebelt/PgnViewerJS) of [mliebelt](https://github.com/mliebelt) to create the parser.
 
+## Install
+
+`npm install cm-pgn`
+
 ## Usage
 
 Use the `Pgn` class as JS Module:
@@ -15,7 +19,7 @@ Use the `Pgn` class as JS Module:
 ```html
 
 <script type="module">
-    import {Pgn} from "./Pgn.js";
+    import {Pgn} from "./PATH/TO/cm-pgn/src/Pgn.js";
     // parse pgn
     const pgn = new Pgn(`[Site "Berlin"]
 [Date "1989.07.02"]
