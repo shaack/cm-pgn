@@ -30,6 +30,6 @@
   },
   "dependencies": {
     "chess.mjs": "^1.1.0",
-    "cm-web-modules": "^1.3.4"
+    "modrator": "^1.1.7"
   }
 }

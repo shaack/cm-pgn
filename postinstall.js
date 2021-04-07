@@ -3,7 +3,7 @@
  * License: MIT, see file 'LICENSE'
  */
 
-const LibraryManager = require("cm-web-modules/src/LibraryManager.js")
-const manager = new LibraryManager(__dirname)
+const Modrator = require("modrator")
+const modrator = new Modrator()
 
-manager.addProject("chess.mjs")
+modrator.addToLibrary("chess.mjs")
