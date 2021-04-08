@@ -25,7 +25,7 @@ export class History {
         this.moves = []
     }
 
-    traverse(parsedMoves, fen, parent = null, ply = 1, sloppy = false) {
+    traverse(parsedMoves, fen, parent = undefined, ply = 1, sloppy = false) {
         const chess = fen ? new Chess(fen) : new Chess() // chess.js must be included in HTML
         const moves = []
         let previousMove = parent
@@ -33,13 +33,13 @@ export class History {
             if (parsedMove.notation) {
                 const notation = parsedMove.notation.notation
                 const move = chess.move(notation, {sloppy: sloppy})
-                // console.log("parsedMove", ply, parsedMoves.length, previousMove ? previousMove.san : null, move.san, parent ? parent.san : null)
+                // console.log("parsedMove", ply, parsedMoves.length, previousMove ? previousMove.san : undefined, move.san, parent ? parent.san : undefined)
                 if (move) {
                     if (previousMove) {
                         move.previous = previousMove
                         previousMove.next = move
                     } else {
-                        move.previous = null
+                        move.previous = undefined
                     }
                     move.ply = ply
                     this.fillMoveFromChessState(move, chess)
@@ -116,7 +116,7 @@ export class History {
         return moves.reverse()
     }
 
-    addMove(notation, previous = null, sloppy = true) {
+    addMove(notation, previous = undefined, sloppy = true) {
         if (!previous) {
             if (this.moves.length > 0) {
                 previous = this.moves[this.moves.length - 1]
