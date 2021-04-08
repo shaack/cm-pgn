@@ -5,7 +5,7 @@
   "main": "src/cm-pgn/Pgn.js",
   "scripts": {
     "postinstall": "node postinstall.js",
-    "test": "echo 'request ./test/tests.html for testing'"
+    "test": "echo 'request test/index.html for testing'"
   },
   "repository": {
     "type": "git",

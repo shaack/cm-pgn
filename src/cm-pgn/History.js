@@ -11,12 +11,12 @@ function IllegalMoveException(fen, notation) {
 
 export class History {
 
-    constructor(historyString = null, setUpFen = null, sloppy = false) {
+    constructor(historyString = undefined, setUpFen = undefined, sloppy = false) {
         if (!historyString) {
             this.clear()
         } else {
             const parsedMoves = pgnParser.parse(historyString.replace(/\s\s+/g, " ").replace(/\n/g, " "))
-            this.moves = this.traverse(parsedMoves[0], setUpFen, null, 1, sloppy)
+            this.moves = this.traverse(parsedMoves[0], setUpFen, undefined, 1, sloppy)
         }
         this.setUpFen = setUpFen
     }

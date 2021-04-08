@@ -57,7 +57,7 @@ To recreate the parser after modification of `src/grammar/pgn.pegjs`, run `bin/g
 
 ## Testing
 
-[Run unittests](https://shaack.com/projekte/cm-pgn/test/tests.html)
+[Run the unit tests](https://shaack.com/projekte/cm-pgn/test)
 
 ## External Links
 

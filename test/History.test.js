@@ -5,17 +5,17 @@ import {Pgn} from "../src/cm-pgn/Pgn.js"
 describe('History', () => {
 
     it('should parse sloppy history', () => {
-        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 Nc6", null, true)
+        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 Nc6", undefined, true)
         assert.equals(history.moves.length, 4)
     })
 
     it('should parse sloppy history with empty comment', () => {
-        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {} Nc6", null, true)
+        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {} Nc6", undefined, true)
         assert.equals(history.moves.length, 4)
     })
 
     it('should parse sloppy history with nag', () => {
-        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6", null, true)
+        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6", undefined, true)
 
         assert.equals(4, history.moves.length)
         assert.equals(history.moves[0].san, "e4")
