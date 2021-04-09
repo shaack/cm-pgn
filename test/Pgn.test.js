@@ -184,7 +184,7 @@ Nd6 Kxg4 23. c5 Kf3 24. c6 e4 25. c7 Bd4 26. Nb5 Be5 27. Bd6 e3 28. Bxe5 fxe5
 29. Nd6 Kf2  *`)
         assert.equals(58, pgn.history.moves.length)
     })
-    it('should parse the example in the README.md', () => {
+    it.only('should parse the example in the README.md', () => {
         const pgn = new Pgn(`[Site "Berlin"]
 [Date "1989.07.02"]
 [White "Haack, Stefan"]
@@ -201,5 +201,9 @@ Nd6 Kxg4 23. c5 Kf3 24. c6 e4 25. c7 Bd4 26. Nb5 Be5 27. Bd6 e3 28. Bxe5 fxe5
         assert.equals(history.moves[2].fen, "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
         assert.equals(history.moves[3].from, "b8")
         assert.equals(history.moves[3].to, "c6")
+        assert.equals(history.moves[3].san, "Nc6")
+        assert.equals(history.moves[3].previous.san, "Nf3")
+        assert.equals(history.moves[3].previous.next.san, "Nc6")
+        console.log(pgn)
     })
 })

@@ -19,20 +19,20 @@ Use the `Pgn` class as JS Module:
 ```html
 
 <script type="module">
-    import {Pgn} from "./PATH/TO/cm-pgn/src/Pgn.js";
+    import {Pgn} from "./PATH/TO/cm-pgn/src/Pgn.js"
     // parse pgn
     const pgn = new Pgn(`[Site "Berlin"]
 [Date "1989.07.02"]
 [White "Haack, Stefan"]
 [Black "Maier, Karsten"]
 
-1. e4 e5 (e6) 2. Nf3 $1 {Great move!} Nc6 *`);
+1. e4 e5 (e6) 2. Nf3 $1 {Great move!} Nc6 *`)
 </script>
 ```
 
 ## Data structure
 
-The `pgn` has a `pgn.header` and `pgn.history`. 
+The `pgn` has a `pgn.header` and a `pgn.history`. 
 
 ### pgn.header
 
@@ -52,10 +52,42 @@ pgn.header.tags = {
 The moves are stored in an array. Every element of the array has the following structure
 
 ```js
-pgn.history[i] = {
-    
+pgn.history.moves[i] = {
+    color: "w", // the moving color
+    fen: "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1", // the fen after that move
+    flags: "b", // the flags, like described below
+    from: "e2", // the square from
+    next: {color: "b", from: "e7", to: "e6", flags: "n", piece: "p", /*…*/}, // a pointer to the next move 
+    piece: "p", // the piece type 
+    ply: 1, // the ply count
+    previous: undefined, // a pointer to the previous move
+    san: "e4", // the move in SAN notation
+    to: "e4", // the square to
+    variation: (4) [{/*…*/}, {/*…*/}, {/*…*/}, {/*…*/}], // a pointer to the begin of the current variation
+    variations: [] // all variations starting with that move
 }
 ```
+
+#### pgn.history.moves[i].flags
+
+- 'n' - a non-capture
+- 'b' - a pawn push of two squares
+- 'e' - an en passant capture
+- 'c' - a standard capture
+- 'p' - a promotion
+- 'k' - kingside castling
+- 'q' - queenside castling
+
+#### pgn.history.moves[i].piece
+
+- 'p' - pawn
+- 'n' - knight
+- 'b' - bishop
+- 'r' - root
+- 'q' - queen
+- 'k' - king
+
+#### Examples
 
 ```js
 const history = pgn.history
@@ -68,6 +100,9 @@ assert.equals(history.moves[2].commentAfter, "Great move!")
 assert.equals(history.moves[2].fen, "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
 assert.equals(history.moves[3].from, "b8")
 assert.equals(history.moves[3].to, "c6")
+assert.equals(history.moves[3].san, "Nc6")
+assert.equals(history.moves[3].previous.san, "Nf3")
+assert.equals(history.moves[3].previous.next.san, "Nc6")
 ```
 
 ## Development
