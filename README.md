@@ -49,7 +49,7 @@ pgn.header.tags = {
 
 ### pgn.history
 
-The moves are stored in an array. Every element of the array has the following structure
+The moves are stored in an array. Every element of that array has the following structure
 
 ```js
 pgn.history.moves[i] = {

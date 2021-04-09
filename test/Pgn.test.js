@@ -184,7 +184,7 @@ Nd6 Kxg4 23. c5 Kf3 24. c6 e4 25. c7 Bd4 26. Nb5 Be5 27. Bd6 e3 28. Bxe5 fxe5
 29. Nd6 Kf2  *`)
         assert.equals(58, pgn.history.moves.length)
     })
-    it.only('should parse the example in the README.md', () => {
+    it('should parse the example in the README.md', () => {
         const pgn = new Pgn(`[Site "Berlin"]
 [Date "1989.07.02"]
 [White "Haack, Stefan"]
