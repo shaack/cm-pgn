@@ -30,12 +30,34 @@ Use the `Pgn` class as JS Module:
 </script>
 ```
 
-## Api
+## Data structure
 
-After parsing a PGN you can access all moves and move variants via the Array `pgn.history`.
-The header fields are stored in the Map `pgn.header`.
+The `pgn` has a `pgn.header` and `pgn.history`. 
 
-```javascript
+### pgn.header
+
+The header keeps the PGN header elements as a key value object.
+
+```js
+pgn.header.tags = {
+    Site: "Berlin",
+    Date: "1989.07.02",
+    White: "Haack, Stefan",
+    Black: "Maier, Karsten"
+}
+```
+
+### pgn.history
+
+The moves are stored in an array. Every element of the array has the following structure
+
+```js
+pgn.history[i] = {
+    
+}
+```
+
+```js
 const history = pgn.history
 assert.equals(4, history.moves.length)
 assert.equals(history.moves[0].san, "e4")

@@ -43,6 +43,7 @@ describe('History', () => {
         assert.equals(pgn.history.moves[0].variations[0][4].inCheckmate, true)
         assert.equals(pgn.history.moves[3].inCheckmate, undefined)
         assert.equals(pgn.history.moves[4].inCheckmate, true)
+        console.log(pgn)
     })
 
     // todo speed optimze

@@ -7,7 +7,7 @@ describe('Pgn', () => {
     it('should create an empty pgn', () => {
         const pgn = new Pgn()
         assert.equals(pgn.history.moves.length, 0)
-        assert.equals(pgn.header.tags.size, 0)
+        assert.equals(Object.keys(pgn.header.tags).length, 0)
     })
 
     it('should load a simple game', () => {
@@ -37,7 +37,7 @@ Nf2 42. g4 Bd3 43. Re6 1/2-1/2`
 
 1. e4`
         const pgn = new Pgn(gamePgn)
-        assert.equals(pgn.header.tags.get("SetUp"), "1")
+        assert.equals(pgn.header.tags[TAGS.SetUp], "1")
         assert.equals(pgn.history.moves[0].fen, "4k3/pppppppp/8/8/4P3/8/PPPP1PPP/4K3 b - e3 0 1")
     })
 
@@ -148,8 +148,8 @@ wäre, diese Stellung gegen Tal weiterzuspielen.} ) 1-0`)
 1... Bf8 (1... Qf8? 2. Qxf8+ Bxf8 3. exd4) 2. exd4 Qxd4+ {%Q} 3. Kh1 Bh3 
 0-1`)
         assert.equals(5, pgn.history.moves.length)
-        assert.equals("Schaak opheffen", pgn.header.tags.get(TAGS.White))
-        assert.equals("app 037-1", pgn.header.tags.get(TAGS.Annotator))
+        assert.equals("Schaak opheffen", pgn.header.tags[TAGS.White])
+        assert.equals("app 037-1", pgn.header.tags[TAGS.Annotator])
     })
     it('should parse a pgn with only the header', () => {
         const gamePgn = `[SetUp "1"]

@@ -52,21 +52,21 @@ export class Header {
             for (let i = 0; i < rows.length; i++) {
                 let tag = rows[i].match(/\[(\w+)\s+"([^"]+)"/)
                 if (tag) {
-                    this.tags.set(tag[1], tag[2])
+                    this.tags[tag[1]] = tag[2]
                 }
             }
         }
     }
 
     clear() {
-        this.tags = new Map()
+        this.tags = {}
     }
 
     render() {
         let rendered = ""
-        this.tags.forEach((value, key) => {
-            rendered += `[${key} "${value}"]\n`
-        })
+        for (const tag in this.tags) {
+            rendered += `[${tag} "${this.tags[tag]}"]\n`
+        }
         return rendered
     }
 

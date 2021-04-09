@@ -9,8 +9,8 @@ export class Pgn {
         const headerString = pgnString.substr(0, lastHeaderElement)
         const historyString = pgnString.substr(lastHeaderElement)
         this.header = new Header(headerString)
-        if (this.header.tags.get(TAGS.SetUp) === "1" && this.header.tags.has(TAGS.FEN)) {
-            this.history = new History(historyString, this.header.tags.get(TAGS.FEN))
+        if (this.header.tags[TAGS.SetUp] === "1" && this.header.tags[TAGS.FEN]) {
+            this.history = new History(historyString, this.header.tags[TAGS.FEN])
         } else {
             this.history = new History(historyString)
         }
