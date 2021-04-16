@@ -30,16 +30,16 @@ Use the `Pgn` class as JS Module:
 </script>
 ```
 
-## Data structure
-
-The `pgn` has a `pgn.header` and a `pgn.history`.
-
-### Pgn constructor
+## Pgn constructor
 
 `constructor(pgnString = "", props = {})`
 
-if you set in props `{ sloppy: true }`, some non-standard move notations
+if you set `{ sloppy: true }` in props, some non-standard move notations
 will be accepted. See also [.move(move, options)](https://github.com/jhlywa/chess.js/blob/master/README.md#movemove--options-) from chess.js.
+
+## Data structure
+
+The `pgn` has a `pgn.header` and a `pgn.history`.
 
 ### pgn.header
 
