@@ -243,6 +243,6 @@ d4 g5 6. d5 Ne5 7. Bb5+ Bd7 8. Bxd7+ Nxd7 9. h4 g4 10. Nd4 Qf6 11. Ncb5) 5. h4
 8. Be3 Be7 9. Qd2 Bxh4 10. gxh4 Qxh4+ 11. Bf2 Qh6 12. Qxh6 Nxh6 13. Nd5 Kd7 14. Kd2) 5... g4 6. Ng5 h6 7. Nxf7 Kxf7 8.
 d4 d5 (8... f3 9. Bc4+ Kg7 10. gxf3 Be7 11. Be3) 9.
 Bxf4 Nf6 10. Nxd5 (10. exd5
-Nxd5 (10... Bd6 11. Bxd6 Qxd6 12. dxc6) 11. Bc4 Be6 12. O-O) 10... Nxd5 11. Bc4 Be6 12. exd5 Bxd5 13. O-O *`, true)
+Nxd5 (10... Bd6 11. Bxd6 Qxd6 12. dxc6) 11. Bc4 Be6 12. O-O) 10... Nxd5 11. Bc4 Be6 12. exd5 Bxd5 13. O-O *`, {sloppy: true})
     })
 })
