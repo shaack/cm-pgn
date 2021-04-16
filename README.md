@@ -32,7 +32,14 @@ Use the `Pgn` class as JS Module:
 
 ## Data structure
 
-The `pgn` has a `pgn.header` and a `pgn.history`. 
+The `pgn` has a `pgn.header` and a `pgn.history`.
+
+### Pgn constructor
+
+`constructor(pgnString = "", props = {})`
+
+if you set in props `{ sloppy: true }`, some non-standard move notations
+will be accepted. See also [.move(move, options)](https://github.com/jhlywa/chess.js/blob/master/README.md#movemove--options-) from chess.js.
 
 ### pgn.header
 
