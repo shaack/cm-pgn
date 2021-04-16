@@ -43,7 +43,7 @@ The `pgn` has a `pgn.header` and a `pgn.history`.
 
 ### pgn.header
 
-The header keeps the PGN header elements as a key value object.
+The header holds the PGN header elements in the key value object `tags`.
 
 ```js
 pgn.header.tags = {
