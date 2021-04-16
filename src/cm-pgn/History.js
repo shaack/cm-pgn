@@ -33,7 +33,6 @@ export class History {
             if (parsedMove.notation) {
                 const notation = parsedMove.notation.notation
                 const move = chess.move(notation, {sloppy: sloppy})
-                // console.log("parsedMove", ply, parsedMoves.length, previousMove ? previousMove.san : undefined, move.san, parent ? parent.san : undefined)
                 if (move) {
                     if (previousMove) {
                         move.previous = previousMove

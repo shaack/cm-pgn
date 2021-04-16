@@ -206,4 +206,43 @@ Nd6 Kxg4 23. c5 Kf3 24. c6 e4 25. c7 Bd4 26. Nb5 Be5 27. Bd6 e3 28. Bxe5 fxe5
         assert.equals(history.moves[3].previous.next.san, "Nc6")
         console.log(pgn)
     })
+    it("should parse sloppy PGN from https://github.com/shaack/cm-pgn/issues/9", () => {
+        const ignored = new Pgn(`[Event "?"]
+[Site "?"]
+[Date "?"]
+[Round "?"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[ECO "C25"]
+[Annotator "?"]
+[PlyCount "25"]
+[EventDate "?"]
+[SourceDate "?"]
+
+1. e4 e5 2. Nc3 Nc6 3. f4 (3.
+Bc4 Nf6 (3... Bc5 4. Qg4
+Qf6 (4... g6 5. Qf3 Nf6 6. Nge2 d6 7. d3 Bg4 8. Qg3 {[%cal Rc1g5]}) 5. Nd5
+Qxf2+ 6. Kd1 Kf8 7. Nh3 Qd4 8. d3 d6 9. Qf3 Bxh3 10. Rf1 Be6 11. c3) 4. d3 Na5
+(4... Bb4 5. Nge2 d5 (5... O-O 6. O-O d6 (6... h6 7.
+a3 Be7 8. f4) 7. Bg5) 6. exd5 Nxd5 7. O-O
+Be6 8. a3 Bxc3 9. bxc3 O-O 10. a4) (4... Bc5 5. f4 d6 6. Nf3 Ng4 (6... Bg4
+7. Na4 O-O 8. Nxc5 dxc5 9. O-O Nd4 10. c3 Nxf3+ 11. gxf3
+Bh3 12. Rf2 exf4 13. Bxf4) (6... O-O 7. Na4 Bg4 8. Nxc5 dxc5 9. O-O Qd6 10. Qd2
+Bxf3 11. gxf3 Rad8 12. Kh1 Nh5 13. fxe5 Nxe5 14. Qg5 Nxc4 15. Qxh5 Ne5 16. f4)
+7. Ng5 O-O 8. f5 Nf2 9.
+Qh5) 5. Qf3 Nxc4 6. dxc4 Bc5 (6... d6 7. h3 Be6 8. b3 Be7 9. Nge2 O-O 10. O-O)
+7. Be3 Bxe3 8. Qxe3 O-O 9. h3 d6 10. b3 Be6 11. Nge2) 3... exf4 (3... d6 4. Nf3 Bg4 5. Bb5
+a6 6. Bxc6+ bxc6 7. h3 Bxf3 8. Qxf3) (3... Nf6 4. fxe5 Nxe5 5. d4) (3... Bc5 4.
+Nf3 d6 5. Bb5 Nge7 6. Na4) 4. Nf3 g5 (4... d6 5.
+d4 g5 6. d5 Ne5 7. Bb5+ Bd7 8. Bxd7+ Nxd7 9. h4 g4 10. Nd4 Qf6 11. Ncb5) 5. h4 
+(5. d4 g4 6. Bc4 gxf3 7. O-O 
+(7. Qxf3 Qh4+ 8. g3 Nxd4 9. Qf2 Qf6 10. Bxf4 Bb4 11. e5 Qc6
+12. O-O-O Bxc3 13. Bxf7+ Kxf7 14. bxc3 Nf3 15. Rhf1) 7... fxg2 (7... Nxd4 8. Bxf4 Bc5 9. Kh1 d6 10. b4 Bb6
+11. Nd5 fxg2+ 12. Kxg2 Ne6 13. Qf3) 8. Rxf4) (5. g3 g4 6. Nh4 f3 7. d4 d6
+8. Be3 Be7 9. Qd2 Bxh4 10. gxh4 Qxh4+ 11. Bf2 Qh6 12. Qxh6 Nxh6 13. Nd5 Kd7 14. Kd2) 5... g4 6. Ng5 h6 7. Nxf7 Kxf7 8.
+d4 d5 (8... f3 9. Bc4+ Kg7 10. gxf3 Be7 11. Be3) 9.
+Bxf4 Nf6 10. Nxd5 (10. exd5
+Nxd5 (10... Bd6 11. Bxd6 Qxd6 12. dxc6) 11. Bc4 Be6 12. O-O) 10... Nxd5 11. Bc4 Be6 12. exd5 Bxd5 13. O-O *`, true)
+    })
 })
