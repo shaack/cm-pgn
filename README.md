@@ -66,7 +66,7 @@ pgn.history.moves[i] = {
     from: "e2", // the square from
     next: {color: "b", from: "e7", to: "e6", flags: "n", piece: "p", /*…*/}, // a pointer to the next move 
     piece: "p", // the piece type 
-    ply: 1, // the ply count
+    ply: 1, // the ply number
     previous: undefined, // a pointer to the previous move
     san: "e4", // the move in SAN notation
     to: "e4", // the square to
