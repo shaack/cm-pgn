@@ -26,10 +26,10 @@
   "homepage": "https://github.com/shaack/cm-pgn#readme",
   "devDependencies": {
     "pegjs": "^0.10.0",
-    "teevi": "^2.1.4"
+    "teevi": "^2.1.10"
   },
   "dependencies": {
-    "chess.mjs": "^1.1.0",
-    "modrator": "^1.1.7"
+    "chess.mjs": "^1.2.0",
+    "modrator": "^1.2.0"
   }
 }

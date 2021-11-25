@@ -1,3 +1,8 @@
+/**
+ * Author and copyright: Stefan Haack (https://shaack.com)
+ * Repository: https://github.com/shaack/cm-pgn
+ * License: MIT, see file 'LICENSE'
+ */
 import {Header, TAGS} from "./Header.js"
 import {History} from "./History.js"
 

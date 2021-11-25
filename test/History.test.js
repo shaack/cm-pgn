@@ -1,3 +1,8 @@
+/**
+ * Author and copyright: Stefan Haack (https://shaack.com)
+ * Repository: https://github.com/shaack/cm-pgn
+ * License: MIT, see file 'LICENSE'
+ */
 import {describe, it, assert} from "../node_modules/teevi/src/teevi.js"
 import {History} from "../src/cm-pgn/History.js"
 import {Pgn} from "../src/cm-pgn/Pgn.js"

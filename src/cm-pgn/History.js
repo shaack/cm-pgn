@@ -1,3 +1,8 @@
+/**
+ * Author and copyright: Stefan Haack (https://shaack.com)
+ * Repository: https://github.com/shaack/cm-pgn
+ * License: MIT, see file 'LICENSE'
+ */
 import {pgnParser} from "./parser/pgnParser.js"
 import {Chess} from "../../lib/chess.mjs/Chess.js"
 
