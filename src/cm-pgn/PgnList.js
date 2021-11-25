@@ -21,10 +21,10 @@ export class PgnList {
 
     fetch(url) {
         return new Promise((resolve, reject) => {
-            fetch(url).then(function (response) {
+            fetch(url).then((response) => {
                 let pgn = ""
                 let readerState = READER_STATE.beforeTags
-                response.text().then(function (pgnsFromFile) {
+                response.text().then((pgnsFromFile) => {
                     const lines = pgnsFromFile.split('\n')
                     let i = 1
                     for (const line of lines) {
@@ -34,12 +34,12 @@ export class PgnList {
                                     if (!line.startsWith("[")) {
                                         reject("parsing error 12f2ce, line " + i + " has to start with '['")
                                     }
-                                    pgn += line
+                                    pgn += line + "\n"
                                     readerState = READER_STATE.tags
                                 }
                                 break
                             case READER_STATE.tags:
-                                pgn += line
+                                pgn += line + "\n"
                                 if (!line.trim()) { // blank line
                                     readerState = READER_STATE.beforeHistory
                                 }
@@ -49,16 +49,17 @@ export class PgnList {
                                     if (isNaN(parseInt(line.charAt(0), 10))) {
                                         reject("parsing error 0cee06, line " + i + " has to start with a number")
                                     }
-                                    pgn += line
+                                    pgn += line + "\n"
                                     readerState = READER_STATE.history
                                 }
                                 break
                             case READER_STATE.history:
-                                pgn += line
                                 if (!line.trim()) { // blank line
-                                    this.pgns.push(pgn)
+                                    this.pgns.push(pgn.trim())
                                     pgn = ""
                                     readerState = READER_STATE.beforeTags
+                                } else {
+                                    pgn += line + "\n"
                                 }
                                 break
                         }

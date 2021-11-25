@@ -1,0 +1,83 @@
+
+
+[Event "World Blitz"]
+[Site "Moscow RUS"]
+[Date "2009.11.16"]
+[Round "5"]
+[White "Morozevich, Alexander"]
+[Black "Naiditsch, Arkadij"]
+[Result "1-0"]
+[WhiteElo "2750"]
+[BlackElo "2689"]
+[ECO "A00"]
+[SetUp "1"]
+[FEN "4rrk1/Q4ppp/2p5/8/3p1q2/3P1N2/PP2PP1n/4RRK1 w - - 0 24"]
+
+24. Nxh2 Re6 25. e3 Qg5+ 26. Kh1 dxe3 1-0
+
+
+
+[Event "World Blitz 2015"]
+[Site "Berlin GER"]
+[Date "2015.10.14"]
+[Round "15.26"]
+[White "Bartel, Mateusz"]
+[Black "Malakhov, V"]
+[Result "0-1"]
+[WhiteElo "2622"]
+[BlackElo "2694"]
+[ECO "A00"]
+[SetUp "1"]
+[FEN "r3r1k1/pp1qppb1/2p3p1/7p/3PpP2/BPP1P1Pb/P3Q1BP/3R1RK1 b - - 4 17"]
+
+
+17... Bg4 18. Qc2 Bxd1 19. Rxd1 0-1
+
+[Event "NED Ch Internet 2016"]
+[Site "PlayChess INT"]
+[Date "2016.06.25"]
+[Round "3.2"]
+[White "Timmermans, Mark"]
+[Black "Van Wely, Loek"]
+[Result "1-0"]
+[WhiteElo "2387"]
+[BlackElo "2658"]
+[ECO "A00"]
+[SetUp "1"]
+[FEN "r3r1k1/pp3p2/3p1npQ/1P1P3p/P2Pp1b1/6R1/3NBP1q/2K3R1 w - - 0 23"]
+
+23. Bxg4 Qxg1+ 24. Rxg1 Nxg4 1-0
+
+[Event "chess.com Speed 1m+1spm 2017"]
+[Site "chess.com INT"]
+[Date "2018.01.03"]
+[Round "4.25"]
+[White "Nakamura, Hikaru"]
+[Black "Carlsen, Magnus"]
+[Result "1-0"]
+[WhiteElo "2786"]
+[BlackElo "2832"]
+[ECO "A01"]
+[SetUp "1"]
+[FEN "r1bq2k1/1pp2ppp/5n2/4r3/2p5/pP1BP3/P2QNPPP/R4RK1 w - - 0 16"]
+
+16. Bxh7+ Kxh7 17. Qxd8 Re8 1-0
+
+
+[Event "F/S Return Match"]
+[Site "Belgrade, Serbia JUG"]
+[Date "1992.11.04"]
+[Round "29"]
+[White "Fischer, Robert J."]
+[Black "Spassky, Boris V."]
+[Result "1/2-1/2"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 {This opening is called the Ruy Lopez.}
+4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 d6 8. c3 O-O 9. h3 Nb8 10. d4 Nbd7
+11. c4 c6 12. cxb5 axb5 13. Nc3 Bb7 14. Bg5 b4 15. Nb1 h6 16. Bh4 c5 17. dxe5
+Nxe4 18. Bxe7 Qxe7 19. exd6 Qf6 20. Nbd2 Nxd6 21. Nc4 Nxc4 22. Bxc4 Nb6
+23. Ne5 Rae8 24. Bxf7+ Rxf7 25. Nxf7 Rxe1+ 26. Qxe1 Kxf7 27. Qe3 Qg5 28. Qxg5
+hxg5 29. b3 Ke6 30. a3 Kd6 31. axb4 cxb4 32. Ra5 Nd5 33. f3 Bc8 34. Kf2 Bf5
+35. Ra7 g6 36. Ra6+ Kc5 37. Ke1 Nf4 38. g3 Nxh3 39. Kd2 Kb5 40. Rd6 Kc5 41. Ra6
+Nf2 42. g4 Bd3 43. Re6 1/2-1/2
+
