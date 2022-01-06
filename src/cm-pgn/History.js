@@ -107,7 +107,7 @@ export class History {
 
     /**
      * @param move
-     * @return the history to the move which may be in a variant
+     * @return the history to the move which may be in a variation
      */
     historyToMove(move) {
         const moves = []

@@ -15,8 +15,8 @@ describe('Header', () => {
 [White "Fischer, Robert J."]
 [Black "Spassky, Boris V."]
 [Result "1/2-1/2"]`)
-        assert.equals(Object.keys(header.tags).length, 7)
-        assert.equals(header.tags[TAGS.Event], "F/S Return Match")
+        assert.equal(Object.keys(header.tags).length, 7)
+        assert.equal(header.tags[TAGS.Event], "F/S Return Match")
     })
     it('should parse and render header', () => {
         const content = `[Event "F/S Return Match"]
@@ -28,6 +28,6 @@ describe('Header', () => {
 [Result "1/2-1/2"]
 `
         const header = new Header(content)
-        assert.equals(header.render(), content)
+        assert.equal(header.render(), content)
     })
 })

@@ -4,7 +4,7 @@
 
 This is as **ES6 Module for parsing and rendering of PGNs** ([Portable Game Notation](https://de.wikipedia.org/wiki/Portable_Game_Notation)).
 
-The API is similar to `history()` of [chess.js](https://github.com/jhlywa/chess.js), but this module **supports variants, nags and comments** in the pgn.
+The API is similar to `history()` of [chess.js](https://github.com/jhlywa/chess.js), but this module **supports variations, nags and comments** in the pgn.
 
 We used the nice grammar file from [PgnViewerJS](https://github.com/mliebelt/PgnViewerJS) of [mliebelt](https://github.com/mliebelt) to create the parser.
 
@@ -98,18 +98,18 @@ pgn.history.moves[i] = {
 
 ```js
 const history = pgn.history
-assert.equals(4, history.moves.length)
-assert.equals(history.moves[0].san, "e4")
-assert.equals(history.moves[1].variations.length, 1)
-assert.equals(history.moves[1].variations[0][0].san, "e6")
-assert.equals(history.moves[2].nag, "$1")
-assert.equals(history.moves[2].commentAfter, "Great move!")
-assert.equals(history.moves[2].fen, "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
-assert.equals(history.moves[3].from, "b8")
-assert.equals(history.moves[3].to, "c6")
-assert.equals(history.moves[3].san, "Nc6")
-assert.equals(history.moves[3].previous.san, "Nf3")
-assert.equals(history.moves[3].previous.next.san, "Nc6")
+assert.equal(4, history.moves.length)
+assert.equal(history.moves[0].san, "e4")
+assert.equal(history.moves[1].variations.length, 1)
+assert.equal(history.moves[1].variations[0][0].san, "e6")
+assert.equal(history.moves[2].nag, "$1")
+assert.equal(history.moves[2].commentAfter, "Great move!")
+assert.equal(history.moves[2].fen, "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
+assert.equal(history.moves[3].from, "b8")
+assert.equal(history.moves[3].to, "c6")
+assert.equal(history.moves[3].san, "Nc6")
+assert.equal(history.moves[3].previous.san, "Nf3")
+assert.equal(history.moves[3].previous.next.san, "Nc6")
 ```
 
 ## Development

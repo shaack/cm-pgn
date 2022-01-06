@@ -11,43 +11,43 @@ describe('History', () => {
 
     it('should parse sloppy history', () => {
         const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 Nc6", undefined, true)
-        assert.equals(history.moves.length, 4)
+        assert.equal(history.moves.length, 4)
     })
 
     it('should parse sloppy history with empty comment', () => {
         const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {} Nc6", undefined, true)
-        assert.equals(history.moves.length, 4)
+        assert.equal(history.moves.length, 4)
     })
 
     it('should parse sloppy history with nag', () => {
         const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6", undefined, true)
 
-        assert.equals(4, history.moves.length)
-        assert.equals(history.moves[0].san, "e4")
-        assert.equals(history.moves[1].variations.length, 1)
-        assert.equals(history.moves[1].variations[0][0].san, "e6")
-        assert.equals(history.moves[2].nag, "$1")
-        assert.equals(history.moves[2].commentAfter, "Great move!")
-        assert.equals(history.moves[2].fen, "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
-        assert.equals(history.moves[3].from, "b8")
-        assert.equals(history.moves[3].to, "c6")
+        assert.equal(4, history.moves.length)
+        assert.equal(history.moves[0].san, "e4")
+        assert.equal(history.moves[1].variations.length, 1)
+        assert.equal(history.moves[1].variations[0][0].san, "e6")
+        assert.equal(history.moves[2].nag, "$1")
+        assert.equal(history.moves[2].commentAfter, "Great move!")
+        assert.equal(history.moves[2].fen, "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
+        assert.equal(history.moves[3].from, "b8")
+        assert.equal(history.moves[3].to, "c6")
     })
 
-    it('should parse history with variant at first move and checkmates', () => {
+    it('should parse history with variation at first move and checkmates', () => {
         const pgn = new Pgn(`[SetUp "1"]
             [FEN "6k1/8/8/8/8/8/7R/5K1R w - - 0 1"]
 
             1. Rf2 (1. Rh7 Kf8 2. Rg1 Ke8 3. Rg8#) 1... Kg7 2. Rg1+ Kh6 3. Rh2# *`)
 
-        assert.equals(5, pgn.history.moves.length)
-        assert.equals(pgn.history.moves[0].variations.length, 1)
-        assert.equals(pgn.history.moves[0].variations[0][0].san, "Rh7")
-        assert.equals(pgn.history.moves[0].variations[0][0].gameOver, undefined)
-        assert.equals(pgn.history.moves[0].variations[0][4].san, "Rg8#")
-        assert.equals(pgn.history.moves[0].variations[0][4].gameOver, true)
-        assert.equals(pgn.history.moves[0].variations[0][4].inCheckmate, true)
-        assert.equals(pgn.history.moves[3].inCheckmate, undefined)
-        assert.equals(pgn.history.moves[4].inCheckmate, true)
+        assert.equal(5, pgn.history.moves.length)
+        assert.equal(pgn.history.moves[0].variations.length, 1)
+        assert.equal(pgn.history.moves[0].variations[0][0].san, "Rh7")
+        assert.equal(pgn.history.moves[0].variations[0][0].gameOver, undefined)
+        assert.equal(pgn.history.moves[0].variations[0][4].san, "Rg8#")
+        assert.equal(pgn.history.moves[0].variations[0][4].gameOver, true)
+        assert.equal(pgn.history.moves[0].variations[0][4].inCheckmate, true)
+        assert.equal(pgn.history.moves[3].inCheckmate, undefined)
+        assert.equal(pgn.history.moves[4].inCheckmate, true)
         console.log(pgn)
     })
 
@@ -149,17 +149,16 @@ describe('History', () => {
         history.addMove("Nd2")
     })
 
-    it('should add a variant and render it', () => {
+    it('should add a variation', () => {
         const history = new History()
         const ply1 = history.addMove("e4")
         history.addMove("e6")
         history.addMove("d3")
         history.addMove("d5")
         history.addMove("Nd2")
-
         history.addMove("e5", ply1)
 
-        assert.equals(history.moves[1].variations.length, 1)
+        assert.equal(history.moves[1].variations.length, 1)
     })
 
 })
