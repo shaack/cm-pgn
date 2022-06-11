@@ -120,7 +120,14 @@ export class History {
         return moves.reverse()
     }
 
-    addMove(notation, previous = undefined, sloppy = true) {
+    /**
+     * Don't add the move, just validate, if it would be correct
+     * @param notation
+     * @param previous
+     * @param sloppy
+     * @returns {[]|{}}
+     */
+    validateMove(notation, previous = undefined, sloppy = true) {
         if (!previous) {
             if (this.moves.length > 0) {
                 previous = this.moves[this.moves.length - 1]
@@ -134,10 +141,23 @@ export class History {
             }
         }
         const move = chess.move(notation, {sloppy: sloppy})
+        if(move) {
+            this.fillMoveFromChessState(move, chess)
+        }
+        return move
+    }
+
+    addMove(notation, previous = undefined, sloppy = true) {
+        if (!previous) {
+            if (this.moves.length > 0) {
+                previous = this.moves[this.moves.length - 1]
+            }
+        }
+        const move = this.validateMove(notation, previous, sloppy)
         if (!move) {
             throw new Error("invalid move")
         }
-        this.fillMoveFromChessState(move, chess)
+        // this.fillMoveFromChessState(move, chess)
         if (previous) {
             move.previous = previous
             move.ply = previous.ply + 1

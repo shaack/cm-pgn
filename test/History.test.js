@@ -140,9 +140,13 @@ describe('History', () => {
             // console.log(history.moves);
     })
 
-    it('should add a few moves to an empty history', () => {
+    it('should add a few moves to an empty history and validate a move', () => {
         const history = new History()
         history.addMove("e4")
+        assert.equal(history.validateMove("e8"), null)
+        assert.notEqual(history.validateMove("e6"), null)
+        assert.notEqual(history.validateMove("e6"), null)
+        assert.notEqual(history.validateMove("e5"), null)
         history.addMove("e6")
         history.addMove("d3")
         history.addMove("d5")
