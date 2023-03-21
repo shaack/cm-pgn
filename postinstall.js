@@ -3,6 +3,6 @@
  * License: MIT, see file 'LICENSE'
  */
 
-const modLib = new(require("modlib"))
+const modLib = new (require("modlib"))
 
 modLib.add("chess.mjs")
