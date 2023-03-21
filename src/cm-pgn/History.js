@@ -141,7 +141,7 @@ export class History {
             }
         }
         const move = chess.move(notation, {sloppy: sloppy})
-        if(move) {
+        if (move) {
             this.fillMoveFromChessState(move, chess)
         }
         return move
@@ -179,13 +179,42 @@ export class History {
     }
 
     render() {
-        // TODO Variants
-        let rendered = "";
-        // let i = 0
-        for (const move of this.moves) {
-           rendered += move.san + " "
+        const renderVariation = (variation) => {
+            let result = ""
+            let i = 0
+            for (let move of variation) {
+                if(i % 2 === 0) {
+                    result += (i / 2 + 1) + ". "
+                }
+                if (move.nag) {
+                    result += "$" + move.nag + " "
+                }
+                if (move.commentBefore) {
+                    result += "{" + move.commentBefore + "} "
+                }
+                result += move.san + " "
+                if (move.commentMove) {
+                    result += "{" + move.commentMove + "} "
+                }
+                if (move.commentAfter) {
+                    result += "{" + move.commentAfter + "} "
+                }
+                if (move.variations.length > 0) {
+                    for (let variation of move.variations) {
+                        result += "(" + renderVariation(variation) + ")"
+                    }
+                }
+                result += " "
+                i++
+            }
+            return result
         }
-        return rendered
+        let ret = renderVariation(this.moves)
+        // remove spaces before brackets
+        ret = ret.replace(/\s+\)/g, ')')
+        // remove double spaces
+        ret = ret.replace(/\s\s+/g, ' ').trim()
+        return ret
     }
 
 }

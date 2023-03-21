@@ -186,10 +186,12 @@ wäre, diese Stellung gegen Tal weiterzuspielen.} ) 1-0`)
 
 1. e4 (1. d4 {Die Variante} d5) e5 {Ein Kommentar} 2. a3`
         const pgn = new Pgn(gamePgn)
+        console.log(gamePgn)
         console.log(pgn.render())
+        assert.equal(pgn.render(), gamePgn)
     })
     it('should parse pgn from https://github.com/shaack/cm-pgn/issues/8', () => {
-        const pgn = new Pgn(`[Event "?"]
+        const pgnString = `[Event "?"]
 [Site "?"]
 [Date "????.??.??"]
 [Round "?"]
@@ -205,8 +207,13 @@ Gf6e4,Gc5e4,Gc3d1,Gd1f2,Rb7e4,Re4h1,Rg4g5,Rf6d7]}  ( 1. g5)1... b4 2. Nd1 Nfxe4
 Qb7 10. f6 Bxd5 11. Qxd5 Qxd5 12. Rxd5 gxf6 13. Bxc5 Rfd8 14. Rxd8+ Bxd8 15. b4
 h5 16. h3 hxg4 17. hxg4 Kg7 18. Ng3 Bb6 19. Be7 Kg6 20. c4 Bf2 21. Nf5 Kg5 22.
 Nd6 Kxg4 23. c5 Kf3 24. c6 e4 25. c7 Bd4 26. Nb5 Be5 27. Bd6 e3 28. Bxe5 fxe5
-29. Nd6 Kf2  *`)
+29. Nd6 Kf2  *`
+        const pgn = new Pgn(pgnString)
         assert.equal(58, pgn.history.moves.length)
+        const rendered = pgn.render()
+        const parsedAgain = new Pgn(rendered)
+        const renderedAgain = parsedAgain.render()
+        assert.equal(rendered, renderedAgain)
     })
     it('should parse the example in the README.md', () => {
         const pgn = new Pgn(`[Site "Berlin"]

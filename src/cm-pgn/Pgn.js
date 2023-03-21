@@ -22,12 +22,30 @@ export class Pgn {
         }
     }
 
+    wrap(str, maxLength) {
+        const words = str.split(" ")
+        let lines = []
+        let line = ""
+        for (let i = 0; i < words.length; i++) {
+            const word = words[i]
+            if (line.length + word.length < maxLength) {
+                line += word + " "
+            } else {
+                lines.push(line.trim())
+                line = word + " "
+            }
+        }
+        lines.push(line.trim())
+        return lines.join("\n")
+    }
+
     render() {
-        let pgn = ""
-        pgn += this.header.render()
-        pgn += "\n"
-        pgn += this.history.render()
-        return pgn
+        const header = this.header.render()
+        let history = this.history.render()
+        if(this.header.tags[TAGS.Result]) {
+            history += " " + this.header.tags[TAGS.Result]
+        }
+        return header + "\n" + this.wrap(history, 80)
     }
 
 }
