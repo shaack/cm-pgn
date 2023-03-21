@@ -3,7 +3,6 @@
  * License: MIT, see file 'LICENSE'
  */
 
-const Modrator = require("modrator")
-const modrator = new Modrator()
+const modLib = new(require("modlib"))
 
-modrator.addToLibrary("chess.mjs")
+modLib.add("chess.mjs")
