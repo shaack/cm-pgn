@@ -23,7 +23,7 @@ export class History {
             const parsedMoves = pgnParser.parse(historyString
                 .replace(/\s\s+/g, " ")
                 .replace(/\n/g, " ")
-            );
+            )
             this.moves = this.traverse(parsedMoves[0], setUpFen, undefined, 1, sloppy)
         }
         this.setUpFen = setUpFen
@@ -74,7 +74,7 @@ export class History {
                     moves.push(move)
                     previousMove = move
                 } else {
-                    throw new IllegalMoveException(chess.fen(), notation);
+                    throw new IllegalMoveException(chess.fen(), notation)
                 }
             }
             ply++
@@ -181,42 +181,41 @@ export class History {
         return move
     }
 
-    render(renderComments=true, renderNags=true) {
-        const renderVariation = (variation, needReminder=false) => {
+    render(renderComments = true, renderNags = true) {
+        const renderVariation = (variation, needReminder = false) => {
             let result = ""
             for (let move of variation) {
-                if(move.ply % 2 === 1) {
+                if (move.ply % 2 === 1) {
                     result += Math.floor(move.ply / 2) + 1 + ". "
+                } else if (result.length === 0 || needReminder) {
+                    result += move.ply / 2 + "... "
                 }
-                else if (result.length === 0 || needReminder) {
-                    result += move.ply / 2 + "... ";
-                }
-                needReminder = false;
+                needReminder = false
                 if (renderNags && move.nag) {
-                    result += "$" + move.nag + " ";
+                    result += "$" + move.nag + " "
                 }
                 if (renderComments && move.commentBefore) {
-                    result += "{" + move.commentBefore + "} ";
-                    needReminder = true;
+                    result += "{" + move.commentBefore + "} "
+                    needReminder = true
                 }
                 result += move.san + " "
                 if (renderComments && move.commentMove) {
-                    result += "{" + move.commentMove + "} ";
-                    needReminder = true;
+                    result += "{" + move.commentMove + "} "
+                    needReminder = true
                 }
                 if (renderComments && move.commentAfter) {
-                    result += "{" + move.commentAfter + "} ";
-                    needReminder = true;
+                    result += "{" + move.commentAfter + "} "
+                    needReminder = true
                 }
                 if (move.variations.length > 0) {
                     for (let variation of move.variations) {
-                        result += "(" + renderVariation(variation) + ") ";
-                        needReminder = true;
+                        result += "(" + renderVariation(variation) + ") "
+                        needReminder = true
                     }
                 }
-                result += " ";
+                result += " "
             }
-            return result;
+            return result
         }
         let ret = renderVariation(this.moves)
         // remove spaces before brackets

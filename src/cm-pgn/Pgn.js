@@ -10,7 +10,7 @@ export class Pgn {
 
     constructor(pgnString = "", props = {}) {
         // only the header?
-        const lastHeaderElement =  pgnString.trim().substring(-1) === "]" ? pgnString.length : pgnString.lastIndexOf("]\n\n") + 1
+        const lastHeaderElement = pgnString.trim().substring(-1) === "]" ? pgnString.length : pgnString.lastIndexOf("]\n\n") + 1
         const headerString = pgnString.substring(0, lastHeaderElement)
         const historyString = pgnString.substring(lastHeaderElement)
         const sloppy = !!props.sloppy
@@ -40,10 +40,10 @@ export class Pgn {
     }
 
     render(renderHeader = true, renderComments = true, renderNags = true) {
-        const header = renderHeader ? (this.header.render() + "\n") : "";
-        let history = this.history.render(renderComments, renderNags);
-        if(this.header.tags[TAGS.Result]) {
-            history += " " + this.header.tags[TAGS.Result];
+        const header = renderHeader ? (this.header.render() + "\n") : ""
+        let history = this.history.render(renderComments, renderNags)
+        if (this.header.tags[TAGS.Result]) {
+            history += " " + this.header.tags[TAGS.Result]
         }
         return header + this.wrap(history, 80)
     }
