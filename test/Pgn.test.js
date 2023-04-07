@@ -35,7 +35,7 @@ Nf2 42. g4 Bd3 43. Re6 1/2-1/2`
         const ignored = new Pgn(gamePgn)
         // assert.equal(pgn.header.tags.get("Date"), "1992.11.04")
     })
-    
+
     it('should load a chess puzzle', () => {
         const gamePgn = `[Event "World Blitz 2015"]
 [Site "Berlin GER"]
@@ -184,7 +184,7 @@ wäre, diese Stellung gegen Tal weiterzuspielen.} ) 1-0`)
         const gamePgn = `[SetUp "1"]
 [FEN "4k3/pppppppp/8/8/8/8/PPPPPPPP/4K3 w - - 0 1"]
 
-1. e4 (1. d4 {Die Variante} d5) e5 {Ein Kommentar} 2. a3`
+1. e4 (1. d4 {Die Variante} 1... d5) 1... e5 {Ein Kommentar} 2. a3`
         const pgn = new Pgn(gamePgn)
         console.log(gamePgn)
         console.log(pgn.render())
