@@ -10,9 +10,9 @@ export class Pgn {
 
     constructor(pgnString = "", props = {}) {
         // only the header?
-        const lastHeaderElement =  pgnString.trim().substr(-1) === "]" ? pgnString.length : pgnString.lastIndexOf("]\n\n") + 1
-        const headerString = pgnString.substr(0, lastHeaderElement)
-        const historyString = pgnString.substr(lastHeaderElement)
+        const lastHeaderElement =  pgnString.trim().substring(-1) === "]" ? pgnString.length : pgnString.lastIndexOf("]\n\n") + 1
+        const headerString = pgnString.substring(0, lastHeaderElement)
+        const historyString = pgnString.substring(lastHeaderElement)
         const sloppy = !!props.sloppy
         this.header = new Header(headerString)
         if (this.header.tags[TAGS.SetUp] === "1" && this.header.tags[TAGS.FEN]) {
@@ -39,13 +39,13 @@ export class Pgn {
         return lines.join("\n")
     }
 
-    render() {
-        const header = this.header.render()
-        let history = this.history.render()
+    render(renderHeader = true, renderComments = true, renderNags = true) {
+        const header = renderHeader ? (this.header.render() + "\n") : "";
+        let history = this.history.render(renderComments, renderNags);
         if(this.header.tags[TAGS.Result]) {
-            history += " " + this.header.tags[TAGS.Result]
+            history += " " + this.header.tags[TAGS.Result];
         }
-        return header + "\n" + this.wrap(history, 80)
+        return header + this.wrap(history, 80)
     }
 
 }
