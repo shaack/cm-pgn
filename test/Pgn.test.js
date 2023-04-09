@@ -183,8 +183,9 @@ wäre, diese Stellung gegen Tal weiterzuspielen.} ) 1-0`)
     it('should render a simple PGN', () => {
         const gamePgn = `[SetUp "1"]
 [FEN "4k3/pppppppp/8/8/8/8/PPPPPPPP/4K3 w - - 0 1"]
+[Result "1-0"]
 
-1. e4 (1. d4 {Die Variante} 1... d5) 1... e5 {Ein Kommentar} 2. a3`
+1. e4 (1. d4 {Die Variante} 1... d5) 1... e5 {Ein Kommentar} 2. a3 1-0`
         const pgn = new Pgn(gamePgn)
         console.log(gamePgn)
         console.log(pgn.render())
