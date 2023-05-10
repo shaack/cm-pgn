@@ -70,6 +70,7 @@ pgn.history.moves[i] = {
     previous: undefined, // a pointer to the previous move
     san: "e4", // the move in SAN notation
     to: "e4", // the square to
+    uci: "e2e4", // the move in UCI notation
     variation: (4) [{/*…*/}, {/*…*/}, {/*…*/}, {/*…*/}], // a pointer to the begin of the current variation
     variations: [] // all variations starting with that move
 }
@@ -107,6 +108,7 @@ assert.equal(history.moves[2].commentAfter, "Great move!")
 assert.equal(history.moves[2].fen, "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
 assert.equal(history.moves[3].from, "b8")
 assert.equal(history.moves[3].to, "c6")
+assert.equal(history.moves[3].uci, "b8c6")
 assert.equal(history.moves[3].san, "Nc6")
 assert.equal(history.moves[3].previous.san, "Nf3")
 assert.equal(history.moves[3].previous.next.san, "Nc6")

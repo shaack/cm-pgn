@@ -31,6 +31,7 @@ describe('History', () => {
         assert.equal(history.moves[2].fen, "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
         assert.equal(history.moves[3].from, "b8")
         assert.equal(history.moves[3].to, "c6")
+        assert.equal(history.moves[3].uci, "b8c6")
     })
 
     it('should parse history with variation at first move and checkmates', () => {
@@ -163,6 +164,19 @@ describe('History', () => {
         history.addMove("e5", ply1)
 
         assert.equal(history.moves[1].variations.length, 1)
+    })
+
+    it("should provide the moves in UCI notation", function() {
+        // promotion, normal moves and capture
+        const history = new History("b8=Q Ke7 Rc4 Rxc4", "4k3/1P6/8/8/6r1/8/8/2R1K3 w - - 0 1")
+        assert.equal(history.moves[0].uci, "b7b8q")
+        assert.equal(history.moves[1].uci, "e8e7")
+        assert.equal(history.moves[2].uci, "c1c4")
+        assert.equal(history.moves[3].uci, "g4c4")
+        // castling
+        const history2 = new History("O-O O-O-O", "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1")
+        assert.equal(history2.moves[0].uci, "e1g1")
+        assert.equal(history2.moves[1].uci, "e8c8")
     })
 
 })

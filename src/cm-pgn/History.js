@@ -49,6 +49,7 @@ export class History {
                         move.previous = undefined
                     }
                     move.ply = ply
+                    move.uci = move.from + move.to + (move.promotion ? move.promotion : "")
                     this.fillMoveFromChessState(move, chess)
                     if (parsedMove.nag) {
                         move.nag = parsedMove.nag[0]
