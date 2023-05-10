@@ -152,6 +152,8 @@ describe('History', () => {
         history.addMove("d3")
         history.addMove("d5")
         history.addMove("Nd2")
+        assert.equal(history.moves[4].san, "Nd2")
+        assert.equal(history.moves[4].uci, "b1d2")
     })
 
     it('should add a variation', () => {

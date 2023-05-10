@@ -165,6 +165,7 @@ export class History {
         if (previous) {
             move.previous = previous
             move.ply = previous.ply + 1
+            move.uci = move.from + move.to + (move.promotion ? move.promotion : "")
             if (previous.next) {
                 previous.next.variations.push([])
                 move.variation = previous.next.variations[previous.next.variations.length - 1]
