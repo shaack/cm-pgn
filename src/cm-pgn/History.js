@@ -49,7 +49,6 @@ export class History {
                         move.previous = undefined
                     }
                     move.ply = ply
-                    move.uci = move.from + move.to + (move.promotion ? move.promotion : "")
                     this.fillMoveFromChessState(move, chess)
                     if (parsedMove.nag) {
                         move.nag = parsedMove.nag[0]
@@ -85,6 +84,7 @@ export class History {
 
     fillMoveFromChessState(move, chess) {
         move.fen = chess.fen()
+        move.uci = move.from + move.to + (move.promotion ? move.promotion : "")
         move.variations = []
         if (chess.game_over()) {
             move.gameOver = true
@@ -161,7 +161,6 @@ export class History {
         if (!move) {
             throw new Error("invalid move")
         }
-        // this.fillMoveFromChessState(move, chess)
         if (previous) {
             move.previous = previous
             move.ply = previous.ply + 1
