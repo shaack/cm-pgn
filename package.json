@@ -30,6 +30,6 @@
   },
   "dependencies": {
     "chess.mjs": "^1.4.0",
-    "import-node-modules": "^1.0.2"
+    "node-modules-url": "^1.0.3"
   }
 }
