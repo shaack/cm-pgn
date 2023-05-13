@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 import {describe, it, assert} from "../node_modules/teevi/src/teevi.js"
-import {pgnParser} from "../src/cm-pgn/parser/pgnParser.js"
+import {pgnParser} from "../src/parser/pgnParser.js"
 
 describe('Parser', () => {
     it('should parse complex history without nag', () => {

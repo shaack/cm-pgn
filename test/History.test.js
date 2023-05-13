@@ -4,8 +4,8 @@
  * License: MIT, see file 'LICENSE'
  */
 import {describe, it, assert} from "../node_modules/teevi/src/teevi.js"
-import {History} from "../src/cm-pgn/History.js"
-import {Pgn} from "../src/cm-pgn/Pgn.js"
+import {History} from "../src/History.js"
+import {Pgn} from "../src/Pgn.js"
 
 describe('History', () => {
 

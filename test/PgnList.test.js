@@ -4,8 +4,8 @@
  * License: MIT, see file 'LICENSE'
  */
 import {describe, it, assert} from "../node_modules/teevi/src/teevi.js"
-import {PgnList} from "../src/cm-pgn/PgnList.js"
-import {Pgn} from "../src/cm-pgn/Pgn.js"
+import {PgnList} from "../src/PgnList.js"
+import {Pgn} from "../src/Pgn.js"
 
 describe('PgnList', () => {
 
