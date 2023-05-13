@@ -29,7 +29,7 @@
     "teevi": "^2.2.4"
   },
   "dependencies": {
-    "@shaack/require": "^1.0.0",
-    "chess.mjs": "^1.4.0"
+    "chess.mjs": "^1.4.0",
+    "import-node-modules": "^1.0.2"
   }
 }
