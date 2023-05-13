@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 import {pgnParser} from "./parser/pgnParser.js"
-import {Chess} from "../../lib/chess.mjs/Chess.js"
+const {Chess} = await importNodeModule("chess.mjs/src/chess.mjs/Chess.js")
 
 function IllegalMoveException(fen, notation) {
     this.fen = fen
