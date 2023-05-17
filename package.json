@@ -29,7 +29,6 @@
     "teevi": "^2.2.4"
   },
   "dependencies": {
-    "chess.mjs": "^1.4.0",
-    "import-node-modules": "^1.0.6"
+    "chess.mjs": "^1.4.0"
   }
 }
