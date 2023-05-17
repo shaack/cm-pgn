@@ -18,7 +18,7 @@ export class Pgn {
         if (this.header.tags[TAGS.SetUp] === "1" && this.header.tags[TAGS.FEN]) {
             this.history = new History(historyString, this.header.tags[TAGS.FEN], sloppy)
         } else {
-            this.history = new History(historyString, undefined, sloppy)
+            this.history = new History(historyString, null, sloppy)
         }
     }
 

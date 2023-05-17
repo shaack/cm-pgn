@@ -16,7 +16,7 @@ function IllegalMoveException(fen, notation) {
 
 export class History {
 
-    constructor(historyString = undefined, setUpFen = undefined, sloppy = false) {
+    constructor(historyString = null, setUpFen = null, sloppy = false) {
         if (!historyString) {
             this.clear()
         } else {
@@ -24,7 +24,7 @@ export class History {
                 .replace(/\s\s+/g, " ")
                 .replace(/\n/g, " ")
             )
-            this.moves = this.traverse(parsedMoves[0], setUpFen, undefined, 1, sloppy)
+            this.moves = this.traverse(parsedMoves[0], setUpFen, null, 1, sloppy)
         }
         this.setUpFen = setUpFen
     }
@@ -33,7 +33,7 @@ export class History {
         this.moves = []
     }
 
-    traverse(parsedMoves, fen, parent = undefined, ply = 1, sloppy = false) {
+    traverse(parsedMoves, fen, parent = null, ply = 1, sloppy = false) {
         const chess = fen ? new Chess(fen) : new Chess() // chess.js must be included in HTML
         const moves = []
         let previousMove = parent
@@ -46,7 +46,7 @@ export class History {
                         move.previous = previousMove
                         previousMove.next = move
                     } else {
-                        move.previous = undefined
+                        move.previous = null
                     }
                     move.ply = ply
                     this.fillMoveFromChessState(move, chess)
@@ -131,7 +131,7 @@ export class History {
      * @param sloppy
      * @returns {[]|{}}
      */
-    validateMove(notation, previous = undefined, sloppy = true) {
+    validateMove(notation, previous = null, sloppy = true) {
         if (!previous) {
             if (this.moves.length > 0) {
                 previous = this.moves[this.moves.length - 1]
@@ -151,7 +151,7 @@ export class History {
         return move
     }
 
-    addMove(notation, previous = undefined, sloppy = true) {
+    addMove(notation, previous = null, sloppy = true) {
         if (!previous) {
             if (this.moves.length > 0) {
                 previous = this.moves[this.moves.length - 1]
@@ -161,8 +161,8 @@ export class History {
         if (!move) {
             throw new Error("invalid move")
         }
+        move.previous = previous
         if (previous) {
-            move.previous = previous
             move.ply = previous.ply + 1
             move.uci = move.from + move.to + (move.promotion ? move.promotion : "")
             if (previous.next) {
