@@ -8,18 +8,14 @@
 <script type="importmap">
     {
         "imports": {
-            "node_modules/": "../node_modules/"
+            "teevi/": "../node_modules/teevi/",
+            "chess.mjs/": "../node_modules/chess.mjs/"
         }
     }
 
 </script>
 <script type="module">
-    if (HTMLScriptElement.supports('importmap')) {
-        console.log('importmap supported')
-    }
-</script>
-<script type="module">
-    import {teevi} from "node_modules/teevi/src/teevi.js"
+    import {teevi} from "teevi/src/teevi.js"
     import "./Parser.test.js"
     import "./Header.test.js"
     import "./History.test.js"

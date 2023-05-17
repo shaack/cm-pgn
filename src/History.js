@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 import {pgnParser} from "./parser/pgnParser.js"
-import {Chess} from "node_modules/chess.mjs/src/Chess.js"
+import {Chess} from "chess.mjs/src/Chess.js"
 
 function IllegalMoveException(fen, notation) {
     this.fen = fen
