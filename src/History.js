@@ -43,8 +43,12 @@ export class History {
                 const move = chess.move(notation, {sloppy: sloppy})
                 if (move) {
                     if (previousMove) {
-                        move.previous = previousMove
-                        previousMove.next = move
+                        if (!move.previous) {
+                            move.previous = previousMove
+                        }
+                        if (!previousMove.next) {
+                            previousMove.next = move
+                        }
                     } else {
                         move.previous = null
                     }

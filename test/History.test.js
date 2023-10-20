@@ -183,4 +183,54 @@ describe('History', () => {
         assert.equal(history2.moves[1].uci, "e8c8")
     })
 
+    it("every variation array's moves' next pointers should be consistent with variation array", () => {
+        const pgn = new Pgn(`[SetUp "1"]
+
+            1. e4 e5 2. Nc3 Nc6 3. Nf3 (3. Bb5 d6 4. Bxc6+ (4. Nf3 Nf6 5. d4 Be7 6. d5 a6 7.Be2 (7. Ba4) (7. Bxc6+ bxc6 8. dxc6 O-O 9. O-O)) 4... bxc6) 3... Nf6 (3... Bb4 4. Nd5 (4. a3 Ba5 (4... Bxc3 5. dxc3 Nf6 6. Nxe5 (6. Bb5)) 5. b4 Bb6 (5...Nxb4)) 4... Ba5 (4... Bc5)) 4. Nxe5 Nxe5 5. f4 *`)
+
+        const allMoves = pgn.history.moves;
+        const traverse = (moves) => {
+            moves.forEach((move, i) => {
+                console.log(i);
+                move.variation.forEach((variationMove, index) => {
+                    const isLastMove = index === move.variation.length - 1;
+                    if (!isLastMove) {
+                        assert.equal(variationMove.next, move.variation[index + 1]);
+                    }
+                });
+
+                move.variations.forEach(variation => {
+                    traverse(variation);
+                })
+            });
+        }
+        traverse(allMoves);
+    })
+
+    it("every variation array's moves' previous pointers should be consistent with variation array, or point to last move in previous variation", () => {
+        const pgn = new Pgn(`[SetUp "1"]
+
+            1. e4 e5 2. Nc3 Nc6 3. Nf3 (3. Bb5 d6 4. Bxc6+ (4. Nf3 Nf6 5. d4 Be7 6. d5 a6 7.Be2 (7. Ba4) (7. Bxc6+ bxc6 8. dxc6 O-O 9. O-O)) 4... bxc6) 3... Nf6 (3... Bb4 4. Nd5 (4. a3 Ba5 (4... Bxc3 5. dxc3 Nf6 6. Nxe5 (6. Bb5)) 5. b4 Bb6 (5...Nxb4)) 4... Ba5 (4... Bc5)) 4. Nxe5 Nxe5 5. f4 *`)
+
+        const allMoves = pgn.history.moves;
+        const traverse = (moves, sourceMove=null) => {
+            moves.forEach(move => {
+                move.variation.forEach((variationMove, index) => {
+                    const isFirstMove = index === 0;
+                    if (!isFirstMove) {
+                        assert.equal(variationMove.previous, move.variation[index - 1]);
+                    } else if (move.ply === 1) {
+                        assert.equal(move.previous, null);
+                    } else if (sourceMove) {
+                        assert.equal(variationMove.previous, sourceMove.previous);
+                    }
+                });
+
+                move.variations.forEach(variation => {
+                    traverse(variation, move);
+                })
+            });
+        }
+        traverse(allMoves);
+    })
 })
