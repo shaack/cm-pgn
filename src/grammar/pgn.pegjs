@@ -72,8 +72,12 @@ integer "integer"
 whiteSpace
     = " "+ { return '';}
 
+nullMove
+  = "--" { var hm = {}; hm.notation = '--'; return hm; }
+
 halfMove
-  = fig:figure? & checkdisc disc:discriminator str:strike?
+  = nullMove
+  / fig:figure? & checkdisc disc:discriminator str:strike?
     col:column row:row pr:promotion? ch:check?
     { var hm = {}; hm.fig = (fig ? fig : null); hm.disc =  (disc ? disc : null); hm.strike = (str ? str : null); hm.col = col; hm.row = row; hm.check = (ch ? ch : null); hm.promotion = pr; hm.notation = (fig ? fig : "") + (disc ? disc : "") + (str ? str : "") + col + row + (pr ? pr : "") + (ch ? ch : ""); return hm; }
   / fig:figure? cols:column rows:row str:strikeOrDash? col:column row:row pr:promotion? ch:check?
