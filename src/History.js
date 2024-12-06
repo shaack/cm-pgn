@@ -57,11 +57,11 @@ export class History {
                     chess.load(updatedFen);
 
                     const move = {
-                        notation: "--",
                         fen: chess.fen(), // Save the updated FEN
                         color: chess.turn(),
                         previous: previousMove,
                         ply: ply,
+                        san: "--",
                     };
                     move.variations = [];
                     moves.push(move);
@@ -179,7 +179,7 @@ export class History {
         if (previous) {
             const historyToMove = this.historyToMove(previous)
             for (const moveInHistory of historyToMove) {
-                if (moveInHistory.notation === "--") {
+                if (moveInHistory.san === "--") {
                     chess.load(moveInHistory.fen)
                 } else {
                     chess.move(moveInHistory)
@@ -194,18 +194,17 @@ export class History {
     }
 
     addMove(notation, previous = null, sloppy = true) {
+        console.log("addMove", notation)
         if (!previous) {
             if (this.moves.length > 0) {
                 previous = this.moves[this.moves.length - 1]
             }
         }
-        console.log("####")
-        console.log('notation', notation)
-        console.log('previous', previous)
         if (notation === "--") {
             const updatedFen = this.update_fen_after_null_move(previous ? previous.fen : this.setUpFen || new Chess().fen());
             const move = {
-                notation: "--",
+                san: "--",
+                color: previous && previous.color === "w" ? "b" : "w",
                 fen: updatedFen,
                 ply: previous ? previous.ply + 1 : 1,
                 previous: previous,
@@ -218,6 +217,7 @@ export class History {
             return move;
         }
 
+        console.log('about to validate move', notation, previous, sloppy);
         const move = this.validateMove(notation, previous, sloppy)
         if (!move) {
             throw new Error("invalid move")

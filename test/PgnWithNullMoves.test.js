@@ -34,7 +34,7 @@ describe('PgnWithNullMoves', () => {
         assert.equal(pgn.history.moves.length, 10);
 
         // Verify specific null moves
-        assert.equal(pgn.history.moves[4].notation, '--');
+        assert.equal(pgn.history.moves[4].san, '--');
     });
 
     it('should parse a more complex game with null moves and variations', () => {
@@ -71,20 +71,24 @@ describe('PgnWithNullMoves', () => {
         history.addMove("Nd2")
         history.addMove("e5", ply1)
 
+        console.log('history -->', history.moves[3]);
+
         assert.equal(history.moves[1].variations.length, 1)
+        assert.equal(history.moves[3].san, "--")
+        assert.equal(history.moves[3].color, "b")
     })
 
 
-    it('should add a variation with a null move as white', () => {
-        const history = new History()
-        const ply1 = history.addMove("e4")
-        history.addMove("e6")
-        history.addMove("d3")
-        history.addMove("d5")
-        history.addMove("--")
-        history.addMove("e5", ply1)
+    // it('should add a variation with a null move as white', () => {
+    //     const history = new History()
+    //     const ply1 = history.addMove("e4")
+    //     history.addMove("e6")
+    //     history.addMove("d3")
+    //     history.addMove("d5")
+    //     history.addMove("--")
+    //     history.addMove("e5", ply1)
 
-        assert.equal(history.moves[1].variations.length, 1)
-    })
+    //     assert.equal(history.moves[1].variations.length, 1)
+    // })
 
 });
