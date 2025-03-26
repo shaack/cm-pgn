@@ -138,7 +138,7 @@ describe('History', () => {
                 eliminiert die Kontrolle uber d1} 28. c4 (28. Nxf3 Bh3+ 29. Ng1 Bxf2) 28...
                 gxf6 (28... gxf6 29. Qg4+ Kh8 30. Qxf3 (30. Nxf3 Bh3+ 31. Ng1 Bxf2) 30... Bh3+)
                 0-1`)
-            // console.log(history.moves);
+        // console.log(history.moves);
     })
 
     it('should add a few moves to an empty history and validate a move', () => {
@@ -169,8 +169,17 @@ describe('History', () => {
 
         assert.equal(history.moves[1].variations.length, 1)
     })
+/*
+    // see https://github.com/shaack/cm-pgn/issues/22
+    it('should be possible to add a variation on whites first move', () => {
+        const history = new History()
+        history.addMove("e4")
+        history.addMove("d4", "start")
+        history.addMove("e5")
+    })
+*/
 
-    it("should provide the moves in UCI notation", function() {
+    it("should provide the moves in UCI notation", function () {
         // promotion, normal moves and capture
         const history = new History("b8=Q Ke7 Rc4 Rxc4", "4k3/1P6/8/8/6r1/8/8/2R1K3 w - - 0 1")
         assert.equal(history.moves[0].uci, "b7b8q")
@@ -188,23 +197,23 @@ describe('History', () => {
 
             1. e4 e5 2. Nc3 Nc6 3. Nf3 (3. Bb5 d6 4. Bxc6+ (4. Nf3 Nf6 5. d4 Be7 6. d5 a6 7.Be2 (7. Ba4) (7. Bxc6+ bxc6 8. dxc6 O-O 9. O-O)) 4... bxc6) 3... Nf6 (3... Bb4 4. Nd5 (4. a3 Ba5 (4... Bxc3 5. dxc3 Nf6 6. Nxe5 (6. Bb5)) 5. b4 Bb6 (5...Nxb4)) 4... Ba5 (4... Bc5)) 4. Nxe5 Nxe5 5. f4 *`)
 
-        const allMoves = pgn.history.moves;
+        const allMoves = pgn.history.moves
         const traverse = (moves) => {
             moves.forEach((move, i) => {
-                console.log(i);
+                console.log(i)
                 move.variation.forEach((variationMove, index) => {
-                    const isLastMove = index === move.variation.length - 1;
+                    const isLastMove = index === move.variation.length - 1
                     if (!isLastMove) {
-                        assert.equal(variationMove.next, move.variation[index + 1]);
+                        assert.equal(variationMove.next, move.variation[index + 1])
                     }
-                });
+                })
 
                 move.variations.forEach(variation => {
-                    traverse(variation);
+                    traverse(variation)
                 })
-            });
+            })
         }
-        traverse(allMoves);
+        traverse(allMoves)
     })
 
     it("every variation array's moves' previous pointers should be consistent with variation array, or point to last move in previous variation", () => {
@@ -212,25 +221,25 @@ describe('History', () => {
 
             1. e4 e5 2. Nc3 Nc6 3. Nf3 (3. Bb5 d6 4. Bxc6+ (4. Nf3 Nf6 5. d4 Be7 6. d5 a6 7.Be2 (7. Ba4) (7. Bxc6+ bxc6 8. dxc6 O-O 9. O-O)) 4... bxc6) 3... Nf6 (3... Bb4 4. Nd5 (4. a3 Ba5 (4... Bxc3 5. dxc3 Nf6 6. Nxe5 (6. Bb5)) 5. b4 Bb6 (5...Nxb4)) 4... Ba5 (4... Bc5)) 4. Nxe5 Nxe5 5. f4 *`)
 
-        const allMoves = pgn.history.moves;
-        const traverse = (moves, sourceMove=null) => {
+        const allMoves = pgn.history.moves
+        const traverse = (moves, sourceMove = null) => {
             moves.forEach(move => {
                 move.variation.forEach((variationMove, index) => {
-                    const isFirstMove = index === 0;
+                    const isFirstMove = index === 0
                     if (!isFirstMove) {
-                        assert.equal(variationMove.previous, move.variation[index - 1]);
+                        assert.equal(variationMove.previous, move.variation[index - 1])
                     } else if (move.ply === 1) {
-                        assert.equal(move.previous, null);
+                        assert.equal(move.previous, null)
                     } else if (sourceMove) {
-                        assert.equal(variationMove.previous, sourceMove.previous);
+                        assert.equal(variationMove.previous, sourceMove.previous)
                     }
-                });
+                })
 
                 move.variations.forEach(variation => {
-                    traverse(variation, move);
+                    traverse(variation, move)
                 })
-            });
+            })
         }
-        traverse(allMoves);
+        traverse(allMoves)
     })
 })
