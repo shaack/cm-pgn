@@ -209,7 +209,6 @@ describe('History', () => {
         const allMoves = pgn.history.moves
         const traverse = (moves) => {
             moves.forEach((move, i) => {
-                console.log(i)
                 move.variation.forEach((variationMove, index) => {
                     const isLastMove = index === move.variation.length - 1
                     if (!isLastMove) {
