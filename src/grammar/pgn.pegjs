@@ -20,7 +20,7 @@ pgnStartBlack
 
 pgnWhite
   = whiteSpace? cm:comment? whiteSpace? mn:moveNumber? whiteSpace? cb:comment? whiteSpace?
-    hm:halfMove  whiteSpace? nag:nags?  whiteSpace? ca:comment? whiteSpace? vari:variationWhite? all:pgnBlack?
+    hm:halfMove  whiteSpace? nag:nags?  whiteSpace? ca:comment? whiteSpace? vari:(variationWhite / variationBlack)? all:pgnBlack?
     { var arr = (all ? all : []);
       var move = {}; move.turn = 'w'; move.moveNumber = mn;
       move.notation = hm; move.commentBefore = cb; move.commentAfter = ca; move.commentMove = cm;
@@ -32,7 +32,7 @@ pgnBlack
     hm:halfMove whiteSpace?  nag:nags? whiteSpace? ca:comment? whiteSpace? vari:variationBlack? all:pgnWhite?
     { var arr = (all ? all : []);
       var move = {}; move.turn = 'b'; move.moveNumber = me;
-      move.notation = hm; move.commentBefore = cb; move.commentAfter = ca;
+      move.notation = hm; move.commentBefore = cb; move.commentAfter = ca; move.commentMove = cm;        // 11.08.25 Oli1970 move.commentMove = cm;  added
       move.variations = (vari ? vari : []); arr.unshift(move); move.nag = (nag ? nag : null); return arr; }
   / endGame
 

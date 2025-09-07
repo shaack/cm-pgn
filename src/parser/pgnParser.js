@@ -152,7 +152,7 @@ function peg$parse(input, options) {
             move.variations = (vari ? vari : []); move.nag = (nag ? nag : null); arr.unshift(move); return arr; },
       peg$c6 = function(cm, me, cb, hm, nag, ca, vari, all) { var arr = (all ? all : []);
             var move = {}; move.turn = 'b'; move.moveNumber = me;
-            move.notation = hm; move.commentBefore = cb; move.commentAfter = ca;
+            move.notation = hm; move.commentBefore = cb; move.commentAfter = ca; move.commentMove = cm;        // 11.08.25 Oli1970 move.commentMove = cm;  added
             move.variations = (vari ? vari : []); arr.unshift(move); move.nag = (nag ? nag : null); return arr; },
       peg$c7 = "1:0",
       peg$c8 = peg$literalExpectation("1:0", false),
@@ -588,6 +588,9 @@ function peg$parse(input, options) {
                             }
                             if (s13 !== peg$FAILED) {
                               s14 = peg$parsevariationWhite();
+                              if (s14 === peg$FAILED) {
+                                s14 = peg$parsevariationBlack();
+                              }
                               if (s14 === peg$FAILED) {
                                 s14 = null;
                               }
@@ -2240,12 +2243,7 @@ function peg$parse(input, options) {
     );
   }
 }
-/*
-module.exports = {
-  SyntaxError: peg$SyntaxError,
-  parse:       peg$parse
-};
-*/
+
 export class pgnParser {
   static parse(history, options) {
     return peg$parse(history, options)

@@ -9,6 +9,15 @@ import {Pgn} from "../src/Pgn.js"
 
 describe('History', () => {
 
+    it('should keep comment before a black half-move at variation start (commentMove)', () => {
+        // Variation starts after 1. e4 with a black move, preceded by a comment
+        const history = new History("1. e4 ({pre} 1... e3) 1... c5")
+        assert.equal(history.moves[0].variations.length, 1)
+        const blackVarMove = history.moves[0].variations[0][0]
+        assert.equal(blackVarMove.san, "e3")
+        assert.equal(blackVarMove.commentMove, "pre")
+    })
+
     it('should parse sloppy history', () => {
         const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 Nc6", undefined, true)
         assert.equal(history.moves.length, 4)
