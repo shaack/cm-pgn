@@ -19,17 +19,17 @@ describe('History', () => {
     })
 
     it('should parse sloppy history', () => {
-        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 Nc6", undefined, true)
+        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 Nc6",  {sloppy: true})
         assert.equal(history.moves.length, 4)
     })
 
     it('should parse sloppy history with empty comment', () => {
-        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {} Nc6", undefined, true)
+        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {} Nc6", {sloppy: true})
         assert.equal(history.moves.length, 4)
     })
 
     it('should parse sloppy history with nag', () => {
-        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6", undefined, true)
+        const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 ! {Great move!} Nc6", {sloppy: true})
 
         assert.equal(4, history.moves.length)
         assert.equal(history.moves[0].san, "e4")
@@ -190,13 +190,13 @@ describe('History', () => {
 
     it("should provide the moves in UCI notation", function () {
         // promotion, normal moves and capture
-        const history = new History("b8=Q Ke7 Rc4 Rxc4", "4k3/1P6/8/8/6r1/8/8/2R1K3 w - - 0 1")
+        const history = new History("b8=Q Ke7 Rc4 Rxc4", {setUpFen: "4k3/1P6/8/8/6r1/8/8/2R1K3 w - - 0 1"})
         assert.equal(history.moves[0].uci, "b7b8q")
         assert.equal(history.moves[1].uci, "e8e7")
         assert.equal(history.moves[2].uci, "c1c4")
         assert.equal(history.moves[3].uci, "g4c4")
         // castling
-        const history2 = new History("O-O O-O-O", "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1")
+        const history2 = new History("O-O O-O-O", {setUpFen: "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1"})
         assert.equal(history2.moves[0].uci, "e1g1")
         assert.equal(history2.moves[1].uci, "e8c8")
     })

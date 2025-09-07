@@ -16,7 +16,16 @@ function IllegalMoveException(fen, notation) {
 
 export class History {
 
-    constructor(historyString = null, setUpFen = null, sloppy = false) {
+    constructor(historyString = null, props = {}) {
+        this.props = {
+            setUpFen: null,
+            sloppy: false,
+            chess960: false,
+            ...props
+        }
+        if (typeof props !== "object") {
+            console.error("History constructor: setUpFen and sloppy properties are deprecated, use props instead")
+        }
         if (!historyString) {
             this.clear()
         } else {
@@ -24,9 +33,8 @@ export class History {
                 .replace(/\s\s+/g, " ")
                 .replace(/\n/g, " ")
             )
-            this.moves = this.traverse(parsedMoves[0], setUpFen, null, 1, sloppy)
+            this.moves = this.traverse(parsedMoves[0], this.props.setUpFen, null, 1, this.props.sloppy)
         }
-        this.setUpFen = setUpFen
     }
 
     clear() {
@@ -141,7 +149,7 @@ export class History {
                 previous = this.moves[this.moves.length - 1]
             }
         }
-        const chess = new Chess(this.setUpFen ? this.setUpFen : undefined)
+        const chess = new Chess(this.props.setUpFen ? this.props.setUpFen : undefined)
         if (previous) {
             const historyToMove = this.historyToMove(previous)
             for (const moveInHistory of historyToMove) {

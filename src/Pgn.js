@@ -13,12 +13,17 @@ export class Pgn {
         const lastHeaderElement =  pgnString.trim().slice(-1) === "]" ? pgnString.length : pgnString.lastIndexOf("]\n\n") + 1
         const headerString = pgnString.substring(0, lastHeaderElement)
         const historyString = pgnString.substring(lastHeaderElement)
-        const sloppy = !!props.sloppy
+        this.props = {
+            sloppy: false,
+            chess960: false,
+            ...props
+        }
+        const sloppy = this.props.sloppy
         this.header = new Header(headerString)
         if (this.header.tags[TAGS.SetUp] === "1" && this.header.tags[TAGS.FEN]) {
-            this.history = new History(historyString, this.header.tags[TAGS.FEN], sloppy)
+            this.history = new History(historyString, {setUpFen: this.header.tags[TAGS.FEN], sloppy: sloppy})
         } else {
-            this.history = new History(historyString, null, sloppy)
+            this.history = new History(historyString, {sloppy: sloppy})
         }
     }
 
