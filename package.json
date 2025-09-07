@@ -29,6 +29,6 @@
     "teevi": "^2.2.4"
   },
   "dependencies": {
-    "chess.mjs": "^2.1.1"
+    "chess.mjs": "^2.1.2"
   }
 }

@@ -18,12 +18,11 @@ export class Pgn {
             chess960: false,
             ...props
         }
-        const sloppy = this.props.sloppy
         this.header = new Header(headerString)
         if (this.header.tags[TAGS.SetUp] === "1" && this.header.tags[TAGS.FEN]) {
-            this.history = new History(historyString, {setUpFen: this.header.tags[TAGS.FEN], sloppy: sloppy})
+            this.history = new History(historyString, {setUpFen: this.header.tags[TAGS.FEN], sloppy: this.props.sloppy, chess960: this.props.chess960})
         } else {
-            this.history = new History(historyString, {sloppy: sloppy})
+            this.history = new History(historyString, {sloppy: this.props.sloppy, chess960: this.props.chess960})
         }
     }
 

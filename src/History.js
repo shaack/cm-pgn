@@ -42,7 +42,7 @@ export class History {
     }
 
     traverse(parsedMoves, fen, parent = null, ply = 1, sloppy = false) {
-        const chess = fen ? new Chess(fen) : new Chess() // chess.js must be included in HTML
+        const chess = fen ? new Chess(fen, {chess960: this.props.chess960}) : new Chess() // chess.js must be included in HTML
         const moves = []
         let previousMove = parent
         for (let parsedMove of parsedMoves) {
@@ -149,7 +149,7 @@ export class History {
                 previous = this.moves[this.moves.length - 1]
             }
         }
-        const chess = new Chess(this.props.setUpFen ? this.props.setUpFen : undefined)
+        const chess = new Chess(this.props.setUpFen ? this.props.setUpFen : undefined, {chess960: this.props.chess960})
         if (previous) {
             const historyToMove = this.historyToMove(previous)
             for (const moveInHistory of historyToMove) {
