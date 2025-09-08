@@ -44,13 +44,9 @@ export class History {
     traverse(parsedMoves, fen, parent = null, ply = 1, sloppy = false) {
         // console.log("chess960", this.props.chess960)
         let chess
-        if (this.props.chess960) {
-            // Only pass chess960 option when it's explicitly true
-            chess = fen ? new Chess(fen, {chess960: true}) : new Chess({chess960: true})
-        } else {
-            // Don't pass any options for regular chess games
-            chess = fen ? new Chess(fen) : new Chess()
-        }
+        // Always pass the chess960 option explicitly to avoid leaking state between tests
+        const options = { chess960: !!this.props.chess960 }
+        chess = fen ? new Chess(fen, options) : new Chess(options)
         const moves = []
         let previousMove = parent
         for (let parsedMove of parsedMoves) {
@@ -158,13 +154,9 @@ export class History {
             }
         }
         let chess
-        if (this.props.chess960) {
-            // Only pass chess960 option when it's explicitly true
-            chess = new Chess(this.props.setUpFen ? this.props.setUpFen : undefined, {chess960: true})
-        } else {
-            // Don't pass any options for regular chess games
-            chess = new Chess(this.props.setUpFen ? this.props.setUpFen : undefined)
-        }
+        // Always pass the chess960 option explicitly to avoid leaking state between tests
+        const options = { chess960: !!this.props.chess960 }
+        chess = new Chess(this.props.setUpFen ? this.props.setUpFen : undefined, options)
         if (previous) {
             const historyToMove = this.historyToMove(previous)
             for (const moveInHistory of historyToMove) {
