@@ -6,7 +6,7 @@
 import {describe, it, assert} from "../node_modules/teevi/src/teevi.js"
 import {pgnParser} from "../src/parser/pgnParser.js"
 
-describe('Parser', () => {
+describe('TestParser', () => {
     it('should parse complex history without nag', () => {
         const historyString = `1. e4 e6 2. d3 d5 3. Nd2 Nf6 4. g3 {Will man keinen Franzosen auf dem Brett
                 haben kann man so in eine Art von königsindischen Angriff übergehen} dxe4 {

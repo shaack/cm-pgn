@@ -6,7 +6,7 @@
 import {describe, it, assert} from "../node_modules/teevi/src/teevi.js"
 import {Header, TAGS} from "../src/Header.js"
 
-describe('Header', () => {
+describe('TestHeader', () => {
     it('should parse header', () => {
         const header = new Header(`[Event "F/S Return Match"]
 [Site "Belgrade, Serbia JUG"]

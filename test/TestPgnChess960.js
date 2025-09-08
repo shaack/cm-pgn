@@ -4,7 +4,7 @@
 import {describe, it, assert} from "teevi/src/teevi.js"
 import {Pgn} from "../src/Pgn.js"
 
-describe("Testing Chess 960", function () {
+describe("TestPgnChess960", function () {
 
     it("should load a chess960 game from a valid chess960 pgn", function () {
         const gamePgn = `[Event "Freestyle Weissenhaus KO"]

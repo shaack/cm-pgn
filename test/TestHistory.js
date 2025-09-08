@@ -7,7 +7,7 @@ import {describe, it, assert} from "../node_modules/teevi/src/teevi.js"
 import {History} from "../src/History.js"
 import {Pgn} from "../src/Pgn.js"
 
-describe('History', () => {
+describe('TestHistory', () => {
 
     it('should keep comment before a black half-move at variation start (commentMove)', () => {
         // Variation starts after 1. e4 with a black move, preceded by a comment

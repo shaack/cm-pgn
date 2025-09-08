@@ -7,7 +7,7 @@ import {describe, it, assert} from "../node_modules/teevi/src/teevi.js"
 import {Pgn} from "../src/Pgn.js"
 import {TAGS} from "../src/Header.js"
 
-describe('Pgn', () => {
+describe('TestPgn', () => {
 
     it('should create an empty pgn', () => {
         const pgn = new Pgn()

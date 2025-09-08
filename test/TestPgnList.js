@@ -7,7 +7,7 @@ import {describe, it, assert} from "../node_modules/teevi/src/teevi.js"
 import {PgnList} from "../src/PgnList.js"
 import {Pgn} from "../src/Pgn.js"
 
-describe('PgnList', () => {
+describe('TestPgnList', () => {
 
     it('should load a pgn list', () => {
         const pgnList = new PgnList()
