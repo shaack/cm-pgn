@@ -250,4 +250,17 @@ describe('TestHistory', () => {
         }
         traverse(allMoves)
     })
+
+    it("should load a non standard FEN and then work correctly", function () {
+        const fen = "ppppkppp/pppppppp/pppppppp/pppppppp/8/8/8/RNBQKBNR w KQ - 0 1"
+        const history = new History(null,{setUpFen: fen})
+        assert.equal(history.validateMove("e4"), null)
+        assert.notEqual(history.validateMove("Ke2"), null)
+        history.addMove("Ke2")
+        assert.notEqual(history.validateMove("e4"), null)
+        history.addMove("e4")
+        assert.equal(history.moves[0].san, "Ke2")
+        assert.equal(history.moves[1].from, "e5")
+        assert.equal(history.moves[1].to, "e4")
+    })
 })
