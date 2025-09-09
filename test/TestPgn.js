@@ -9,6 +9,26 @@ import {TAGS} from "../src/Header.js"
 
 describe('TestPgn', () => {
 
+    it("should load unusual FEN", function () {
+        const pgnText = `[Event "Test e96c0e"]
+[SetUp "1"]
+[FEN "ppppkppp/pppppppp/pppppppp/pppppppp/8/8/8/RNBQKBNR w KQ - 0 1"]
+[Result "*"]`
+        const pgn = new Pgn(pgnText)
+        assert.equal(pgn.history.moves.length, 0)
+        try {
+            pgn.history.addMove("e4");
+            assert.fail("should not be able to the wrong move")
+        } catch (e) {
+            // ok
+        }
+        const result = pgn.history.addMove("Ke2")
+        assert.true(result)
+        const move2 = pgn.history.addMove("e4")
+        assert.true(move2)
+        assert.equal(move2.fen, "ppppkppp/pppppppp/pppppppp/pppp1ppp/4p3/8/4K3/RNBQ1BNR w - - 0 2")
+    })
+
     it('should create an empty pgn', () => {
         const pgn = new Pgn()
         assert.equal(pgn.history.moves.length, 0)
