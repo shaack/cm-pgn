@@ -10,7 +10,7 @@ export class Pgn {
 
     constructor(pgnString = "", props = {}) {
         // only the header?
-        const lastHeaderElement =  pgnString.trim().slice(-1) === "]" ? pgnString.length : pgnString.lastIndexOf("]\n\n") + 1
+        const lastHeaderElement = pgnString.trim().slice(-1) === "]" ? pgnString.length : pgnString.lastIndexOf("]\n\n") + 1
         const headerString = pgnString.substring(0, lastHeaderElement)
         const historyString = pgnString.substring(lastHeaderElement)
         this.props = {
@@ -19,8 +19,19 @@ export class Pgn {
             ...props
         }
         this.header = new Header(headerString)
+        const variant = this.header.tags[TAGS.Variant]
+        if (variant &&
+            (variant.toLowerCase() === "chess960" ||
+                variant.toLowerCase() === "freestyle" ||
+                variant.toLowerCase() === "fischerandom")) {
+            this.props.chess960 = true
+        }
         if (this.header.tags[TAGS.SetUp] === "1" && this.header.tags[TAGS.FEN]) {
-            this.history = new History(historyString, {setUpFen: this.header.tags[TAGS.FEN], sloppy: this.props.sloppy, chess960: this.props.chess960})
+            this.history = new History(historyString, {
+                setUpFen: this.header.tags[TAGS.FEN],
+                sloppy: this.props.sloppy,
+                chess960: this.props.chess960
+            })
         } else {
             this.history = new History(historyString, {sloppy: this.props.sloppy, chess960: this.props.chess960})
         }
@@ -44,10 +55,10 @@ export class Pgn {
     }
 
     render(renderHeader = true, renderComments = true, renderNags = true) {
-        const header = renderHeader ? (this.header.render() + "\n") : "";
-        let history = this.history.render(renderComments, renderNags);
-        if(this.header.tags[TAGS.Result]) {
-            history += " " + this.header.tags[TAGS.Result];
+        const header = renderHeader ? (this.header.render() + "\n") : ""
+        let history = this.history.render(renderComments, renderNags)
+        if (this.header.tags[TAGS.Result]) {
+            history += " " + this.header.tags[TAGS.Result]
         }
         return header + this.wrap(history, 80)
     }

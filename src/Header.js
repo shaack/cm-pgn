@@ -46,7 +46,6 @@ export const TAGS = {
     Mode: "Mode", // "OTB" (over-the-board) "ICS" (Internet Chess Server)
     PlyCount: "PlyCount", // String value denoting total number of half-moves played.
     Variant: "Variant" // "Chess960", "Fischerandom" and "Freestyle" are the same (Chess960).
-
 }
 
 export class Header {
