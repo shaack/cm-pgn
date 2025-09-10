@@ -45,6 +45,7 @@ export const TAGS = {
     Annotator: "Annotator", // The person providing notes to the game.
     Mode: "Mode", // "OTB" (over-the-board) "ICS" (Internet Chess Server)
     PlyCount: "PlyCount", // String value denoting total number of half-moves played.
+    Variant: "Variant" // "Chess960", "Fischerandom" and "Freestyle" are the same (Chess960).
 
 }
 
