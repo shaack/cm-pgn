@@ -18,6 +18,25 @@ describe('TestHistory', () => {
         assert.equal(blackVarMove.commentMove, "pre")
     })
 
+    it('should render nags correctly after the move, without duplicating the $ (issue #28)', () => {
+        const pgnString = `[Event "Live Chess"]
+[Date "2025.04.07"]
+[White "p1"]
+[Black "p2"]
+[Result "1-0"]
+
+1. d4 Nf6 2. c4 c5 (2... d6 3. Nc3 g6) 3. d5 $1 {a new move} 1-0`
+        const pgn = new Pgn(pgnString)
+        const rendered = pgn.render()
+        assert.equal(rendered.includes("$$"), false)
+        assert.equal(rendered.includes("d5 $1"), true)
+        // round-trip must parse and keep the nag on d5
+        const reparsed = new Pgn(rendered)
+        assert.equal(reparsed.history.moves[4].san, "d5")
+        assert.equal(reparsed.history.moves[4].nag, "$1")
+        assert.equal(reparsed.history.moves[4].commentAfter, "a new move")
+    })
+
     it('should parse sloppy history', () => {
         const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 Nc6",  {sloppy: true})
         assert.equal(history.moves.length, 4)

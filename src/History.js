@@ -211,14 +211,14 @@ export class History {
                     result += move.ply / 2 + "... "
                 }
                 needReminder = false
-                if (renderNags && move.nag) {
-                    result += "$" + move.nag + " "
-                }
                 if (renderComments && move.commentBefore) {
                     result += "{" + move.commentBefore + "} "
                     needReminder = true
                 }
                 result += move.san + " "
+                if (renderNags && move.nag) {
+                    result += move.nag + " "
+                }
                 if (renderComments && move.commentMove) {
                     result += "{" + move.commentMove + "} "
                     needReminder = true
