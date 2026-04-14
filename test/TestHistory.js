@@ -46,6 +46,24 @@ describe('TestHistory', () => {
         assert.equal(pgn.history.moves[1].commentAfter, "comment 1 comment 2")
     })
 
+    it('should keep commentMove on the first move when the game starts at a black move (issue #19)', () => {
+        const pgn = new Pgn(`[SetUp "1"]
+[FEN "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1"]
+
+{Do you remember the first plays? Prove it! : D} 1... e6 2. d4 *
+`)
+        assert.equal(pgn.history.moves[0].san, "e6")
+        assert.equal(pgn.history.moves[0].commentMove, "Do you remember the first plays? Prove it! : D")
+    })
+
+    it('should preserve newlines inside comments (issue #19 P.S.)', () => {
+        const pgn = new Pgn(`[Result "*"]
+
+1. e4 {line1
+line2} e5 *`)
+        assert.equal(pgn.history.moves[0].commentAfter, "line1\nline2")
+    })
+
     it('should parse sloppy history', () => {
         const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 Nc6",  {sloppy: true})
         assert.equal(history.moves.length, 4)

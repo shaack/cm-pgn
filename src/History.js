@@ -29,10 +29,13 @@ export class History {
         if (!historyString) {
             this.clear()
         } else {
-            const parsedMoves = pgnParser.parse(historyString
-                .replace(/\s\s+/g, " ")
-                .replace(/\n/g, " ")
-            )
+            // Normalize whitespace outside of {comments} so newlines inside
+            // comments are preserved, and tolerate trailing whitespace.
+            const normalized = (historyString.match(/\{[^}]*\}|[^{]+/g) || [])
+                .map(chunk => chunk.startsWith("{") ? chunk : chunk.replace(/\s+/g, " "))
+                .join("")
+                .trim()
+            const parsedMoves = pgnParser.parse(normalized)
             this.moves = this.traverse(parsedMoves[0], this.props.setUpFen, null, 1, this.props.sloppy)
         }
     }
