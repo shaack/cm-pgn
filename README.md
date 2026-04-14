@@ -34,8 +34,38 @@ Use the `Pgn` class as JS Module:
 
 `constructor(pgnString = "", props = {})`
 
-if you set `{ sloppy: true }` in props, some non-standard move notations
-will be accepted. See also [.move(move, options)](https://github.com/jhlywa/chess.js/blob/master/README.md#movemove--options-) from chess.js.
+Supported `props`:
+
+- `sloppy` (default `false`) — accept non-standard move notations like `e2e4`
+  or `e2-e4`. See [.move(move, options)](https://github.com/jhlywa/chess.js/blob/master/README.md#movemove--options-) from chess.js.
+- `chess960` (default `false`) — parse Chess960 / Fischer Random games,
+  including non-standard castling notation. Also auto-enabled when the
+  header contains `[Variant "Chess960"]`, `"Fischerandom"` or `"Freestyle"`.
+
+If the header contains `[SetUp "1"]` together with `[FEN "…"]`, the game
+is replayed from that FEN instead of the standard starting position.
+
+## Rendering a PGN
+
+```js
+pgn.render(renderHeader = true, renderComments = true, renderNags = true)
+```
+
+Re-serializes `pgn.header` and `pgn.history` back to a PGN string,
+word-wrapped at 80 columns. `pgn.header.render()` and
+`pgn.history.render(renderComments, renderNags)` are available if you
+only need one of the two blocks.
+
+## Header tags
+
+`pgn.header.tags` is a plain object mapping tag names to string values.
+A `TAGS` constant with the well-known PGN tag names is exported from
+`src/Header.js` for safer lookups:
+
+```js
+import {TAGS} from "./PATH/TO/cm-pgn/src/Header.js"
+pgn.header.tags[TAGS.White] // "Haack, Stefan"
+```
 
 ## Data structure
 
@@ -91,9 +121,18 @@ pgn.history.moves[i] = {
 - 'p' - pawn
 - 'n' - knight
 - 'b' - bishop
-- 'r' - root
+- 'r' - rook
 - 'q' - queen
 - 'k' - king
+
+#### Optional fields on `pgn.history.moves[i]`
+
+- `nag` — the NAG as string, e.g. `"$1"`
+- `commentMove`, `commentBefore`, `commentAfter` — PGN `{ ... }` comments
+  around the move; newlines are preserved
+- `gameOver`, `inCheck`, `inCheckmate`, `inDraw`, `inStalemate`,
+  `insufficientMaterial`, `inThreefoldRepetition` — set to `true` when
+  the corresponding chess.js predicate holds after the move
 
 #### Examples
 
@@ -113,6 +152,26 @@ assert.equal(history.moves[3].san, "Nc6")
 assert.equal(history.moves[3].previous.san, "Nf3")
 assert.equal(history.moves[3].previous.next.san, "Nc6")
 ```
+
+## Building a history programmatically
+
+`pgn.history` also exposes a small mutation API:
+
+```js
+// validate without appending — returns a move object or null
+pgn.history.validateMove("Nf3")
+
+// append a move to the main line (or to a variation, via `previous`)
+const move = pgn.history.addMove("Nf3")
+
+// walk the linked list back to the starting position
+pgn.history.historyToMove(move) // => move[]
+```
+
+`addMove(notation, previous = null, sloppy = true)` appends to the end of
+the main line by default. Passing an existing move as `previous` appends
+after that move; if `previous` already has a `next`, the new move is
+attached as a variation instead.
 
 ## Parsing multi-game PGN databases
 
@@ -145,9 +204,10 @@ their texts are joined with a single space.
 ## Development
 
 This module uses [PEG.js](https://pegjs.org/) for parser generation. The parser (`pgnParser.js`)
-in `src/cm-pgn/parser/` is generated from the grammar file `src/grammar/pgn.pegjs`.
+in `src/parser/` is generated from the grammar file `src/grammar/pgn.pegjs`.
 
-To recreate the parser after modification of `src/grammar/pgn.pegjs`, run `bin/generate-parser.sh`.
+To recreate the parser after modification of `src/grammar/pgn.pegjs`, run `./generate-parser.sh`
+in the repository root.
 
 ## Testing
 
