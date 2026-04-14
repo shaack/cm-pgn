@@ -211,7 +211,7 @@ wäre, diese Stellung gegen Tal weiterzuspielen.} ) 1-0`)
         console.log(pgn.render())
         assert.equal(pgn.render(), gamePgn)
     })
-    it('should parse pgn from https://github.com/shaack/cm-pgn/issues/8', () => {
+    it('should parse pgn (issue #8)', () => {
         const pgnString = `[Event "?"]
 [Site "?"]
 [Date "????.??.??"]
@@ -258,7 +258,7 @@ Nd6 Kxg4 23. c5 Kf3 24. c6 e4 25. c7 Bd4 26. Nb5 Be5 27. Bd6 e3 28. Bxe5 fxe5
         assert.equal(history.moves[3].previous.next.san, "Nc6")
         console.log(pgn)
     })
-    it("should parse sloppy PGN from https://github.com/shaack/cm-pgn/issues/9", () => {
+    it("should parse sloppy PGN (issue 9)", () => {
         const ignored = new Pgn(`[Event "?"]
 [Site "?"]
 [Date "?"]

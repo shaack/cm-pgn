@@ -38,19 +38,49 @@ export class Pgn {
     }
 
     wrap(str, maxLength) {
-        const words = str.split(" ")
-        let lines = []
-        let line = ""
-        for (let i = 0; i < words.length; i++) {
-            const word = words[i]
-            if (line.length + word.length < maxLength) {
-                line += word + " "
+        // Tokenize such that {...} comments stay atomic; wrap must never
+        // insert a line break inside a comment, otherwise round-tripping
+        // a comment that already contains whitespace becomes unstable.
+        const tokens = []
+        let i = 0
+        while (i < str.length) {
+            const ch = str[i]
+            if (ch === " " || ch === "\n" || ch === "\t") {
+                i++
+                continue
+            }
+            if (ch === "{") {
+                const end = str.indexOf("}", i)
+                if (end === -1) {
+                    tokens.push(str.substring(i))
+                    break
+                }
+                tokens.push(str.substring(i, end + 1))
+                i = end + 1
             } else {
-                lines.push(line.trim())
-                line = word + " "
+                let j = i
+                while (j < str.length && str[j] !== " " && str[j] !== "\n" && str[j] !== "\t" && str[j] !== "{") {
+                    j++
+                }
+                tokens.push(str.substring(i, j))
+                i = j
             }
         }
-        lines.push(line.trim())
+        const lines = []
+        let line = ""
+        for (const tok of tokens) {
+            if (line.length === 0) {
+                line = tok
+            } else if (line.length + 1 + tok.length <= maxLength) {
+                line += " " + tok
+            } else {
+                lines.push(line)
+                line = tok
+            }
+        }
+        if (line.length > 0) {
+            lines.push(line)
+        }
         return lines.join("\n")
     }
 
