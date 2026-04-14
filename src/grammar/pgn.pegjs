@@ -19,8 +19,8 @@ pgnStartBlack
   = pb:pgnBlack { return pb; }
 
 pgnWhite
-  = whiteSpace? cm:comment? whiteSpace? mn:moveNumber? whiteSpace? cb:comment? whiteSpace?
-    hm:halfMove  whiteSpace? nag:nags?  whiteSpace? ca:comment? whiteSpace? vari:(variationWhite / variationBlack)? all:pgnBlack?
+  = whiteSpace? cm:comments? whiteSpace? mn:moveNumber? whiteSpace? cb:comments? whiteSpace?
+    hm:halfMove  whiteSpace? nag:nags?  whiteSpace? ca:comments? whiteSpace? vari:(variationWhite / variationBlack)? all:pgnBlack?
     { var arr = (all ? all : []);
       var move = {}; move.turn = 'w'; move.moveNumber = mn;
       move.notation = hm; move.commentBefore = cb; move.commentAfter = ca; move.commentMove = cm;
@@ -28,8 +28,8 @@ pgnWhite
   / endGame
 
 pgnBlack
-  = whiteSpace? cm:comment? whiteSpace? me:moveEllipse? whiteSpace? cb:comment? whiteSpace?
-    hm:halfMove whiteSpace?  nag:nags? whiteSpace? ca:comment? whiteSpace? vari:variationBlack? all:pgnWhite?
+  = whiteSpace? cm:comments? whiteSpace? me:moveEllipse? whiteSpace? cb:comments? whiteSpace?
+    hm:halfMove whiteSpace?  nag:nags? whiteSpace? ca:comments? whiteSpace? vari:variationBlack? all:pgnWhite?
     { var arr = (all ? all : []);
       var move = {}; move.turn = 'b'; move.moveNumber = me;
       move.notation = hm; move.commentBefore = cb; move.commentAfter = ca; move.commentMove = cm;        // 11.08.25 Oli1970 move.commentMove = cm;  added
@@ -43,6 +43,9 @@ endGame
   / "0-1" { return ["0-1"]; }
   / "1/2-1/2"  { return ["1/2-1/2"]; }
   / "*"  { return ["*"]; }
+
+comments
+  = c:comment whiteSpace? cs:comments? { return cs ? c + " " + cs : c; }
 
 comment
   = cl cm:[^}]* cr { return cm.join("").trim(); }

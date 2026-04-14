@@ -37,6 +37,15 @@ describe('TestHistory', () => {
         assert.equal(reparsed.history.moves[4].commentAfter, "a new move")
     })
 
+    it('should parse multiple comments after the final move (issue #17)', () => {
+        const pgn = new Pgn(`[Result "*"]
+
+1. d4 Nf6 { comment 1 } { comment 2 } *`)
+        assert.equal(pgn.history.moves.length, 2)
+        assert.equal(pgn.history.moves[1].san, "Nf6")
+        assert.equal(pgn.history.moves[1].commentAfter, "comment 1 comment 2")
+    })
+
     it('should parse sloppy history', () => {
         const history = new History("1. e2-e4 e7e5 (e6) 2. Nf3 Nc6",  {sloppy: true})
         assert.equal(history.moves.length, 4)
