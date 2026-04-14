@@ -114,6 +114,34 @@ assert.equal(history.moves[3].previous.san, "Nf3")
 assert.equal(history.moves[3].previous.next.san, "Nc6")
 ```
 
+## Parsing multi-game PGN databases
+
+Use `PgnList` to parse a string (or file) containing several games:
+
+```js
+import {PgnList} from "./PATH/TO/cm-pgn/src/PgnList.js"
+
+// from a string
+const pgns = PgnList.parse(multiGamePgnString) // => Pgn[]
+pgns[0].history.moves
+
+// or keep the raw game strings
+const list = new PgnList(multiGamePgnString)
+list.pgns // => string[]
+
+// or load from a URL (browser)
+const list2 = new PgnList()
+await list2.fetch("./games.pgn")
+list2.pgns // => string[]
+```
+
+## Notes on comments
+
+Line breaks inside `{ ... }` comments are preserved as-is in
+`commentMove` / `commentBefore` / `commentAfter`. Multiple consecutive
+comments at the same position (e.g. `{ a } { b }`) are supported and
+their texts are joined with a single space.
+
 ## Development
 
 This module uses [PEG.js](https://pegjs.org/) for parser generation. The parser (`pgnParser.js`)
