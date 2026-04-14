@@ -173,6 +173,22 @@ the main line by default. Passing an existing move as `previous` appends
 after that move; if `previous` already has a `next`, the new move is
 attached as a variation instead.
 
+To add a move at the very start of the game — either as the first
+main-line move or as an alternative to an existing first move (e.g.
+`1. e4 (1. d4) 1... e5`) — use `addMoveAtStart`:
+
+```js
+history.addMove("e4")
+history.addMoveAtStart("d4") // => 1. e4 (1. d4)
+// equivalent shorthand through addMove:
+history.addMove("d4", "start")
+```
+
+The move is validated from the starting position (or `setUpFen`). If the
+main line is empty, it simply becomes `moves[0]`; otherwise it is pushed
+onto `moves[0].variations`. The returned move can be extended with
+further `addMove(..., previousVariationMove)` calls.
+
 ## Parsing multi-game PGN databases
 
 Use `PgnList` to parse a string (or file) containing several games:
