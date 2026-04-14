@@ -26,9 +26,9 @@
   "homepage": "https://github.com/shaack/cm-pgn#readme",
   "devDependencies": {
     "pegjs": "^0.10.0",
-    "teevi": "^2.2.4"
+    "teevi": "^2.3.0"
   },
   "dependencies": {
-    "chess.mjs": "^2.2.3"
+    "chess.mjs": "^2.3.2"
   }
 }
