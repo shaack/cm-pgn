@@ -224,15 +224,82 @@ line2} e5 *`)
 
         assert.equal(history.moves[1].variations.length, 1)
     })
-/*
-    // see https://github.com/shaack/cm-pgn/issues/22
-    it('should be possible to add a variation on whites first move', () => {
+    it('addMoveAtStart on empty history adds the move to the main line (issue #22)', () => {
+        const history = new History()
+        const m = history.addMoveAtStart("e4")
+        assert.equal(history.moves.length, 1)
+        assert.equal(history.moves[0], m)
+        assert.equal(m.san, "e4")
+        assert.equal(m.ply, 1)
+        assert.equal(m.previous, null)
+        assert.equal(m.variation, history.moves)
+    })
+
+    it('addMoveAtStart on a non-empty history adds a variation to the first move (issue #22)', () => {
         const history = new History()
         history.addMove("e4")
-        history.addMove("d4", "start")
         history.addMove("e5")
+        const d4 = history.addMoveAtStart("d4")
+        assert.equal(history.moves[0].variations.length, 1)
+        assert.equal(history.moves[0].variations[0][0], d4)
+        assert.equal(d4.san, "d4")
+        assert.equal(d4.ply, 1)
+        assert.equal(d4.previous, null)
+        assert.equal(d4.variation, history.moves[0].variations[0])
+        assert.equal(history.moves[0].san, "e4")
+        assert.equal(history.moves[1].san, "e5")
     })
-*/
+
+    it('a move returned by addMoveAtStart can be extended with addMove (issue #22)', () => {
+        const history = new History()
+        history.addMove("e4")
+        const d4 = history.addMoveAtStart("d4")
+        const d5 = history.addMove("d5", d4)
+        assert.equal(history.moves[0].variations[0].length, 2)
+        assert.equal(history.moves[0].variations[0][1], d5)
+        assert.equal(d5.previous, d4)
+        assert.equal(d4.next, d5)
+        assert.equal(d5.ply, 2)
+    })
+
+    it('addMove with previous="start" is an alias for addMoveAtStart (issue #22)', () => {
+        const history = new History()
+        history.addMove("e4")
+        const d4 = history.addMove("d4", "start")
+        history.addMove("e5")
+        assert.equal(history.moves[0].variations[0][0], d4)
+        assert.equal(history.moves.length, 2)
+        assert.equal(history.moves[1].san, "e5")
+    })
+
+    it('addMoveAtStart round-trips through render/parse (issue #22)', () => {
+        const history = new History()
+        history.addMove("e4")
+        history.addMove("e5")
+        history.addMoveAtStart("d4")
+        const rendered = history.render()
+        const reparsed = new Pgn(rendered)
+        assert.equal(reparsed.history.moves[0].san, "e4")
+        assert.equal(reparsed.history.moves[0].variations.length, 1)
+        assert.equal(reparsed.history.moves[0].variations[0][0].san, "d4")
+    })
+
+    it('addMoveAtStart respects setUpFen when starting from a custom position (issue #22)', () => {
+        const history = new History(null, {setUpFen: "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1"})
+        history.addMove("e5")
+        const c5 = history.addMoveAtStart("c5")
+        assert.equal(c5.san, "c5")
+        assert.equal(c5.ply, 1)
+        assert.equal(history.moves[0].variations[0][0], c5)
+    })
+
+    it('addMoveAtStart rejects an illegal first move (issue #22)', () => {
+        const history = new History()
+        history.addMove("e4")
+        let threw = false
+        try { history.addMoveAtStart("e5") } catch (e) { threw = true }
+        assert.equal(threw, true)
+    })
 
     it("should provide the moves in UCI notation", function () {
         // promotion, normal moves and capture

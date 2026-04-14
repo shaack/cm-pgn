@@ -173,7 +173,35 @@ export class History {
         return move
     }
 
+    addMoveAtStart(notation, sloppy = true) {
+        // Validate from the start position (or setUpFen) — not from the end
+        // of the main line, which is what validateMove(null) would do.
+        const options = { chess960: !!this.props.chess960 }
+        const chess = new Chess(this.props.setUpFen ? this.props.setUpFen : undefined, options)
+        const move = chess.move(notation, {sloppy: sloppy})
+        if (!move) {
+            throw new Error("invalid move")
+        }
+        this.fillMoveFromChessState(move, chess)
+        move.previous = null
+        move.ply = 1
+        move.uci = move.from + move.to + (move.promotion ? move.promotion : "")
+        if (this.moves.length === 0) {
+            move.variation = this.moves
+            this.moves.push(move)
+        } else {
+            const firstMove = this.moves[0]
+            firstMove.variations.push([])
+            move.variation = firstMove.variations[firstMove.variations.length - 1]
+            move.variation.push(move)
+        }
+        return move
+    }
+
     addMove(notation, previous = null, sloppy = true) {
+        if (previous === "start") {
+            return this.addMoveAtStart(notation, sloppy)
+        }
         if (!previous) {
             if (this.moves.length > 0) {
                 previous = this.moves[this.moves.length - 1]
