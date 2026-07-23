@@ -9,13 +9,14 @@ import {Pgn} from "../src/Pgn.js"
 
 describe('TestHistory', () => {
 
-    it('should keep comment before a black half-move at variation start (commentMove)', () => {
+    it('should keep comment before a black half-move at variation start (startingComments)', () => {
         // Variation starts after 1. e4 with a black move, preceded by a comment
         const history = new History("1. e4 ({pre} 1... e3) 1... c5")
         assert.equal(history.moves[0].variations.length, 1)
         const blackVarMove = history.moves[0].variations[0][0]
         assert.equal(blackVarMove.san, "e3")
-        assert.equal(blackVarMove.commentMove, "pre")
+        assert.equal(blackVarMove.startingComments.length, 1)
+        assert.equal(blackVarMove.startingComments[0], "pre")
     })
 
     it('should render nags correctly after the move, without duplicating the $ (issue #28)', () => {
@@ -33,27 +34,31 @@ describe('TestHistory', () => {
         // round-trip must parse and keep the nag on d5
         const reparsed = new Pgn(rendered)
         assert.equal(reparsed.history.moves[4].san, "d5")
-        assert.equal(reparsed.history.moves[4].nag, "$1")
-        assert.equal(reparsed.history.moves[4].commentAfter, "a new move")
+        assert.equal(reparsed.history.moves[4].nags[0], 1)
+        assert.equal(reparsed.history.moves[4].comments[0], "a new move")
     })
 
-    it('should parse multiple comments after the final move (issue #17)', () => {
+    it('should parse multiple comments after the final move as a list (issue #17)', () => {
         const pgn = new Pgn(`[Result "*"]
 
 1. d4 Nf6 { comment 1 } { comment 2 } *`)
         assert.equal(pgn.history.moves.length, 2)
         assert.equal(pgn.history.moves[1].san, "Nf6")
-        assert.equal(pgn.history.moves[1].commentAfter, "comment 1 comment 2")
+        assert.equal(pgn.history.moves[1].comments.length, 2)
+        assert.equal(pgn.history.moves[1].comments[0], "comment 1")
+        assert.equal(pgn.history.moves[1].comments[1], "comment 2")
     })
 
-    it('should keep commentMove on the first move when the game starts at a black move (issue #19)', () => {
+    it('should lift a comment before the first move to gameComment when the game starts at a black move (issue #19)', () => {
         const pgn = new Pgn(`[SetUp "1"]
 [FEN "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1"]
 
 {Do you remember the first plays? Prove it! : D} 1... e6 2. d4 *
 `)
         assert.equal(pgn.history.moves[0].san, "e6")
-        assert.equal(pgn.history.moves[0].commentMove, "Do you remember the first plays? Prove it! : D")
+        assert.equal(pgn.history.moves[0].startingComments, undefined)
+        assert.equal(pgn.gameComment.length, 1)
+        assert.equal(pgn.gameComment[0], "Do you remember the first plays? Prove it! : D")
     })
 
     it('should preserve newlines inside comments (issue #19 P.S.)', () => {
@@ -61,7 +66,44 @@ describe('TestHistory', () => {
 
 1. e4 {line1
 line2} e5 *`)
-        assert.equal(pgn.history.moves[0].commentAfter, "line1\nline2")
+        assert.equal(pgn.history.moves[0].comments[0], "line1\nline2")
+    })
+
+    it('should render a comment before a move before the move and round-trip it (5.0)', () => {
+        const pgn = new Pgn(`[Result "*"]
+
+1. e4 e5 2. Nf3 Nc6 ( {Risikoloser war} 2... Nf6 {.} ) 3. Bb5 *`)
+        const varMove = pgn.history.moves[3].variations[0][0]
+        assert.equal(varMove.san, "Nf6")
+        assert.equal(varMove.startingComments[0], "Risikoloser war")
+        assert.equal(varMove.comments[0], ".")
+        const rendered = pgn.history.render()
+        // the comment must be rendered before the move, not after it
+        assert.true(rendered.indexOf("{Risikoloser war}") < rendered.indexOf("Nf6"))
+        const reparsed = new Pgn(rendered)
+        assert.equal(reparsed.history.moves[3].variations[0][0].startingComments[0], "Risikoloser war")
+    })
+
+    it('should put a game-start comment in gameComment and a variation-start comment in startingComments (5.0)', () => {
+        const pgn = new Pgn(`[Result "*"]
+
+{game start} 1. e4 e5 2. Nf3 ( {var start} 2. Nc3 Nc6 ) 2... Nc6 *`)
+        assert.equal(pgn.gameComment.length, 1)
+        assert.equal(pgn.gameComment[0], "game start")
+        assert.equal(pgn.history.moves[0].startingComments, undefined)
+        const varMove = pgn.history.moves[2].variations[0][0]
+        assert.equal(varMove.san, "Nc3")
+        assert.equal(varMove.startingComments[0], "var start")
+    })
+
+    it('should parse nags as a number array (5.0)', () => {
+        const pgn = new Pgn(`[Result "*"]
+
+1. e4 e5 2. Nf3 $1 $14 Nc6 *`)
+        assert.equal(pgn.history.moves[2].san, "Nf3")
+        assert.equal(pgn.history.moves[2].nags.length, 2)
+        assert.equal(pgn.history.moves[2].nags[0], 1)
+        assert.equal(pgn.history.moves[2].nags[1], 14)
     })
 
     it('should parse sloppy history', () => {
@@ -81,8 +123,8 @@ line2} e5 *`)
         assert.equal(history.moves[0].san, "e4")
         assert.equal(history.moves[1].variations.length, 1)
         assert.equal(history.moves[1].variations[0][0].san, "e6")
-        assert.equal(history.moves[2].nag, "$1")
-        assert.equal(history.moves[2].commentAfter, "Great move!")
+        assert.equal(history.moves[2].nags[0], 1)
+        assert.equal(history.moves[2].comments[0], "Great move!")
         assert.equal(history.moves[2].fen, "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
         assert.equal(history.moves[3].from, "b8")
         assert.equal(history.moves[3].to, "c6")

@@ -172,7 +172,7 @@ function peg$parse(input, options) {
       peg$c22 = "*",
       peg$c23 = peg$literalExpectation("*", false),
       peg$c24 = function() { return ["*"]; },
-      peg$c25 = function(c, cs) { return cs ? c + " " + cs : c; },
+      peg$c25 = function(c, cs) { return cs ? [c].concat(cs) : [c]; },
       peg$c26 = /^[^}]/,
       peg$c27 = peg$classExpectation(["}"], true, false),
       peg$c28 = function(cm) { return cm.join("").trim(); },

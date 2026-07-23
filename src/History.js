@@ -26,6 +26,7 @@ export class History {
         if (typeof props !== "object") {
             console.error("History constructor: setUpFen and sloppy properties are deprecated, use props instead")
         }
+        this.gameComment = undefined // comments before the first move (chessops-style game.comments)
         if (!historyString) {
             this.clear()
         } else {
@@ -36,7 +37,7 @@ export class History {
                 .join("")
                 .trim()
             const parsedMoves = pgnParser.parse(normalized)
-            this.moves = this.traverse(parsedMoves[0], this.props.setUpFen, null, 1, this.props.sloppy)
+            this.moves = this.traverse(parsedMoves[0], this.props.setUpFen, null, 1, this.props.sloppy, true)
         }
     }
 
@@ -44,7 +45,7 @@ export class History {
         this.moves = []
     }
 
-    traverse(parsedMoves, fen, parent = null, ply = 1, sloppy = false) {
+    traverse(parsedMoves, fen, parent = null, ply = 1, sloppy = false, isRoot = false) {
         // console.log("chess960", this.props.chess960)
         let chess
         // Always pass the chess960 option explicitly to avoid leaking state between tests
@@ -70,16 +71,28 @@ export class History {
                     move.ply = ply
                     this.fillMoveFromChessState(move, chess)
                     if (parsedMove.nag) {
-                        move.nag = parsedMove.nag[0]
+                        move.nags = parsedMove.nag.map(nag => parseInt(nag.slice(1), 10))
+                    }
+                    // commentMove and commentBefore both precede the move, so both
+                    // go into startingComments. Exception: a leading comment on the
+                    // very first move of the main line is the game comment (like
+                    // chessops' game.comments), lifted to History.gameComment.
+                    const startingComments = []
+                    if (parsedMove.commentMove) {
+                        if (isRoot && moves.length === 0) {
+                            this.gameComment = parsedMove.commentMove
+                        } else {
+                            startingComments.push(...parsedMove.commentMove)
+                        }
                     }
                     if (parsedMove.commentBefore) {
-                        move.commentBefore = parsedMove.commentBefore
+                        startingComments.push(...parsedMove.commentBefore)
                     }
-                    if (parsedMove.commentMove) {
-                        move.commentMove = parsedMove.commentMove
+                    if (startingComments.length > 0) {
+                        move.startingComments = startingComments
                     }
                     if (parsedMove.commentAfter) {
-                        move.commentAfter = parsedMove.commentAfter
+                        move.comments = parsedMove.commentAfter
                     }
                     move.variations = []
                     const parsedVariations = parsedMove.variations
@@ -242,21 +255,23 @@ export class History {
                     result += move.ply / 2 + "... "
                 }
                 needReminder = false
-                if (renderComments && move.commentBefore) {
-                    result += "{" + move.commentBefore + "} "
-                    needReminder = true
+                if (renderComments && move.startingComments) {
+                    for (const comment of move.startingComments) {
+                        result += "{" + comment + "} "
+                        needReminder = true
+                    }
                 }
                 result += move.san + " "
-                if (renderNags && move.nag) {
-                    result += move.nag + " "
+                if (renderNags && move.nags) {
+                    for (const nag of move.nags) {
+                        result += "$" + nag + " "
+                    }
                 }
-                if (renderComments && move.commentMove) {
-                    result += "{" + move.commentMove + "} "
-                    needReminder = true
-                }
-                if (renderComments && move.commentAfter) {
-                    result += "{" + move.commentAfter + "} "
-                    needReminder = true
+                if (renderComments && move.comments) {
+                    for (const comment of move.comments) {
+                        result += "{" + comment + "} "
+                        needReminder = true
+                    }
                 }
                 if (move.variations.length > 0) {
                     for (let variation of move.variations) {
@@ -268,7 +283,13 @@ export class History {
             }
             return result
         }
-        let ret = renderVariation(this.moves)
+        let ret = ""
+        if (renderComments && this.gameComment) {
+            for (const comment of this.gameComment) {
+                ret += "{" + comment + "} "
+            }
+        }
+        ret += renderVariation(this.moves)
         // remove spaces before brackets
         ret = ret.replace(/\s+\)/g, ')')
         // remove double spaces
