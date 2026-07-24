@@ -127,9 +127,10 @@ pgn.history.moves[i] = {
 
 #### Optional fields on `pgn.history.moves[i]`
 
-- `nag` — the NAG as string, e.g. `"$1"`
-- `commentMove`, `commentBefore`, `commentAfter` — PGN `{ ... }` comments
-  around the move; newlines are preserved
+- `nags` — the NAGs as a number array, e.g. `[1, 14]`
+- `startingComments` — PGN `{ ... }` comments *before* the move, as a string array
+- `comments` — PGN `{ ... }` comments *after* the move, as a string array
+- newlines inside comments are preserved
 - `gameOver`, `inCheck`, `inCheckmate`, `inDraw`, `inStalemate`,
   `insufficientMaterial`, `inThreefoldRepetition` — set to `true` when
   the corresponding chess.js predicate holds after the move
@@ -142,8 +143,8 @@ assert.equal(4, history.moves.length)
 assert.equal(history.moves[0].san, "e4")
 assert.equal(history.moves[1].variations.length, 1)
 assert.equal(history.moves[1].variations[0][0].san, "e6")
-assert.equal(history.moves[2].nag, "$1")
-assert.equal(history.moves[2].commentAfter, "Great move!")
+assert.equal(history.moves[2].nags[0], 1)
+assert.equal(history.moves[2].comments[0], "Great move!")
 assert.equal(history.moves[2].fen, "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
 assert.equal(history.moves[3].from, "b8")
 assert.equal(history.moves[3].to, "c6")
@@ -212,10 +213,22 @@ list2.pgns // => string[]
 
 ## Notes on comments
 
-Line breaks inside `{ ... }` comments are preserved as-is in
-`commentMove` / `commentBefore` / `commentAfter`. Multiple consecutive
-comments at the same position (e.g. `{ a } { b }`) are supported and
-their texts are joined with a single space.
+Comments follow the model used by [chessops](https://github.com/niklasf/chessops)
+/ Lichess: every move carries `startingComments` (before the move) and
+`comments` (after the move), each a **string array**. Multiple consecutive
+comments at the same position (e.g. `{ a } { b }`) are kept as separate array
+entries. Line breaks inside `{ ... }` comments are preserved as-is.
+
+Comments *before the first move of the game* are not attached to a move but to
+the game itself, in `pgn.gameComment` (a string array), matching chessops'
+`game.comments`. A comment before the first move of a *variation* stays in that
+move's `startingComments`.
+
+> **Migration from 4.x:** the single-string fields `commentMove` /
+> `commentBefore` / `commentAfter` and `nag` were removed. Map
+> `commentMove` + `commentBefore` → `startingComments`, `commentAfter` →
+> `comments`, `nag` (`"$1"`) → `nags` (`[1]`), and a leading game comment →
+> `pgn.gameComment`.
 
 ## Development
 

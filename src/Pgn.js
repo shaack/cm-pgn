@@ -35,6 +35,8 @@ export class Pgn {
         } else {
             this.history = new History(historyString, {sloppy: this.props.sloppy, chess960: this.props.chess960})
         }
+        // comments before the first move, chessops-style (game.comments)
+        this.gameComment = this.history.gameComment
     }
 
     wrap(str, maxLength) {

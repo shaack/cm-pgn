@@ -45,7 +45,7 @@ endGame
   / "*"  { return ["*"]; }
 
 comments
-  = c:comment whiteSpace? cs:comments? { return cs ? c + " " + cs : c; }
+  = c:comment whiteSpace? cs:comments? { return cs ? [c].concat(cs) : [c]; }
 
 comment
   = cl cm:[^}]* cr { return cm.join("").trim(); }
