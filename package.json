@@ -1,6 +1,6 @@
 {
   "name": "cm-pgn",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Module for parsing and rendering of PGNs (Portable Game Notation)",
   "main": "src/Pgn.js",
   "type": "module",
