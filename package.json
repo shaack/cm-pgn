@@ -5,7 +5,7 @@
   "main": "src/Pgn.js",
   "type": "module",
   "scripts": {
-    "test": "echo 'request test/index.html for testing'"
+    "test": "teevi"
   },
   "repository": {
     "type": "git",
@@ -26,7 +26,7 @@
   "homepage": "https://github.com/shaack/cm-pgn#readme",
   "devDependencies": {
     "pegjs": "^0.10.0",
-    "teevi": "^2.4.1"
+    "teevi": "^2.7.0"
   },
   "dependencies": {
     "chess.mjs": "^2.3.2"
