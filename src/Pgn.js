@@ -9,6 +9,7 @@ import {History} from "./History.js"
 export class Pgn {
 
     constructor(pgnString = "", props = {}) {
+        pgnString = pgnString.replace(/\r\n?/g, "\n")
         // only the header?
         const lastHeaderElement = pgnString.trim().slice(-1) === "]" ? pgnString.length : pgnString.lastIndexOf("]\n\n") + 1
         const headerString = pgnString.substring(0, lastHeaderElement)
