@@ -290,10 +290,9 @@ export class History {
             }
         }
         ret += renderVariation(this.moves)
-        // remove spaces before brackets
-        ret = ret.replace(/\s+\)/g, ')')
-        // remove double spaces
-        ret = ret.replace(/\s\s+/g, ' ').trim()
+        // remove spaces before brackets and double spaces, but keep comment content
+        ret = ret.replace(/(\{[^}]*\})|\s+\)/g, (match, comment) => comment ? comment : ')')
+        ret = ret.replace(/(\{[^}]*\})|\s\s+/g, (match, comment) => comment ? comment : ' ').trim()
         return ret
     }
 
