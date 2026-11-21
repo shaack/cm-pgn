@@ -52,10 +52,10 @@ export class Header {
 
     constructor(headerString = "") {
         this.clear()
-        const rows = headerString.match(/\[([^\]]+)]/g)
+        const rows = headerString.match(/\[(\w+)\s+"([^"]*)"]/g)
         if (rows && rows.length > 0) {
             for (let i = 0; i < rows.length; i++) {
-                let tag = rows[i].match(/\[(\w+)\s+"([^"]+)"/)
+                let tag = rows[i].match(/\[(\w+)\s+"([^"]*)"]/)
                 if (tag) {
                     this.tags[tag[1]] = tag[2]
                 }
